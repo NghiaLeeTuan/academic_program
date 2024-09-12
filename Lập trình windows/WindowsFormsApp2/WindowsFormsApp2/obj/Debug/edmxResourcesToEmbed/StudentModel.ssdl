@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudentDFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Birth" Type="date" />
+    <Property Name="Hometown" Type="nvarchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="StudentDFModelStoreContainer">
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

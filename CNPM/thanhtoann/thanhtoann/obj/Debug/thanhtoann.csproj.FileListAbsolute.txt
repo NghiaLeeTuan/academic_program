@@ -1,0 +1,9 @@
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\bin\Debug\thanhtoann.exe.config
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\bin\Debug\thanhtoann.exe
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\bin\Debug\thanhtoann.pdb
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.csproj.AssemblyReference.cache
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.Properties.Resources.resources
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.csproj.GenerateResource.cache
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.csproj.CoreCompileInputs.cache
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.exe
+D:\Môn học\HKI_nam3\CNPM\thanhtoann\thanhtoann\obj\Debug\thanhtoann.pdb

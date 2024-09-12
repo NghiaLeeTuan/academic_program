@@ -1,0 +1,81 @@
+9
+3312144121
+Tran Trung Kien
+8 2 1993
+TP HCM
+TP HCM
+TP HCM
+Giao vien
+Cu nhan su pham
+
+3310987245
+Nguyen Bao Long
+1 9 1973
+Ben Tre
+Ben Tre
+Da Nang
+Bat Dong San
+Dai Hoc
+
+7562235521
+Nguyen Anh Dai
+30 1 1989
+Nha Trang
+Nha Trang
+Nha Trang
+Lap trinh vien
+Ky su tin hoc
+
+2231441245
+Do Quoc Trung
+2 11 1997
+Cao Lanh
+Can Tho
+Can Tho
+Ke toan
+Cu nhan kinh te
+
+3312415512
+Tran Bao Tran
+12 9 1999
+TP HCM
+TP HCM
+TP HCM
+Duoc si
+Trung cap y duoc
+
+6678201515
+Nguyen Trung Truc
+10 3 1988
+Nha Trang
+Vung Tau
+Vung Tau
+Quan li
+Ky su xay dung
+
+9988776655
+Nguyen Gia Bao
+3 3 2005
+Binh Duong
+Binh Duong
+Tp HCM
+Hoc sinh
+THPT
+
+2215168355
+Nguyen Cao Thanh
+6 8 1995
+Ha Noi
+Da Nang
+Da Nang
+Luat su
+Cu nhan luat
+
+3319026481
+Le Tuan Nghia
+5 11 2002
+Vinh Long
+Vinh Long
+TP HCM
+Sinh Vien
+Dai Hoc

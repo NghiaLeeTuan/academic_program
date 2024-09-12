@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1125</width>
+    <height>631</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="pushButtonExit">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>540</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonExit{
+	background-color:rgb(6, 78, 232);
+	color: rgb(255, 255, 255);
+	border-radius:10px;
+}
+QPushButton#pushButtonExit:pressed{
+	padding-left:5px;
+ 	padding-top:5px;
+	background-color:rgba(255,0,0,255);
+	background-position:calc(100%-10px)center;
+}
+QPushButton#pushButtonExit:hover{
+	background-color:rgb(0, 255, 0);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonChangePassword">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>540</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonChangePassword{
+	background-color:rgb(6, 78, 232);
+	color: rgb(255, 255, 255);
+	border-radius:10px;
+}
+QPushButton#pushButtonChangePassword:pressed{
+	padding-left:5px;
+ 	padding-top:5px;
+	background-color:rgba(255,0,0,255);
+	background-position:calc(100%-10px)center;
+}
+QPushButton#pushButtonChangePassword:hover{
+	background-color:rgb(0, 255, 0);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Change Password</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonOpenIn">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>310</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonOpenIn
+{
+	border-radius: 15px;
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 0);
+}
+
+QPushButton#pushButtonOpenIn:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonOpenIn:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>LOAD CAMERA IN</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxCameraIn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>281</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(245, 255, 253);
+border-radius: 20px;</string>
+   </property>
+   <property name="title">
+    <string>Camera In</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <widget class="QLabel" name="labelCamera1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>59</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Camera 1:</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>70</y>
+      <width>200</width>
+      <height>200</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxCameraIn_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>281</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>16</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(245, 255, 253);
+border-radius: 20px;</string>
+    </property>
+    <property name="title">
+     <string>Camera In</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QLabel" name="labelCamera1_1">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>59</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Camera 1:</string>
+     </property>
+    </widget>
+    <widget class="QGraphicsView" name="graphicsViewCameraIn">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>70</y>
+       <width>200</width>
+       <height>200</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxNote">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>400</y>
+     <width>651</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+color: rgb(59, 59, 59);
+background-color: rgb(85, 255, 255);
+border-radius:5px;
+
+</string>
+   </property>
+   <property name="title">
+    <string>Note</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <widget class="QLabel" name="labelNote">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>631</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(245, 255, 253);
+color::rgb(245, 255, 253);
+border-radius:5px;</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Từ 6h00 -&amp;gt; 18h30: xe đạp ( kể cả xe đạp điện ) : 1000đ/xe/lượt,xe máy (kể cả xe máy điện) : 4000đ/xe/lượt&lt;/p&gt;&lt;p&gt;Từ 18h31 -&amp;gt;21h30 : xe đạp ( kể cả xe đạp điện ) : 1000đ/xe/lượt,xe máy (kể cả xe máy điện ) : 5000đ/xe/lượt&lt;/p&gt;&lt;p&gt;Nếu tổng thời gian trông giữ trong một ngày nhiều hơn 12 giờ 30 phút thì thu giá cụ thể như sau : &lt;/p&gt;&lt;p&gt;xe đạp ( kể cả xe đạp điện ) : 2000đ/xe/lượt,xe máy (kể cả xe máy điện ) : 8000đ/xe/lượt&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLogin">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>580</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonLogin{
+	background-color:rgb(6, 78, 232);
+	color: rgb(255, 255, 255);
+	border-radius:10px;
+}
+QPushButton#pushButtonLogin:pressed{
+	padding-left:5px;
+ 	padding-top:5px;
+	background-color:rgba(255,0,0,255);
+	background-position:calc(100%-10px)center;
+}
+QPushButton#pushButtonLogin:hover{
+	background-color:rgb(0, 255, 0);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxPaymentFees">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>400</y>
+     <width>391</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(245, 255, 253);
+border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+color: rgb(59, 59, 59);
+border-radius:5px;</string>
+   </property>
+   <property name="title">
+    <string> Payment Fees</string>
+   </property>
+   <widget class="QLabel" name="labelShowPaymentFees">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>361</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>16</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxCameraOut">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>20</y>
+     <width>281</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(245, 255, 253);
+border-radius: 20px;</string>
+   </property>
+   <property name="title">
+    <string>Camera Out</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <widget class="QLabel" name="labelCamera1_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>59</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Camera 1:</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsViewCameraOut">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>70</y>
+      <width>200</width>
+      <height>200</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButtonSpace">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>490</y>
+     <width>391</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>20</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonSpace
+{
+	background-color:rgba(255,0,0,255);
+	color:rgba(0,0,0, 255);
+	border-radius:20px;
+}
+QPushButton#pushButtonSpace:pressed
+{
+	padding-left:5px;
+ 	padding-top:5px;
+	background-color:rgba(255,0,0,255);
+	background-position:calc(100%-10px)center;
+}
+QPushButton#pushButtonSpace:hover
+{
+	background-color:rgb(0, 255, 0);
+}
+</string>
+   </property>
+   <property name="text">
+    <string>&quot;Space&quot; to open the gate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonCheckIn">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>350</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonCheckIn
+{
+	border-radius: 15px;
+	color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 0);
+}
+
+QPushButton#pushButtonCheckIn:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonCheckIn:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Check In</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxDetails">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>70</y>
+     <width>391</width>
+     <height>311</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(245, 255, 253);
+border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+color: rgb(59, 59, 59);
+border-radius:5px;</string>
+   </property>
+   <property name="title">
+    <string>Details</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>371</width>
+      <height>176</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayoutDetails">
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelIDCard">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>ID Card:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelTimeIn">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>Time In:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelTimeOut">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>Time Out:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="labelShowTimeOut">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="labelShowIDCard">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="labelShowTimeIn">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelName">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="labelShowName">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>371</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayoutLicensePlate">
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelName_7">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>License Plate In:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelName_6">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+       <property name="text">
+        <string>License Plate Out:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditLicensePlateIn">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEditlineEditLicensePlateOut">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color:rgb(245, 255, 253);
+border-radius:5px;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButtonOpenOut">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>310</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonOpenOut
+{
+	border-radius: 15px;
+	color: rgb(0, 0, 0);
+	background-color: rgb(0, 170, 0);
+}
+
+QPushButton#pushButtonOpenOut:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonOpenOut:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>LOAD CAMERA OUT</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonCheckOut">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>350</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonCheckOut
+{
+	border-radius: 15px;
+	color: rgb(0, 0, 0);
+	background-color: rgb(0, 170, 0);
+}
+
+QPushButton#pushButtonCheckOut:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonCheckOut:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Check Out</string>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frameDateTime">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>10</y>
+     <width>391</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>371</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayoutDateTime">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelDateTime">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(245, 255, 253);
+border-radius: 5px;
+border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+</string>
+       </property>
+       <property name="text">
+        <string>DateTime:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="labelShowDateTime">
+       <property name="font">
+        <font>
+         <family>Roboto</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(245, 255, 253);
+border-radius: 5px;
+border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+
+</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

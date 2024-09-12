@@ -1,0 +1,333 @@
+---
+title: "Lab 6 - Data Manipulation with dbplyr"
+author: "Quách Đình Hoàng"
+date: "11/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = F, warning = F)
+```
+
+## Giới thiệu
+Trong bài lab này, bạn sẽ thực hành viết truy vấn CSDL với SQL thông qua thư viện `dbplyr`.
+
+### Lược đồ CSDL
+![Northwind](./Northwind.png)
+
+
+### Kết nối đến CSDL
+```{r}
+
+library(DBI)
+library(dplyr)
+con <- DBI::dbConnect(RSQLite::SQLite(), dbname = "./Northwind2000.db")
+DBI::dbListTables(con)
+```
+
+
+### Thực hiện một truy vấn đơn giản
+```{r}
+query = "SELECT * FROM Shippers"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+
+
+## Câu hỏi
+
+Viết truy vấn SQL cho các câu hỏi bên dưới (thay `query` bằng chuỗi truy vấn SQL thích hợp).
+
+### Q1. Liệt kê `name`, `address`, `city`, và `region` của các `employee` sống ở `'USA'`.
+```{r}
+query = "
+SELECT firstname, lastname, address,region 
+FROM Employees WHERE Country ='USA'
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+
+### Q2. Liệt kê `title` và `name` của các `employee` đã bán ít nhất một `product` có tên `'Gravad Lax'` hoặc `'Mishi Kobe Niku'`.
+```{r}
+query = "
+SELECT DISTINCT em.Title, em.Firstname ||' ' || em.Lastname AS EmployeeName
+ 
+FROM Employees em, Orders ord,[Order Details] od, Products pr
+WHERE em.EmployeeID=ord.EmployeeID 
+AND ord.OrderID =od.OrderID 
+AND od.ProductID=pr.ProductID 
+AND od.Quantity >=1
+AND(pr.ProductName='Gravad Lax'or pr.ProductName='Mishi Kobe Niku')
+"
+results <- DBI::dbGetQuery(con, query)
+results
+```
+
+
+### Q3. Liệt kê `name` và `title` của các `employee` và `name` và `title` của các `employee` khác mà họ phải báo cáo (`ReportsTo`) (hoặc `null` nếu họ không phải báo cáo với ai).
+```{r}
+query = "
+select distinct em.Title AS EmployeeTitle ,em.FirstName || ' ' || em.LastName as EmployeeName,
+       em1.Title as ManagerTitle,em1.FirstName || ' ' || em1.LastName as ManagerName
+from Employees em left join Employees em1 on em.ReportsTo=em1.EmployeeID "
+results <- DBI::dbGetQuery(con, query)
+results
+
+```
+
+
+### Q4. Liệt kê `customer name`, `product name` và `supplier name` cho các `customer` sống ở `'London'` và các `supplier` có tên `'Pavlova, Ltd.'` hoặc `'Karkki Oy'`.
+```{r}
+query = "
+select distinct ct.ContactName as CustomerName, pr.ProductName, sp.CompanyName 
+from Customers ct,Orders od, [Order Details] ord,Products pr,Suppliers sp 
+where 
+  ct.CustomerID=od.CustomerID 
+  and od.OrderID = ord.OrderID 
+  and ord.ProductID=pr.ProductID 
+  and sp.SupplierID =pr.SupplierID 
+  and (sp.CompanyName='Pavlova, Ltd.'or sp.CompanyName='Karkki Oy') 
+  and ct.City='London'
+"
+results <- DBI::dbGetQuery(con, query)
+results
+```
+
+
+
+
+### Q5. Liệt kê `name` của các `employee` có tuổi lớn hơn **một `employee` nào đó** sống ở `'London'`.
+```{r}
+query = "
+select firstname || ' ' || lastname as name 
+from Employees where Employees.City='London' order by BirthDate
+"
+results <- DBI::dbGetQuery(con, query)
+results
+```
+
+
+### Q6. Liệt kê `name` của các `employee` có tuổi lớn hơn **tất cả** `employee` sống ở `'London'`.
+```{r}
+query = "
+ select firstname || ' ' || lastname as EmployeeName 
+ from Employees where Employees.City='London' order by BirthDate
+
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q7. Liệt kê `name` của các `employee` làm việc lâu năm hơn **tất cả** `employee` ở `'London'`.
+```{r}
+query = "
+SELECT FirstName , LastName 
+FROM Employees
+where HireDate < ( select min(HireDate)
+                  from Employees
+                    where City == 'London')
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q8. Liệt kê name của các `employee` và `city` nơi họ sống đối với các `employee` đã bán hàng cho các `customer` ở cùng thành phố với họ.
+```{r}
+query = "
+SELECT Distinct emp.FirstName , emp.LastName, emp.City
+FROM Employees as emp 
+    INNER JOIN Orders as ord ON emp.EmployeeID = ord.EmployeeID
+    INNER JOIN Customers as cus ON ord.CustomerID = cus.CustomerID
+where emp.City = cus.City
+order by emp.FirstName
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q9. Liệt kê `name` của các `customer` không đặt bất cứ `product` nào.
+```{r}
+query = "
+SELECT Distinct ContactName
+FROM Customers 
+where NOT EXISTS (Select * FROM Orders where  Orders.CustomerID = Customers.CustomerID)
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q10. Liệt kê `name` của các `category` và giá trung bình (`average price`) của các `product` trong mỗi `category`.
+```{r}
+query = "
+SELECT Distinct CategoryName, avg(UnitPrice) as 'Average Unit Price'
+FROM Categories 
+INNER JOIN Products ON Categories.CategoryID = Products.CategoryID
+Group by Products.CategoryID
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q11. Liệt kê `id` và `name` của các `supplier` cung cấp hơn 3 `product`.
+```{r}
+query = "
+SELECT distinct sup.SupplierID, sup.CompanyName
+FROM Suppliers as sup 
+Inner join Products as pro ON sup.SupplierID = pro.SupplierID
+Group by sup.SupplierID
+Having count(pro.ProductID) > 3
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q12. Liệt kê `id`, `name`, và `số lượng order` của các `employee` sắp xếp theo `employee id`.
+```{r}
+query = "
+SELECT emp.EmployeeID, emp.FirstName , emp.LastName, Count(ord.OrderID) as QuantityOrder
+FROM Employees as emp 
+INNER JOIN ORDERS as ord ON emp.EmployeeID = ord.EmployeeID
+Group by emp.EmployeeID
+Order by emp.EmployeeID
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q13. Với mỗi `employee`, liệt kê `id`, `name`, và `số loại product` khác nhau họ đã bán, sắp xếp `employee id`.
+```{r}
+query = "
+SELECT  emp.EmployeeID, emp.FirstName , emp.LastName, Count(distinct pro.ProductID) as ProductNum
+FROM Employees as emp 
+INNER JOIN Orders as ord ON emp.EmployeeId = ord.EmployeeId 
+INNER JOIN 'Order Details' as De ON ord.OrderID = De.OrderId
+INNER JOIN Products as pro ON De.ProductID = pro.ProductID
+Group by emp.EmployeeID
+Order by emp.EmployeeID
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q14. Liệt kê `id`, `name`, và `tổng doanh thu` (sau khi trừ đi chiết khấu - `Discount`) của mỗi `employee`, sắp xếp theo `employee id`.
+```{r}
+query = "
+SELECT emp.EmployeeID, emp.FirstName , emp.LastName, 
+        Sum((De.UnitPrice-(De.UnitPrice*De.Discount))*De.Quantity) as TotalSales
+FROM Employees as emp
+INNER JOIN Orders as ord ON emp.EmployeeID = ord.EmployeeID
+INNER JOIN 'Order Details' as De ON ord.OrderID = De.OrderID
+Group by emp.EmployeeID
+Order by emp.EmployeeID
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q15. Liệt kê `id`, `name`, và `tổng doanh thu` (có trừ đi chiết khấu - `Discount`) của các `employee` đã bán được hơn `70` `product` khác nhau, sắp xếp theo `employee id`.
+```{r}
+query = "
+SELECT  emp.EmployeeID, emp.FirstName , emp.LastName, 
+        Sum((De.UnitPrice-(De.UnitPrice*De.Discount))*De.Quantity) as TotalSales
+        
+FROM Employees as emp
+INNER JOIN Orders as ord ON emp.EmployeeID = ord.EmployeeID
+INNER JOIN 'Order Details' as De ON ord.OrderID = De.OrderID
+
+Group by emp.EmployeeID
+Having count(Distinct De.ProductID) > 70
+Order by emp.EmployeeID
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q16. Liệt kê `name` của các `employee` đã bán các `product` của hơn `28` `supplier`.
+```{r}
+query = "
+SELECT emp.EmployeeID, emp.FirstName , emp.LastName
+FROM Employees as emp
+INNER JOIN Orders as ord ON emp.EmployeeID = ord.EmployeeID
+INNER JOIN 'Order Details' as De ON ord.OrderID = De.OrderID
+INNER JOIN Products as pro ON De.ProductID = pro.ProductID
+Group by emp.EmployeeID
+Having Count(distinct pro.SupplierID) > 28
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q17. Liệt kê `customer name` và `product name` sao cho `số lượng product` đó được mua bởi `customer` đó trong một `order` lớn hơn `5` lần `số lượng trung bình` `product` đó được mua trong một `order` bởi **tất cả** các `customer`.
+```{r}
+query = "
+SELECT cus.ContactName, pro.ProductName
+FROM Customers as cus 
+      INNER JOIN Orders as o ON cus.CustomerID = o.CustomerID
+      INNER JOIN [Order Details] as De ON o.OrderID = De.OrderID
+      INNER JOIN Products as pro ON De.ProductID = pro.ProductID
+      
+where De.Quantity > (Select 5 * Avg(De1.Quantity) FROM [Order Details] as De1 Where De1.ProductID = pro.ProductID )
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q18. Liệt kê `name` của các `customer` đã mua **tất cả** `product` với giá `< 5`.
+```{r}
+query = "
+SELECT * 
+FROM Shippers
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q19. Liệt kê `name` của các `product` được bán bởi **mọi** `employee`.
+```{r}
+query = "
+SELECT  pro.ProductName
+FROM Products as pro 
+      INNER JOIN [Order Details] as de ON pro.ProductID = de.ProductID
+      INNER JOIN Orders as ord ON de.OrderId = ord.OrderID
+Group by pro.ProductName
+Having Count(Distinct ord.EmployeeID) = (SELECT Count(*) FROM Employees)
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+### Q20. Liệt kê `name` của các `customer` đã mua **tất cả** các `product` được đặt hàng bởi `customer` có `id` là `'LAZYK'`.
+```{r}
+query = "
+SELECT Distinct(cus.ContactName)
+FROM Customers as cus 
+      INNER JOIN Orders as o ON cus.CustomerID = o.CustomerID
+      INNER JOIN [Order Details] as De ON o.OrderID = De.OrderID
+      INNER JOIN Products as pro ON De.ProductID = pro.ProductID
+Where cus.CustomerID = 'LAZYK'
+"
+results <- DBI::dbGetQuery(con, query)
+head(results)
+```
+
+
+

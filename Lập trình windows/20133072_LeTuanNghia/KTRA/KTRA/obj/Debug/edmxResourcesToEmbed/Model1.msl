@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KtraModelStoreContainer" CdmEntityContainer="KtraContext">
+    <EntitySetMapping Name="NhanViens">
+      <EntityTypeMapping TypeName="KtraModel.NhanVien">
+        <MappingFragment StoreEntitySet="NhanVien">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ten" ColumnName="ten" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="capbac" ColumnName="capbac" />
+          <ScalarProperty Name="phong" ColumnName="phong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhongBans">
+      <EntityTypeMapping TypeName="KtraModel.PhongBan">
+        <MappingFragment StoreEntitySet="PhongBan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ten" ColumnName="ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

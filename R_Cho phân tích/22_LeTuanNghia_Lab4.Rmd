@@ -1,0 +1,321 @@
+---
+title: "Lab 4 - EDA"
+author: "Your name"
+date: "2022/09/22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Trong bài lab này ta sẽ sử dụng thư viện `dplyr` và `ggplot2` để tóm tắt và trực quan hóa dữ liệu. 
+
+### Thư viên `dplyr`
+- Thư viện `dplyr` là thư viện chuyên dùng cho biến đổi và tóm tắt dữ liệu. Thư viện này cung cấp một số hàm cơ bản sau:
+	
+	- `filter`: lọc theo điều kiện
+	
+	- `slice`: chọn các dòng theo chỉ số
+	
+	- `select`: chọn cột theo tên
+	
+	- `rename`: đổi tên cột
+	
+	- `arrange`: sắp xếp dòng theo điều kiện
+	
+	- `mutate`: tạo biến (cột) mới
+	
+	- `sample_n`, `sample_frac`: chọn ngẫu nhiên một số dòng
+	
+	- ...
+
+- Ta cần cài đặt và load thư viện này trước khi sử dụng.
+```{r 1, message=FALSE}
+#install.packages("dplyr")
+library(dplyr)
+```
+
+### Toán tử `pipe (%>%)`
+- Đây là toán tử dùng để mô tả một chuỗi các thao tác được hỗ trợ bởi thư viện `dplyr`.
+	
+- Ví dụ bên dưới sử dụng tập dữ liệu `starwars` để minh họa toán tử `pipe (%>%)`. Đây là tập dữ liệu về các diễn viên đã tham gia phim `Starwars` và có sẵn trong thư viện `dplyr`. 
+```{r 2}
+head(starwars)
+```
+
+- Đoạn mã sau thực hiện việc nhóm các diễn viên theo **giới tính** và **đếm số lượng** dùng toán tử `pipe (%>%)`.
+
+```{r 3}
+starwars %>%
+  group_by(gender) %>%
+  summarise(gender_count = n())
+```
+
+- Tham khảo thêm cách sử dụng thư viện `dplyr` với toán tử `pipe (%>%)` ở [dplyr documentation](https://dplyr.tidyverse.org/) và [dplyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf).
+
+
+### Thư viện `ggplot2`
+- Thư viện `ggplot2` là một trong những thư viện phổ biến nhất cho trực quan hóa dữ liệu. Chữ `gg` trong `ggplot2` là viết tắt của `Grammar of Graphics`.
+
+- Để sử dụng thư viện `ggplot2`, ta cần cài đặt và load nó.
+```{r 4, message=FALSE}
+#install.packages("ggplot2")
+library(ggplot2)
+```
+
+- Trong `ggplot2`, cú pháp để vẽ hình có dạng sau:
+```{r 5, eval = FALSE}
+ggplot(data = [dataset], mapping = aes(x = [x-variable], y = [y-variable])) +
+  geom_xxx() +
+  ...
+```
+
+- Trong cú pháp trên, `geom_xxx` là loại hình ta muốn vẽ (`geom` là viết tắt của `geometric object`, `xxx`
+là loại hình như `histogram`, `boxplot`, `line`, ...). `ggplot()` là hàm chính của thư viện `ggplot2`. 
+
+- Tham khảo thêm cách sử dụng thư viện `ggplot2` ở [ggplot2 documentation](https://ggplot2.tidyverse.org/) và [ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization.pdf).
+
+
+
+### Load dữ liệu
+- Phần tiếp theo sẽ sử dụng tập dữ liệu `recent_grads`. Để làm việc với tập dữ liệu này, ta cần `load` nó dùng hàm `read_csv`.
+
+```{r 6}
+library(dplyr)
+library(ggplot2)
+college_recent_grads <- read.csv("recent_grads.csv")
+```
+
+- Ta có thể xem qua cấu trúc của tập dữ liệu này dùng hàm `glimpse`.
+
+```{r 7}
+glimpse(college_recent_grads)
+```
+
+- Thông tin về tập dữ liệu như sau:
+
+| Biến                          |  Mô tả
+|:----------------|:--------------------------------
+|`Rank`                         | Xếp hạng theo trung vị của thu nhập (median earnings)
+|`Major_code`                   | Mã ngành
+|`Major`                        | Tên chuyên ngành
+|`Major_category`               | Nhóm ngành
+|`Total`                        | Tổng số sinh viên của chuyên ngành
+|`Sample_size`                  | Kích cỡ mẫu của sinh viên có việc làm toàn thời gian, quanh năm (được sử dụng cho tính thu nhập trung vị)
+|`Men`                          | Số sinh viên nam
+|`Women`                        | Số sinh viên nữ
+|`ShareWomen`                   | Tỷ lệ nữ
+|`Employed`                     | Số sinh viên có việc làm
+|`Employed_full_time`           | Số sinh viên có việc làm toàn thời gian (>= 35 giờ/tuần)
+|`Employed_part_time`           | Số sinh viên có việc làm bán thời gian (< 35 giờ/tuần)
+|`Employed_full_time_yearround` | Số sinh viên có việc làm ít nhất 50 tuần và ít nhất 35 giờ/tuần
+|`Unemployed`                   | Số sinh viên thất nghiệp
+|`Unemployment_rate`            | Tỷ lệ sinh viên thất nghiệp, tính bằng Unemployed / (Unemployed + Employed)
+|`Median`                       | Thu nhập trung vị của lao động toàn thời gian, quanh năm
+|`P25th`                        | 25th percentile của thu nhập
+|`P75th`                        | 75th percentile của thu nhập
+|`College_jobs`                 | Số công việc yêu cầu cần có bằng đại học
+|`Non_college_jobs`             | Số công việc không cần có bằng đại học
+|`Low_wage_jobs`                | Số lượng công việc lương thấp
+
+
+Ta sẽ sử dụng tập dữ liệu trên để trả lời một số câu hỏi sau:
+
+- Ngành nào có tỷ lệ thất nghiệp thấp nhất?
+
+- Ngành nào có tỷ lệ nữ cao nhất?
+
+- So sánh thu nhập trung vị theo nhóm ngành (`major_category`)?
+
+- Sinh viên nữ có khuynh hướng chọn ngành có thu nhâp thấp hay cao?
+
+
+
+### Tóm tắt và trực quan hóa dữ liệu
+- Để biết nào có tỷ lệ thất nghiệp thấp nhất ta cần sắp xếp dữ liệu. Ta sẽ sử dụng hàm `arrange` để làm việc này, và sắp xếp theo `unemployment_rate`. Mặc định hàm `arrange` sắp xếp theo thứ thự tăng dần.
+
+```{r 8}
+Unemployment_rate_acs <- college_recent_grads %>%
+  arrange(Unemployment_rate)
+head(Unemployment_rate_acs)
+```
+
+- Để chọn các biến muốn hiển thị và thay đổi thứ tự các biến ta dùng hàm `select`. Ta dễ dạng mở rộng kết quả của đoạn mã trên bằng cách thêm một bước xử lý nữa với **toán tử pipe** (`pipe operator`): `%>%`
+
+```{r 9}
+Rank_Major_Unemployment_rate <- college_recent_grads %>%
+  arrange(Unemployment_rate) %>%
+  select(Rank, Major, Unemployment_rate)
+head(Rank_Major_Unemployment_rate)
+```
+
+- Ta có thể làm tròn tỷ lệ thất nghiệp theo số thập phân sau dấu phẩy dùng hàm `round`. Đoạn mã dưới dùng hàm `mutate` để tạo biến mới tên `Unemployment_rate` với giá trị được làm tròn 4 số thập phân sau dấu phẩy và ghi đè lại biến `Unemployment_rate` cũ.
+
+```{r 10}
+Rank_Major_Mutate_Unemployment_rate <- college_recent_grads %>%
+  arrange(Unemployment_rate) %>%
+  select(Rank, Major, Unemployment_rate) %>%
+  mutate(Unemployment_rate = round(Unemployment_rate, digits = 4))
+head(Rank_Major_Mutate_Unemployment_rate)
+```
+
+
+#### **Câu 1.** Viết mã để trả lời câu hỏi này và chỉ hiện thị top 10 ngành đầu tiên (dùng `head(x,10)` để hiển thị 10 kết quả đầu tiên của biến `x`) gồm các thông tin `Rank`, `Major`, và `ShareWomen`.
+
+- Để sắp xếp lại dữ liệu theo thứ tự giảm dần theo `ShareWomen`, có thể dùng lệnh `arrange(desc(ShareWomen))`.
+
+```{r q1}
+# Viết code xử lý ở đây
+#a <- arrange(desc(Rank))
+#b <- arrange(desc(Major))
+#c <- arrange(desc(ShareWomen))
+cau1 <- college_recent_grads %>%
+  arrange(desc(ShareWomen)) %>%
+  select(Rank, Major, ShareWomen)
+head(cau1,10)
+```
+
+
+#### **Câu 2.** Vẽ biểu đồ tần số của thu nhập trung vị (biến `Median`)
+
+```{r q2}
+# Viết code xử lý ở đây
+ggplot(data = college_recent_grads) +
+  geom_histogram(mapping = aes(x = Median))
+```
+
+
+#### **Câu 3.** Thay đổi `binwidth` của `histogram` với tham số `binwidth`. Thử các `binwidth` từ 1000 đến 10000 để vẽ lại `histogram` theo cú pháp `geom_histogram(binwidth = xxx)` và chọn `binwidth` bạn cho là phù hợp nhất. Giải thích sự lựa chọn của bạn. 
+
+```{r q3}
+# Viết code xử lý ở đây
+bw <- 2 * IQR(college_recent_grads$Median) / length(college_recent_grads)^(1/3)
+ggplot(data = college_recent_grads) +
+  geom_histogram(mapping = aes(x = Median), binwidth = bw)
+```
+
+
+#### **Câu 4.** Vẽ phân bố của thu nhập trung vị (`Median`) theo nhóm nghành (`Major_category`) dùng `histogram` và `facet`.
+
+- Ta có thể tính các thống kê mô tả cho phân bố thu nhập trung vị dùng hàm `summarise` như sau:
+
+```{r 11}
+college_recent_grads %>%
+  summarise(min = min(Median), max = max(Median),
+            mean = mean(Median), med = median(Median),
+            sd = sd(Median), 
+            q1 = quantile(Median, probs = 0.25),
+            q3 = quantile(Median, probs = 0.75))
+```
+
+- Đoạn mã sau vẽ biểu đồ của `Median` và facet theo `Major_category`. 
+```{r 12}
+ggplot(data = college_recent_grads, mapping = aes(x = Median)) +
+  geom_histogram() +
+  facet_wrap( ~ Major_category, ncol = 4)
+```
+
+
+```{r q4}
+# Viết code xử lý ở đây
+#college_recent_grads %>%
+#  summarise(min = min(Median), max = max(Median),
+#            mean = mean(Median), med = median(Median),
+#            sd = sd(Median), 
+#            q1 = quantile(Median, probs = 0.25),
+#            q3 = quantile(Median, probs = 0.75))
+#ggplot(data = college_recent_grads) +
+#  geom_histogram(mapping = aes(x = Median, 
+#                                y = Major_category)) +
+#  facet_wrap( ~ Major_category, ncol = 4)
+```
+
+#### **Câu 5.** Nhóm ngành nào có thu nhập trung vị cao nhất? 
+
+- Sử dụng code mẫu bên dưới và điền vào những chỗ ___ các hàm thống kê phù hợp (bỏ `eval=FALSE` để hiển thị kết quả).
+
+```{r 13, eval=FALSE}
+college_recent_grads %>%
+  group_by(Major_category) %>%
+  summarise(___ = ___(Median)) %>%
+  arrange(___)
+```
+
+```{r q5}
+# Viết code xử lý ở đây
+college_recent_grad <- college_recent_grads %>%
+  group_by(Major_category) %>%
+  summarise(Median = max(Median)) %>%
+  arrange(desc(Median))
+college_recent_grad
+```
+
+
+
+#### **Câu 6.** Nhóm ngành nào ít phổ biến nhất? 
+- Sử dụng code mẫu bên dưới để thêm (phần ...) vào các bước xử lý phù hợp (bỏ `eval=FALSE` để hiển thị kết quả).
+
+```{r 14, eval=FALSE}
+college_recent_grads %>%
+  count(Major_category)
+  ...
+```
+
+- Tạo một danh sách các nhóm ngành về `khoa học`, `công nghệ`, `kỹ thuật` và `Toán` (`STEM fields`) như sau:
+
+```{r 15}
+stem_categories <- c("Biology & Life Science",
+                     "Computers & Mathematics",
+                     "Engineering",
+                     "Physical Sciences")
+```
+
+- Tạo một biến mới mô tả ngành học có thuộc nhóm ngành `STEM` hay không như sau:
+
+```{r 16}
+college_recent_grads <- college_recent_grads %>%
+  mutate(major_type = ifelse(Major_category %in% stem_categories, "stem", "not stem"))
+```
+
+```{r q6}
+# Viết code xử lý ở đây
+college_recent_grads %>%
+  count(Major_category)
+```
+
+
+#### **Câu 7.** Lọc ra các ngành học `STEM` có thu nhập trung vị bé hơn trung vị của thu nhập trung vị của tất cả các ngành. 
+
+- Sử dụng code mẫu bên dưới để thêm vào phần xử lý phù hợp (phần ...). Kết quả chỉ hiển thị `tên ngành`, `Median`, `25th percentile`, và `75th percentile` thu nhập của ngành đó và sắp xếp `Median` theo thứ tự giảm dần. (bỏ `eval=FALSE` để hiển thị kết quả)
+
+```{r 17, eval=FALSE}
+college_recent_grads %>%
+  filter(
+    major_type == "stem",
+    ...
+  )
+```
+
+```{r q7}
+# Viết code xử lý ở đây
+college_recent_grads %>%
+  filter(
+    major_type == "stem",
+    Median < median(Median)
+  ) %>%
+  arrange(desc(Median))%>%
+  select(Major, Median, P25th,P75th,)
+```
+
+
+#### **Câu 8.** Tạo một biểu đồ `scatterplot` của thu nhập (`Median`) với tỷ lệ sinh viên nữ của chuyên ngành đó, tô màu chuyên ngành có thuộc nhóm ngành `STEM` hay không. Mô tả mối quan hệ giữa ba biến này.
+
+```{r q8} 
+# Viết code xử lý ở đây
+ggplot(college_recent_grads)+
+    geom_point(mapping = aes(x = ShareWomen , y = Median, color = major_type))+
+        facet_wrap( ~ Major_category, ncol=4)
+```
+
+

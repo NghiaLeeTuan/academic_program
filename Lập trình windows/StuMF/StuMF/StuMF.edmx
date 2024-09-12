@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StuMF.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="StuMFStoreContainer">
+    <EntitySet Name="StuSet" EntityType="StuMF.Store.StuSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DepartmentSet" EntityType="StuMF.Store.DepartmentSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="StuDepartment" Association="StuMF.Store.StuDepartment">
+      <End Role="Stu" EntitySet="StuSet" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="StuSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StuId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="StuDepartment">
+    <End Role="Stu" Type="StuMF.Store.StuSet" Multiplicity="1" />
+    <End Role="Department" Type="StuMF.Store.DepartmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="StuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="StuMF" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="StuMFContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="StuSet" EntityType="StuMF.Stu" />
+          <EntitySet Name="DepartmentSet" EntityType="StuMF.Department" />
+          <AssociationSet Name="StuDepartment" Association="StuMF.StuDepartment">
+            <End Role="Stu" EntitySet="StuSet" />
+            <End Role="Department" EntitySet="DepartmentSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Stu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="StuMF.StuDepartment" FromRole="Stu" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Stu" Relationship="StuMF.StuDepartment" FromRole="Department" ToRole="Stu" />
+          <Property Name="StuId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="StuDepartment">
+          <End Type="StuMF.Stu" Role="Stu" Multiplicity="1" />
+          <End Type="StuMF.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="StuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StuMFStoreContainer" CdmEntityContainer="StuMFContainer">
+    <EntitySetMapping Name="StuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(StuMF.Stu)">
+        <MappingFragment StoreEntitySet="StuSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepartmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(StuMF.Department)">
+        <MappingFragment StoreEntitySet="DepartmentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StuId" ColumnName="StuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

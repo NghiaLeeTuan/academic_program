@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BT2_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Danhsach_muon">
+          <Key>
+            <PropertyRef Name="Ma_muon" />
+            <PropertyRef Name="Ma_sach" />
+          </Key>
+          <Property Name="Ma_muon" Type="int" Nullable="false" />
+          <Property Name="Ma_sach" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Muon_sach">
+          <Key>
+            <PropertyRef Name="Ma_muon" />
+          </Key>
+          <Property Name="Ma_muon" Type="int" Nullable="false" />
+          <Property Name="Ma_docgia" Type="int" />
+          <Property Name="thoigian_muon" Type="datetime" />
+          <Property Name="thoigian_tra" Type="datetime" />
+          <Property Name="Ma_thuthu" Type="int" />
+          <Property Name="tinhtrang" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Ma_sach" />
+          </Key>
+          <Property Name="Ma_sach" Type="int" Nullable="false" />
+          <Property Name="Ten_sach" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tacgia" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vi_tri" Type="varchar" MaxLength="10" />
+          <Property Name="Tinhtrang" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Thedocgia">
+          <Key>
+            <PropertyRef Name="Ma_docgia" />
+          </Key>
+          <Property Name="Ma_docgia" Type="int" Nullable="false" />
+          <Property Name="Ten_docgia" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sdt" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Thu_vien">
+          <Key>
+            <PropertyRef Name="Gio_lam" />
+          </Key>
+          <Property Name="Gio_lam" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sdt" Type="char" MaxLength="15" />
+          <Property Name="Ghichu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Thuthu">
+          <Key>
+            <PropertyRef Name="Ma_thuthu" />
+          </Key>
+          <Property Name="Ma_thuthu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gio_truc" Type="varchar" MaxLength="30" />
+          <Property Name="Ghi_chu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Danhsach___Ma_mu__300424B4">
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="1" />
+          <End Role="Danhsach_muon" Type="Self.Danhsach_muon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Muon_sach">
+              <PropertyRef Name="Ma_muon" />
+            </Principal>
+            <Dependent Role="Danhsach_muon">
+              <PropertyRef Name="Ma_muon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Danhsach___Ma_sa__30F848ED">
+          <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+          <End Role="Danhsach_muon" Type="Self.Danhsach_muon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sach">
+              <PropertyRef Name="Ma_sach" />
+            </Principal>
+            <Dependent Role="Danhsach_muon">
+              <PropertyRef Name="Ma_sach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Muon_sach__Ma_do__2E1BDC42">
+          <End Role="Thedocgia" Type="Self.Thedocgia" Multiplicity="0..1" />
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thedocgia">
+              <PropertyRef Name="Ma_docgia" />
+            </Principal>
+            <Dependent Role="Muon_sach">
+              <PropertyRef Name="Ma_docgia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Muon_sach__Ma_th__2F10007B">
+          <End Role="Thuthu" Type="Self.Thuthu" Multiplicity="0..1" />
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thuthu">
+              <PropertyRef Name="Ma_thuthu" />
+            </Principal>
+            <Dependent Role="Muon_sach">
+              <PropertyRef Name="Ma_thuthu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BT2_CNPMModelStoreContainer">
+          <EntitySet Name="Danhsach_muon" EntityType="Self.Danhsach_muon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Muon_sach" EntityType="Self.Muon_sach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Thedocgia" EntityType="Self.Thedocgia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Thu_vien" EntityType="Self.Thu_vien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Thuthu" EntityType="Self.Thuthu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Danhsach___Ma_mu__300424B4" Association="Self.FK__Danhsach___Ma_mu__300424B4">
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+            <End Role="Danhsach_muon" EntitySet="Danhsach_muon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Danhsach___Ma_sa__30F848ED" Association="Self.FK__Danhsach___Ma_sa__30F848ED">
+            <End Role="Sach" EntitySet="Sach" />
+            <End Role="Danhsach_muon" EntitySet="Danhsach_muon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Muon_sach__Ma_do__2E1BDC42" Association="Self.FK__Muon_sach__Ma_do__2E1BDC42">
+            <End Role="Thedocgia" EntitySet="Thedocgia" />
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Muon_sach__Ma_th__2F10007B" Association="Self.FK__Muon_sach__Ma_th__2F10007B">
+            <End Role="Thuthu" EntitySet="Thuthu" />
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BT2_CNPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Muon_sach">
+          <Key>
+            <PropertyRef Name="Ma_muon" />
+          </Key>
+          <Property Name="Ma_muon" Type="Int32" Nullable="false" />
+          <Property Name="Ma_docgia" Type="Int32" />
+          <Property Name="thoigian_muon" Type="DateTime" Precision="3" />
+          <Property Name="thoigian_tra" Type="DateTime" Precision="3" />
+          <Property Name="Ma_thuthu" Type="Int32" />
+          <Property Name="tinhtrang" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Thedocgia" Relationship="Self.FK__Muon_sach__Ma_do__2E1BDC42" FromRole="Muon_sach" ToRole="Thedocgia" />
+          <NavigationProperty Name="Thuthu" Relationship="Self.FK__Muon_sach__Ma_th__2F10007B" FromRole="Muon_sach" ToRole="Thuthu" />
+          <NavigationProperty Name="Saches" Relationship="Self.Danhsach_muon" FromRole="Muon_sach" ToRole="Sach" />
+        </EntityType>
+        <EntityType Name="Sach">
+          <Key>
+            <PropertyRef Name="Ma_sach" />
+          </Key>
+          <Property Name="Ma_sach" Type="Int32" Nullable="false" />
+          <Property Name="Ten_sach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tacgia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vi_tri" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Tinhtrang" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Muon_sach" Relationship="Self.Danhsach_muon" FromRole="Sach" ToRole="Muon_sach" />
+        </EntityType>
+        <EntityType Name="Thedocgia">
+          <Key>
+            <PropertyRef Name="Ma_docgia" />
+          </Key>
+          <Property Name="Ma_docgia" Type="Int32" Nullable="false" />
+          <Property Name="Ten_docgia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Muon_sach" Relationship="Self.FK__Muon_sach__Ma_do__2E1BDC42" FromRole="Thedocgia" ToRole="Muon_sach" />
+        </EntityType>
+        <EntityType Name="Thu_vien">
+          <Key>
+            <PropertyRef Name="Gio_lam" />
+          </Key>
+          <Property Name="Gio_lam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Diachi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sdt" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Ghichu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Thuthu">
+          <Key>
+            <PropertyRef Name="Ma_thuthu" />
+          </Key>
+          <Property Name="Ma_thuthu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gio_truc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Ghi_chu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Muon_sach" Relationship="Self.FK__Muon_sach__Ma_th__2F10007B" FromRole="Thuthu" ToRole="Muon_sach" />
+        </EntityType>
+        <Association Name="FK__Muon_sach__Ma_do__2E1BDC42">
+          <End Role="Thedocgia" Type="Self.Thedocgia" Multiplicity="0..1" />
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thedocgia">
+              <PropertyRef Name="Ma_docgia" />
+            </Principal>
+            <Dependent Role="Muon_sach">
+              <PropertyRef Name="Ma_docgia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Muon_sach__Ma_th__2F10007B">
+          <End Role="Thuthu" Type="Self.Thuthu" Multiplicity="0..1" />
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thuthu">
+              <PropertyRef Name="Ma_thuthu" />
+            </Principal>
+            <Dependent Role="Muon_sach">
+              <PropertyRef Name="Ma_thuthu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Danhsach_muon">
+          <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+          <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="QLyThuVien" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Muon_sach" EntityType="Self.Muon_sach" />
+          <EntitySet Name="Saches" EntityType="Self.Sach" />
+          <EntitySet Name="Thedocgias" EntityType="Self.Thedocgia" />
+          <EntitySet Name="Thu_vien" EntityType="Self.Thu_vien" />
+          <EntitySet Name="Thuthus" EntityType="Self.Thuthu" />
+          <AssociationSet Name="FK__Muon_sach__Ma_do__2E1BDC42" Association="Self.FK__Muon_sach__Ma_do__2E1BDC42">
+            <End Role="Thedocgia" EntitySet="Thedocgias" />
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Muon_sach__Ma_th__2F10007B" Association="Self.FK__Muon_sach__Ma_th__2F10007B">
+            <End Role="Thuthu" EntitySet="Thuthus" />
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+          </AssociationSet>
+          <AssociationSet Name="Danhsach_muon" Association="Self.Danhsach_muon">
+            <End Role="Muon_sach" EntitySet="Muon_sach" />
+            <End Role="Sach" EntitySet="Saches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BT2_CNPMModelStoreContainer" CdmEntityContainer="QLyThuVien">
+          <EntitySetMapping Name="Muon_sach">
+            <EntityTypeMapping TypeName="BT2_CNPMModel.Muon_sach">
+              <MappingFragment StoreEntitySet="Muon_sach">
+                <ScalarProperty Name="Ma_muon" ColumnName="Ma_muon" />
+                <ScalarProperty Name="Ma_docgia" ColumnName="Ma_docgia" />
+                <ScalarProperty Name="thoigian_muon" ColumnName="thoigian_muon" />
+                <ScalarProperty Name="thoigian_tra" ColumnName="thoigian_tra" />
+                <ScalarProperty Name="Ma_thuthu" ColumnName="Ma_thuthu" />
+                <ScalarProperty Name="tinhtrang" ColumnName="tinhtrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Saches">
+            <EntityTypeMapping TypeName="BT2_CNPMModel.Sach">
+              <MappingFragment StoreEntitySet="Sach">
+                <ScalarProperty Name="Ma_sach" ColumnName="Ma_sach" />
+                <ScalarProperty Name="Ten_sach" ColumnName="Ten_sach" />
+                <ScalarProperty Name="Tacgia" ColumnName="Tacgia" />
+                <ScalarProperty Name="Vi_tri" ColumnName="Vi_tri" />
+                <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Thedocgias">
+            <EntityTypeMapping TypeName="BT2_CNPMModel.Thedocgia">
+              <MappingFragment StoreEntitySet="Thedocgia">
+                <ScalarProperty Name="Ma_docgia" ColumnName="Ma_docgia" />
+                <ScalarProperty Name="Ten_docgia" ColumnName="Ten_docgia" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Thu_vien">
+            <EntityTypeMapping TypeName="BT2_CNPMModel.Thu_vien">
+              <MappingFragment StoreEntitySet="Thu_vien">
+                <ScalarProperty Name="Gio_lam" ColumnName="Gio_lam" />
+                <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+                <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+                <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Thuthus">
+            <EntityTypeMapping TypeName="BT2_CNPMModel.Thuthu">
+              <MappingFragment StoreEntitySet="Thuthu">
+                <ScalarProperty Name="Ma_thuthu" ColumnName="Ma_thuthu" />
+                <ScalarProperty Name="Gio_truc" ColumnName="Gio_truc" />
+                <ScalarProperty Name="Ghi_chu" ColumnName="Ghi_chu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Danhsach_muon" TypeName="BT2_CNPMModel.Danhsach_muon" StoreEntitySet="Danhsach_muon">
+            <EndProperty Name="Muon_sach">
+              <ScalarProperty Name="Ma_muon" ColumnName="Ma_muon" />
+            </EndProperty>
+            <EndProperty Name="Sach">
+              <ScalarProperty Name="Ma_sach" ColumnName="Ma_sach" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

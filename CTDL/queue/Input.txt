@@ -1,0 +1,10 @@
+Le Tuan Nghia;5 11 2002;Vinh Long;9.3
+Ngo Van Khanh;6 7 2002;Binh Dinh;9.1
+Nguyen Thanh Dong;2 9 2002;Tuy Hoa;9.4
+Vo Huu Nghia;14 6 2002;Ben Tre;8.9
+Do My Lan;6 4 2002;Ho Chi Minh;8.8
+Le Phuoc Duy;2 10 2002;Vinh Long;8.9
+Le Huy Hoang;27 3 2002;Pleiku;8.7
+Huynh Nguyen Tin;16 8 2001;Ho Chi Minh;9.6
+Bui Tan Dat;9 12 2002;Phan Thiet;9.3
+Tran Gia Han;30 10 2002;Ho Chi Minh;9.7

@@ -1,0 +1,117 @@
+---
+title: "MILESTONE"
+author: "Group 12"
+output: html_notebook
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Tên đề tài :
+#                        Students Performance in Exams
+
+                                                        **MILESTONE**
+**1. Sự đóng góp của các thành viên**
+```{r}
+library(knitr)
+include_graphics("./image/phan_chia_cong_viec.png")
+```
+
+**2. Thông tin về project:**
+  - *Bài toán nhóm muốn giải quyết*:
+    + Mục tiêu nghiên cứu các yếu tố xung quanh có ảnh hướng đến đến thành tích của học sinh - sinh viên hay không? Từ việc thu thập thành tích và các yếu tố liên quan, từ đó đưa ra kết luận và đưa ra giải pháp để nâng cao giáo dục thời nay.
+    + Mức ảnh hưởng của các biến trong dữ liệu với nhau ?
+    + Dự đoán sự biến đổi chênh lệch điểm số thông qua các yếu tố ảnh hưởng ?
+
+	- *Nguồn dữ liệu*:Dữ liệu này được trích xuất từ website kaggle                                *https://www.kaggle.com/datasets/spscientist/students-  performance-in-exams* 
+	- Dữ liệu trên gồm tập hợp của các bộ dữ liệu được thu thập từ các trường trung học tại Hoa Kì. Với 5 biến, tổng 1000 quan sát để làm yếu tố, giải thích cho thành tích của học sinh - sinh viên và 4 biến (math_score, reading_score, writing_score, total_score)là biến để biểu diễn thành tích cuối cùng đạt được của học sinh- sinh viên.
+	  +biến quan sát(giải thích)(X): gender
+                    race.ethnicity
+                    parental_level_of_education
+                    lunch
+                    test_preparation_course
+                    
+    + biến kết quả(Y): math_score
+                    reading_score
+                    writing_score
+                    total_score *biến được tạo thêm*
+                    
+	- *Mô tả và ý nghĩa*:
+	    gender: giới tính.                        
+			race/ethnicity: chủng tộc / dân tộc.               
+			parental_level_of_education: Trình độ học vấn gia đình.
+			lunch: Ăn trưa trước khi vào kỳ thi.
+			test_preparation_course: Tham gia các khóa luyện thi trước kỳ thi  .      
+			math_score: điểm toán.               
+			reading_score: điểm đọc .                 
+			writing_score: điểm viết.
+			total_score: điểm trung bình. (Giúp dễ dàng hơn trong việc trực quan hóa dữ liệu) *biến được tạo thêm*
+			
+
+*Kỹ thuật phân tích và thuật toán sử dụng mà nhóm tin rằng hữu ích cho việc phân tích và đã sử dụng*
+  - Phân tích EDA
+  - Kiểm định T-test
+  - Random Forest model
+  - Multipe Linear Regression 
+  -  Analysis of Variance (ANOVA)
+  
+*Cách đánh giá kết quả*
+ - Phân tích EDA và trực quan hoá đồ thị để hiểu thêm tập dữ liệu và phục vụ cho công việc phân tích
+ - Câu hỏi đề ra để phân tích dữ liệu
+ - Phân tích sâu vào bộ dữ liệu 
+ 
+ 
+ **3. Giải pháp và kết quả sơ bộ**
+ 
+  *Phân tích sơ lược tập dữ liệu*
+ 
+ ******Thống kê tất cả các biến số có trong tập dữ liệu và đưa ra sự chênh lệch giữa các nhóm với nhau.******
+ 
+    - Qua đồ thị biểu diễn thấy rõ có sự xuất hiện giữa các giá trị trong cùng một biến:
+        + Đối với `giới tính` không có sự khác biệt có ý nghĩa
+        + Đối với `race.ethnicity`, `parental_level_of_education`, `lunch`, `test_preparation_course` có sự khác biệt đáng kể, dễ dàng nhận thấy sự phân chia các nhóm trong cùng một biến không đồng đều như thế nào.
+    -> Như vậy, điều đó có thực sự ảnh hưởng đến kết quả cuối cùng mà học sinh đạt được không? 
+ 
+ 
+******Phân tích các yếu tố có ảnh hưởng đến thành tích? Đâu là những yếu tố ảnh hưởng lớn nhất?******
+
+    + Sau khi chỉ ra mối tương quan giữa các biến môi trường và biến kết quả, chúng ta có thể thấy sự khác biệt về kết quả đạt được ở các nhóm khác nhau trong cùng một biến.
+    + Tuy nhiên, nếu nhìn sâu hơn vào số lượng nhóm và kết quả đạt được, chúng ta có thể thấy rằng số lượng người tham gia khảo sát giữa các nhóm sẽ ảnh hưởng trực tiếp đến tổng số điểm đạt được. Do đó, mặc dù chúng ta có thể dễ dàng nhận ra mức độ khác biệt giữa các nhóm nhưng vẫn không thể đưa ra kết luận biến nào sẽ có tác động lớn nhất đến kết quả đạt được vì thực nghiệm chỉ mang tính khái quát.
+
+******Mối quan hệ giữa các biến khác với test_preparation_course trong tập dữ liệu?******
+
+    - Sau khi thống kê, chúng ta dễ dàng nhận thấy biến `giới tính` không tác động nhiều đến số lượng quan sát do sự khác biệt giữa `nam` và `nữ` là không nhiều.
+    - Tuy nhiên, đối với các biến khác như: `race.ethnicity`, `lunch`, `parental_level_of_education` thì có sự phân biệt rõ ràng giữa các trường dữ liệu, mức độ chênh lệch lớn. Như vậy, chúng ta có thể kết luận rằng các biến: `race.ethnicity`, `lunch`, `parental_level_of_education` là nguyên nhân dẫn đến sự không đồng nhất của biến `test_preparation_course`.
+ 
+  *Phân tích sâu vào bộ dữ liệu*
+
+******Tìm hiểu xem liệu có mối quan hệ đáng kể nào giữa giới tính, thu nhập của cha mẹ, trình độ học vấn của cha mẹ và điểm kiểm tra hay không?******
+
+    +về giới tính: việc các học sinh Nam chiếm ưu thế về điểm môn Toán hơn các học sinh nữ và ngược lại thì ta có thể khai khác các điểm mạnh , tiềm năng về lĩnh của các em học sinh và đưa ra giải pháp giáo dục phù hợp và hiệu quả
+    + về thu nhập của học sinh: ta thấy rằng qua phân tích và trong thực tế ở giai đoạn hiện nay việc thu nhập của một hộ gia đình ở mức trun bình hoặc thấp sẽ ảnh hưởng đến kết quả học tập của các em học sinh, chính vì vậy chúng ta cần giải quyết vấn đề kinh tế, học phí và bữa ăn học đường của các học sinh sinh viên, các quỹ học bổng và bảo trợ học sinh sinh viên để đảm bảo được sự bình đẳng trong giáo dục.
+    +về trình độ học vấn của phụ huynh: quá rõ ràng sau khi phân tích ta thấy rằng việc phụ huynh học sinh có trình độ dân trí cao hơn thì con của họ cũng có tỉ lệ đạt thành tích học tập tốt hơn, họ quan tâm và truyền đạt kiến thức kinh nghiệm và văn hoá để giáo dục con em của họ tốt hơn. Cho nên đối với những bậc phụ huynh tuy có những trình độ khác nhau nhưng việc cải thiện dân trí và sự quan tâm cho các con em của họ là điều hoàn toàn có thể, để góp phần nâng cao học thức và dân trí, gia đình có dân trí cao thúc đẩy các con em có ý thức trong việc học tập hơn và góp phần nâng cao dân trí trong xã hội.
+    
+******Mô hình RANDOM FOREST để tìm xem đâu là biến quan trọng nhất gây tác động đến điểm số của học sinh******
+
+    - Sau khi thống kê, chúng ta dễ dàng nhận thấy biến `giới tính` không tác động nhiều đến số lượng quan sát do sự khác biệt giữa `nam` và `nữ` là không nhiều.
+    - Tuy nhiên, đối với các biến khác như: `race.ethnicity`, `lunch`, `parental_level_of_education` thì có sự phân biệt rõ ràng giữa các trường dữ liệu, mức độ chênh lệch lớn. Như vậy, chúng ta có thể kết luận rằng các biến: `race.ethnicity`, `lunch`, `parental_level_of_education` là nguyên nhân dẫn đến sự không đồng nhất của biến `test_preparation_course`.
+ 
+  *Phân tích sâu vào bộ dữ liệu*
+******Tìm hiểu xem liệu có mối quan hệ đáng kể nào giữa giới tính, thu nhập của cha mẹ, trình độ học vấn của cha mẹ và điểm kiểm tra hay không?******
+
+    +về giới tính: việc các học sinh Nam chiếm ưu thế về điểm môn Toán hơn các học sinh nữ và ngược lại thì ta có thể khai khác các điểm mạnh , tiềm năng về lĩnh của các em học sinh và đưa ra giải pháp giáo dục phù hợp và hiệu quả
+    
+    + về thu nhập của học sinh: ta thấy rằng qua phân tích và trong thực tế ở giai đoạn hiện nay việc thu nhập của một hộ gia đình ở mức trun bình hoặc thấp sẽ ảnh hưởng đến kết quả học tập của các em học sinh, chính vì vậy chúng ta cần giải quyết vấn đề kinh tế, học phí và bữa ăn học đường của các học sinh sinh viên, các quỹ học bổng và bảo trợ học sinh sinh viên để đảm bảo được sự bình đẳng trong giáo dục.
+    
+    +về trình độ học vấn của phụ huynh: quá rõ ràng sau khi phân tích ta thấy rằng việc phụ huynh học sinh có trình độ dân trí cao hơn thì con của họ cũng có tỉ lệ đạt thành tích học tập tốt hơn, họ quan tâm và truyền đạt kiến thức kinh nghiệm và văn hoá để giáo dục con em của họ tốt hơn. Cho nên đối với những bậc phụ huynh tuy có những trình độ khác nhau nhưng việc cải thiện dân trí và sự quan tâm cho các con em của họ là điều hoàn toàn có thể, để góp phần nâng cao học thức và dân trí, gia đình có dân trí cao thúc đẩy các con em có ý thức trong việc học tập hơn và góp phần nâng cao dân trí trong xã hội.
+    + Qua phân tích và quan sát cho thấy biến Lunch/Bữa trưa (tiêu chuẩn/giảm) có tầm quan trọng nhất so với bất kỳ biến số nào khác, biến Lunch đã cho thấy tầm quan trọng nhất của mình bởi nó là yếu tố thể hiện kinh tế của gia đình và thể hiện 1 góc độ khả năng chi trả của phụ huynh để con của họ có thể được học trong một môi trường giáo dục tốt, đồng thời phản ánh đến sức khoẻ, một học sinh có một bữa ăn đầy đủ để đảm bảo sức khoẻ học tập và không cần phải suy nghĩ nhiều đến vấn đề kinh tế gia đình thì sẽ tập trung cho việc học của học sinh hơn. 
+    + Biến giới tính có ít tầm quan trọng nhất.
+    
+******Liệu có thể dự đoán được tổng điểm của học sinh qua các biến gender, test_preparation_course, reading_score và writing_score, sử dụng model Multipe Linear Regression******
+
+    + Từ kết quả thí nghiệm, ta có thể xác nhận rằng các yếu tố như giới tính, việc tham gia huấn luyện trước kì thi và điểm từ các môn đọc, viết có ảnh hưởng lớn đến tổng điểm của một học sinh.
+  
+******Liệu có mối quan hệ đáng kể nào giữa dân tộc, trình độ học vấn của cha mẹ với điểm kiểm tra hay không?******
+
+    + Dựa vào những phân tích và đánh giá từ trên xuống chúng ta có thể thấy điểm số kiểm tra của môn toán cao hay thấp của mỗi sinh viên có liên quan đến quan hệ đáng kể giữa dân tộc, trình độ học vấn của cha mẹ
+    

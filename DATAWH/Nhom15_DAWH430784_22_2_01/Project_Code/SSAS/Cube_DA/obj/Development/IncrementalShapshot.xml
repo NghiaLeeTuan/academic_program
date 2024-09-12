@@ -1,0 +1,110 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>Cube_DA</Database>
+    <Server>localhost</Server>
+    <ConnectionString>Data Source=localhost;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>bLh/fewh792aqwLMkEqafSXwk24=17/05/2023 07:58:2817/05/2023 07:56:12</TimeStamp>
+        <ID>
+          <String>DA DATWH</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>g8e8tLFcOmj5UXn748xXGP2gdZE=17/05/2023 07:56:4717/05/2023 07:56:47</TimeStamp>
+        <ID>
+          <String>DA DATWH</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>fhpHtwUcIcgWHW6FmLEl1aleR2Q=17/05/2023 07:57:5617/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Dim Date</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Ygo4uAo2PO9yRmiym0zY7CDw+WU=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Dim Customers</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>71qfh0s97n+kbjFtxf011wZ64DY=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Fact Orders</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>UJIL6q3eczjyczW/h+f4EmWof1E=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Fact Order Reviews</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>c3aBeHIe+10lXICKaQ7EjasdCms=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Dim Sellers</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>AY1iShNScd/w56XVv58oVjwbnxI=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Dim Products</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>iRchIMVtXsi+Vp9CWMeMMXr3N/8=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Fact Order Items</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>kuEvv2OUZqaCnWla1CSibFjfvRk=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>Fact Order Payments</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>GeYOSeIh4WOvCRCqY4xG1LQUZ5c=17/05/2023 07:57:5717/05/2023 07:57:56faKFW0PGWHRqI+Xy7Qtj1U4XXKE=17/05/2023 07:57:5717/05/2023 07:57:56</TimeStamp>
+        <ID>
+          <String>DA DATWH</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>J5AjkcbOVhg3MkB3AZ2XTINCUrU=16/05/2023 14:28:2417/05/2023 07:33:49</TimeStamp>
+      <ID>
+        <String>Cube_DA</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2023-05-17T01:03:32.206667Z</LastDeployed>
+</DeploymentSnapshot>

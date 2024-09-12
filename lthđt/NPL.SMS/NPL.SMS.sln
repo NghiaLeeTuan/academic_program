@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R2S", "NPL.SMS\R2S.csproj", "{0BF90523-3399-4687-A623-BEB0B4B3A263}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BF90523-3399-4687-A623-BEB0B4B3A263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BF90523-3399-4687-A623-BEB0B4B3A263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BF90523-3399-4687-A623-BEB0B4B3A263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BF90523-3399-4687-A623-BEB0B4B3A263}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B384587-FFBB-4BE7-A142-FB970949BD5D}
+	EndGlobalSection
+EndGlobal

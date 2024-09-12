@@ -1,0 +1,72 @@
+USE [SMS]
+GO
+/****** Object:  StoredProcedure [dbo].[Add_Customer]    Script Date: 27/11/2021 7:48:07 CH ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[Add_Customer](@CustomerName nvarchar(100)) 
+AS
+BEGIN
+	insert into Customer values (@CustomerName)
+END
+
+
+
+
+
+
+USE [SMS]
+GO
+/****** Object:  StoredProcedure [dbo].[Delete_Customer]    Script Date: 27/11/2021 7:49:11 CH ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[Delete_Customer](@Customer_id int)
+AS
+Begin
+	Delete from Customer where customer_id=@Customer_id
+	Delete from Orders where customer_id=@Customer_id
+	Delete from LineItem where order_id in (select order_id from Orders where customer_id=@Customer_id)
+End
+
+
+
+
+
+
+USE [SMS]
+GO
+/****** Object:  StoredProcedure [dbo].[Update_Customer]    Script Date: 28/11/2021 9:04:06 CH ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[Update_Customer](@cus_id int, @cus_name nvarchar(100))
+AS
+BEGIN
+	Update Customer set customer_name = @cus_name where customer_id = @cus_id
+END
+
+
+
+
+
+USE [SMS]
+GO
+/****** Object:  UserDefinedFunction [dbo].[Total_price]    Script Date: 27/11/2021 7:49:32 CH ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER FUNCTION [dbo].[Total_price](@order_id int)
+RETURNS float AS
+BEGIN
+	DECLARE @Total float
+	SELECT @Total = sum (price * quantity)
+	from LineItem
+	where order_id= @order_id
+	RETURN @Total
+END

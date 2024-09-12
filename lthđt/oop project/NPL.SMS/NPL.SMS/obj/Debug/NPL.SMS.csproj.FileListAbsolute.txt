@@ -1,0 +1,28 @@
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.AssemblyReference.cache
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.CoreCompileInputs.cache
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe.config
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.pdb
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.exe
+D:\llthđt\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.pdb
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe.config
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.pdb
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.AssemblyReference.cache
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.exe
+C:\Users\Admin\Downloads\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.pdb
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe.config
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.pdb
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.AssemblyReference.cache
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.CoreCompileInputs.cache
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.exe
+D:\llthđt\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.pdb
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe.config
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.exe
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\bin\Debug\NPL.SMS.pdb
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.AssemblyReference.cache
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.exe
+C:\Users\ADMIN\Desktop\học kì2\OOP\Project cuối kì\Project cuối kì\Project cuối kì\NPL.SMS\NPL.SMS\obj\Debug\NPL.SMS.pdb

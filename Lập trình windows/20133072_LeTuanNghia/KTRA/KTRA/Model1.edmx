@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KtraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="15" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="15" />
+          <Property Name="capbac" Type="nvarchar" MaxLength="15" />
+          <Property Name="phong" Type="int" />
+        </EntityType>
+        <EntityType Name="PhongBan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ten" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityContainer Name="KtraModelStoreContainer">
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhongBan" EntityType="Self.PhongBan" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KtraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ten" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="capbac" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phong" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PhongBan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ten" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="KtraContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="PhongBans" EntityType="Self.PhongBan" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KtraModelStoreContainer" CdmEntityContainer="KtraContext">
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="KtraModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="capbac" ColumnName="capbac" />
+                <ScalarProperty Name="phong" ColumnName="phong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhongBans">
+            <EntityTypeMapping TypeName="KtraModel.PhongBan">
+              <MappingFragment StoreEntitySet="PhongBan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

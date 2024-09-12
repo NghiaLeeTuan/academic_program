@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="StuMFSet" EntityType="Model1.Store.StuMFSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DepartmentSet" EntityType="Model1.Store.DepartmentSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="StuMFDepartment" Association="Model1.Store.StuMFDepartment">
+      <End Role="StuMF" EntitySet="StuMFSet" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="StuMFSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StuMFId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="StuMFDepartment">
+    <End Role="StuMF" Type="Model1.Store.StuMFSet" Multiplicity="1" />
+    <End Role="Department" Type="Model1.Store.DepartmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StuMF">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="StuMFId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

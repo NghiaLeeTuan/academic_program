@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{741B0A21-EBFF-4808-BD48-C44B28AC41D4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CuoiKi</RootNamespace>
+    <AssemblyName>CuoiKi</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=8.5.0.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.12.5.3\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.XLS, Version=12.5.3.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>packages\Spire.XLS.12.5.3\lib\net40\Spire.XLS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLL\AccountBLL.cs" />
+    <Compile Include="BLL\EmployeeBLL.cs" />
+    <Compile Include="BLL\ItemBLL.cs" />
+    <Compile Include="BLL\LoginBLL.cs" />
+    <Compile Include="BLL\ManagementOrderBLL.cs" />
+    <Compile Include="BLL\OrderBLL.cs" />
+    <Compile Include="BLL\StatisticalBLL.cs" />
+    <Compile Include="Customer.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\AccountDAL.cs" />
+    <Compile Include="DAL\EmployeeDAL.cs" />
+    <Compile Include="DAL\ItemDAL.cs" />
+    <Compile Include="DAL\LoginDAL.cs" />
+    <Compile Include="DAL\ManagementOrderDAL.cs" />
+    <Compile Include="DAL\OrderDAL.cs" />
+    <Compile Include="DAL\StatisticalDAL.cs" />
+    <Compile Include="Doanhthu_thang1_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Doanhthu_thang2_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Doanhthu_thang_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Doanhthu_tung_thang1_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Doanhthu_tung_thang2_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Doanhthu_tung_thang_Result.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Item.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Lineitem.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManagementModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManagementModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="formAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAccount.Designer.cs">
+      <DependentUpon>formAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formLogin.Designer.cs">
+      <DependentUpon>formLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formItem.Designer.cs">
+      <DependentUpon>formItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formOrder.Designer.cs">
+      <DependentUpon>formOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formMenu.Designer.cs">
+      <DependentUpon>formMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEmployee.Designer.cs">
+      <DependentUpon>formEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="formManagementOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formManagementOrder.Designer.cs">
+      <DependentUpon>formManagementOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formStatistical.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formStatistical.Designer.cs">
+      <DependentUpon>formStatistical.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Voucher.cs">
+      <DependentUpon>ManagementModel.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="formAccount.resx">
+      <DependentUpon>formAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formLogin.resx">
+      <DependentUpon>formLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formItem.resx">
+      <DependentUpon>formItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formOrder.resx">
+      <DependentUpon>formOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formMenu.resx">
+      <DependentUpon>formMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEmployee.resx">
+      <DependentUpon>formEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="formManagementOrder.resx">
+      <DependentUpon>formManagementOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formStatistical.resx">
+      <DependentUpon>formStatistical.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="ManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ManagementModel.edmx.diagram">
+      <DependentUpon>ManagementModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ROG_wallpaper_G.A.M.E.R.s-Squad_fhd.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bán hàng.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hóa Đơn.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NhanVien.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XemHoaDon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hàng Hóa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hoadon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Thoát.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\account.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ManagementModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ManagementModel.Context.cs</LastGenOutput>
+      <DependentUpon>ManagementModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="ManagementModel.edmx.sql" />
+    <Content Include="ManagementModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ManagementModel.edmx</DependentUpon>
+      <LastGenOutput>ManagementModel.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\QuanLy.jpg" />
+    <None Include="Resources\bg_dn.png" />
+    <None Include="Resources\thống kê.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

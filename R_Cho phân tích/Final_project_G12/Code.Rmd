@@ -1,0 +1,1363 @@
+---
+title: 'Final project'
+author: "Nhóm 12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+```
+
+```{r}
+library(highcharter)
+library(corrplot)
+library(randomForest)
+library(caTools)
+library(ROCR)
+library(e1071)
+library(DAAG)
+library(party)
+library(rpart)
+library(rpart.plot)
+library(mlbench)
+library(pROC)
+library(tree)
+library(htmlwidgets)
+library('IRdisplay')
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidyverse)
+library(ranger)
+library(ggpubr)
+library(naniar)
+library(car)
+library(caret)
+library(parsnip)
+```
+
+```{r}
+
+#Import data
+dt = read.csv("./data/StudentsPerformance.csv", header = TRUE)
+str(dt)
+
+```
+```{r}
+students <- dt %>% 
+  pivot_longer(cols = c(math_score, reading_score, writing_score), names_to = "subject", values_to = "score") %>% 
+  separate(subject, c("subject",NA))
+students
+```
+
+```{r}
+#Tên các biến
+names(dt)
+
+#Kiểu dữ liệu từng biến
+sapply(dt, class)
+```
+
+```{r}
+is.null(dt)
+sapply(dt %>% select_if(is.numeric), function(x) {sum(is.na(x)) / length(x)})
+sapply(dt %>% select_if(is.character), function(x) {table(x, useNA = "ifany")})
+```
+
+```{r}
+summary(dt)
+```
+
+
+```{r}
+hist(dt$total_score, main = "Biểu đồ thể hiện tổng điểm trung bình", col = "Green")
+```
+
+###Câu 1: Thống kê tất cả các biến số có trong tập dữ liệu và đưa ra sự chênh lệch giữa các nhóm với nhau
+
+```{r}
+#Gender
+ggplot(dt,aes(y = gender,fill=gender)) + 
+  geom_bar()
+
+ggplot(dt, aes(y= gender, fill=gender)) +
+  geom_bar( width=1) +
+  coord_polar(start=0)
+```
+
+```{r}
+#race.ethnicity 
+ggplot(dt,aes(y = race.ethnicity ,fill=race.ethnicity )) + 
+  geom_bar()
+
+ggplot(dt, aes(y=race.ethnicity , fill=race.ethnicity )) +
+  geom_bar( width=1) +
+  coord_polar(start=0)
+```
+
+```{r}
+#parental_level_of_education
+ggplot(dt,aes(y = parental_level_of_education ,fill=parental_level_of_education )) + 
+  geom_bar()
+
+ggplot(dt, aes(y=parental_level_of_education , fill=parental_level_of_education )) +
+  geom_bar( width=1) +
+  coord_polar(start=0)
+```
+
+```{r}
+#lunch 
+ggplot(dt,aes(y = lunch ,fill=lunch )) + 
+  geom_bar()
+
+ggplot(dt, aes(y=lunch , fill=lunch )) +
+  geom_bar( width=1) +
+  coord_polar(start=0)
+```
+
+```{r}
+#test_preparation_course 
+ggplot(dt,aes(y = test_preparation_course ,fill=test_preparation_course  )) + 
+  geom_bar()
+
+ggplot(dt, aes(y=test_preparation_course  , fill=test_preparation_course  )) +
+  geom_bar( width=1) +
+  coord_polar(start=0)
+```
+
+**Conclusion**: 
+- Qua đồ thị biểu diễn thấy rõ có sự xuất hiện giữa các giá trị trong cùng một biến:
+    + Đối với `giới tính` không có sự khác biệt có ý nghĩa
+    + Đối với `race.ethnicity`, `parental_level_of_education`, `lunch`, `test_preparation_course` có sự khác biệt đáng kể, dễ dàng nhận thấy sự phân chia các nhóm trong cùng một biến không đồng đều như thế nào.
+  -> Như vậy, điều đó có thực sự ảnh hưởng đến kết quả cuối cùng mà học sinh đạt được không?
+  
+###Câu 2: Phân tích các yếu tố có ảnh hưởng đến thành tích? Đâu là những yếu tố ảnh hưởng lớn nhất?
+
+```{r}
+#gender
+    summary_gender_math <- dt %>% group_by(gender) %>% 
+      summarise(Total_math = sum(math_score)) %>% mutate(percentage = Total_math/sum(Total_math))
+
+    summary_gender_reading <- dt %>% group_by(gender) %>% 
+      summarise(Total_reading = sum(reading_score)) %>% mutate(percentage = Total_reading/sum(Total_reading))
+    
+    summary_gender_writing <- dt %>% group_by(gender) %>% 
+      summarise(Total_writing = sum(writing_score)) %>% mutate(percentage = Total_writing/sum(Total_writing))
+    
+    math <- summary_gender_math %>%
+      hchart("pie", hcaes(x = gender, y = "Total_math"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Maths Score by Gender",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+
+    reading <- summary_gender_reading %>%
+      hchart("pie", hcaes(x = gender, y = "Total_reading"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Readings Score by Gender",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+    
+    writing <- summary_gender_writing %>%
+      hchart("pie", hcaes(x = gender, y = "Total_writing"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Writings Score by Gender",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+           
+math
+reading
+writing
+```
+
+```{r}
+#race.ethnicity 
+summary_race_math <- dt %>% group_by(race.ethnicity ) %>% 
+      summarise(Total_math = sum(math_score)) %>% mutate(percentage = Total_math/sum(Total_math))
+
+summary_race_reading <- dt %>% group_by(race.ethnicity ) %>% 
+      summarise(Total_reading = sum(reading_score)) %>% mutate(percentage = Total_reading/sum(Total_reading))
+
+summary_race_writing <- dt %>% group_by(race.ethnicity ) %>% 
+      summarise(Total_writing = sum(writing_score)) %>% mutate(percentage = Total_writing/sum(Total_writing))
+
+    math <- summary_race_math %>%
+      hchart("pie", hcaes(x = race.ethnicity, y = "Total_math"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 13),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900"))%>%
+    hc_title(text = "Total Maths Score by Race/Ethnicity",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+
+        reading <- summary_race_reading %>%
+      hchart("pie", hcaes(x = race.ethnicity, y = "Total_reading"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 13),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900"))%>%
+    hc_title(text = "Total Reading Score by Race/Ethnicity",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+    
+    
+     writing <- summary_race_writing %>%
+      hchart("pie", hcaes(x = race.ethnicity, y = "Total_writing"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 13),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900"))%>%
+    hc_title(text = "Total Writing Score by Race/Ethnicity",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+        
+        
+math
+reading
+writing
+
+```
+
+```{r}
+#parental_level_of_education
+
+summary_parental_math <- dt %>% group_by(parental_level_of_education ) %>% 
+      summarise(Total_math = sum(math_score)) %>% mutate(percentage = Total_math/sum(Total_math))
+
+summary_parental_reading <- dt %>% group_by(parental_level_of_education ) %>% 
+      summarise(Total_reading = sum(reading_score)) %>% mutate(percentage = Total_reading/sum(Total_reading))
+
+summary_parental_writing <- dt %>% group_by(parental_level_of_education) %>% 
+      summarise(Total_writing = sum(writing_score)) %>% mutate(percentage = Total_writing/sum(Total_writing))
+
+    math <- summary_parental_math %>%
+      hchart("pie", hcaes(x = parental_level_of_education, y = "Total_math"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 11),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900","#9999ff"))%>%
+    hc_title(text = "Total Maths Score by Parental level of education",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+
+        reading <- summary_parental_reading %>%
+      hchart("pie", hcaes(x = parental_level_of_education, y = "Total_reading"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 11),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900","#9999ff"))%>%
+    hc_title(text = "Total Reading Score by Parental level of education",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+    
+    
+     writing <- summary_parental_writing %>%
+      hchart("pie", hcaes(x = parental_level_of_education, y = "Total_writing"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 11),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff","#00ff99","#ffff66","#ff9900","#9999ff"))%>%
+    hc_title(text = "Total Writing Score by Parental level of education",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+        
+        
+math
+reading
+writing
+
+
+```
+
+```{r}
+#lunch
+    summary_lunch_math <- dt %>% group_by(lunch) %>% 
+      summarise(Total_math = sum(math_score)) %>% mutate(percentage = Total_math/sum(Total_math))
+
+    summary_lunch_reading <- dt %>% group_by(lunch) %>% 
+      summarise(Total_reading = sum(reading_score)) %>% mutate(percentage = Total_reading/sum(Total_reading))
+    
+    summary_lunch_writing <- dt %>% group_by(lunch) %>% 
+      summarise(Total_writing = sum(writing_score)) %>% mutate(percentage = Total_writing/sum(Total_writing))
+    
+    math <- summary_lunch_math %>%
+      hchart("pie", hcaes(x = lunch, y = "Total_math"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Maths Score by Lunch",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+
+    reading <- summary_lunch_reading %>%
+      hchart("pie", hcaes(x = lunch, y = "Total_reading"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Readings Score by Lunch",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+    
+    writing <- summary_lunch_writing %>%
+      hchart("pie", hcaes(x = lunch, y = "Total_writing"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Writings Score by Lunch",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+           
+math
+reading
+writing
+```
+
+```{r}
+#test_preparation_course 
+    summary_preparation_math <- dt %>% group_by(test_preparation_course) %>% 
+      summarise(Total_math = sum(math_score)) %>% mutate(percentage = Total_math/sum(Total_math))
+
+    summary_preparation_reading <- dt %>% group_by(test_preparation_course) %>% 
+      summarise(Total_reading = sum(reading_score)) %>% mutate(percentage = Total_reading/sum(Total_reading))
+    
+    summary_preparation_writing <- dt %>% group_by(test_preparation_course) %>% 
+      summarise(Total_writing = sum(writing_score)) %>% mutate(percentage = Total_writing/sum(Total_writing))
+    
+    math <- summary_preparation_math %>%
+      hchart("pie", hcaes(x = test_preparation_course, y = "Total_math"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Maths Score by Test preparation course",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+
+    reading <- summary_preparation_reading %>%
+      hchart("pie", hcaes(x = test_preparation_course, y = "Total_reading"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Readings Score by Test preparation course",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+    
+    writing <- summary_preparation_writing %>%
+      hchart("pie", hcaes(x = test_preparation_course, y = "Total_writing"),
+             borderWidth = 0, dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#rf8f9fa",
+                                            textOutline = F,
+                                            fontWeight = 'bold',
+                                            fontSize = 18),
+                               format = '<b>{point.name}</b>: {point.percentage:.1f} %', connectorColor = 'silver'))%>%
+    hc_colors(c("#fc8eac", "#00ccff"))%>%
+    hc_title(text = "Total Writings Score by Test preparation course",
+             style = list(color = "#rf8f9fa",
+                          textOutline = F,
+                          fontWeight = 'bold',
+                          fontSize = 18))%>%
+    hc_tooltip(pointFormat = '<b>{point.y:.1f}</b>')
+           
+math
+reading
+writing
+```
+
+**Conclusion**: 
+- Sau khi chỉ ra mối tương quan giữa các biến môi trường và biến kết quả, chúng ta có thể thấy sự khác biệt về kết quả đạt được ở các nhóm khác nhau trong cùng một biến.
+- Tuy nhiên, nếu nhìn sâu hơn vào số lượng nhóm và kết quả đạt được, chúng ta có thể thấy rằng số lượng người tham gia khảo sát giữa các nhóm sẽ ảnh hưởng trực tiếp đến tổng số điểm đạt được. Do đó, mặc dù chúng ta có thể dễ dàng nhận ra mức độ khác biệt giữa các nhóm nhưng vẫn không thể đưa ra kết luận biến nào sẽ có tác động lớn nhất đến kết quả đạt được vì thực nghiệm chỉ mang tính khái quát.
+
+
+###Câu 3:Mối quan hệ giữa các biến khác với test_preparation_course trong tập dữ liệu? Lí do nào học sinh không thể tham gia các khóa luyện ?
+
+```{r}
+#gender
+
+ summary_test_preparation <- dt %>% group_by(gender)%>% count(test_preparation_course)
+    
+    ### Setting the colours 
+    summary_test_preparation$coll <- ifelse(summary_test_preparation$test_preparation_course == "completed", '#40e0d0', '#4d9385')
+    
+      ### Column chart with highcharter package
+      gender_plot <- summary_test_preparation %>%
+      hchart("column", hcaes(y = "n", group = "test_preparation_course"),
+             stacking = "normal",
+             borderLine = F,
+             dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#112d31",
+                                            textOutline = F,
+                                            fontSize = 15)))%>%
+      hc_chart(inverted = T,
+               polar = T)%>%
+      
+      hc_plotOptions(series = list(
+        borderRadius = 5,
+        pointPadding = 0,
+        groupPadding = 0.15,
+        borderWidth = 0))%>%
+       
+      hc_pane(innerSize = '20%',
+              endAngle = 270)%>%
+
+      hc_xAxis(categories = c("Male", "Female"),
+               gridLineWidth = F,
+               labels = list(align = "right",
+                             y = 3,
+                             style = list(color = "#rf8f9fa",
+                                          textOutline = F,
+                                          fontWeight = 'bold',
+                                          fontSize = 20)),
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15))) %>%
+      hc_yAxis(visible = F, 
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15)))%>%
+      hc_title(text = "Gender Prepared for the Exams",
+               style = list(color = "#rf8f9fa",
+                            textOutline = F,
+                            fontWeight = 'bold',
+                            fontSize = 18),
+               y = 50)%>%
+      hc_legend(labelFormat = '<span style="color:{color}">{name}</span')%>%
+      hc_colors(summary_test_preparation$coll)
+    gender_plot
+```
+
+```{r}
+#race.ethnicity
+summary_test_preparation <- dt %>% group_by(race.ethnicity)%>% count(test_preparation_course)
+    
+    ### Setting the colours 
+    summary_test_preparation$coll <- ifelse(summary_test_preparation$test_preparation_course == "completed", '#40e0d0', '#4d9385')
+    
+      ### Column chart with highcharter package
+      race_plot <- summary_test_preparation %>%
+      hchart("column", hcaes(y = "n", group = "test_preparation_course"),
+             stacking = "normal",
+             borderLine = F,
+             dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#112d31",
+                                            textOutline = F,
+                                            fontSize = 15)))%>%
+      hc_chart(inverted = T,
+               polar = T)%>%
+      
+      hc_plotOptions(series = list(
+        borderRadius = 5,
+        pointPadding = 0,
+        groupPadding = 0.15,
+        borderWidth = 0))%>%
+       
+      hc_pane(innerSize = '20%',
+              endAngle = 270)%>%
+
+      hc_xAxis(categories = c("Group A", "Group B", "Group C", "Group D", "Group E"),
+               gridLineWidth = F,
+               labels = list(align = "right",
+                             y = 3,
+                             style = list(color = "#rf8f9fa",
+                                          textOutline = F,
+                                          fontWeight = 'bold',
+                                          fontSize = 12)),
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15))) %>%
+      hc_yAxis(visible = F, 
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15)))%>%
+      hc_title(text = "Race/Ethnicity Prepared for the Exams",
+               style = list(color = "#rf8f9fa",
+                            textOutline = F,
+                            fontWeight = 'bold',
+                            fontSize = 18),
+               y = 50)%>%
+      hc_legend(labelFormat = '<span style="color:{color}">{name}</span')%>%
+      hc_colors(summary_test_preparation$coll)
+    race_plot
+```
+
+```{r}
+#parental_level_of_education
+summary_test_preparation <- dt %>% group_by(parental_level_of_education)%>% count(test_preparation_course)
+    
+    ### Setting the colours 
+    summary_test_preparation$coll <- ifelse(summary_test_preparation$test_preparation_course == "completed", '#40e0d0', '#4d9385')
+    
+      ### Column chart with highcharter package
+      parental_plot <- summary_test_preparation %>%
+      hchart("column", hcaes(y = "n", group = "test_preparation_course"),
+             stacking = "normal",
+             borderLine = F,
+             dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#112d31",
+                                            textOutline = F,
+                                            fontSize = 15)))%>%
+      hc_chart(inverted = T,
+               polar = T)%>%
+      
+      hc_plotOptions(series = list(
+        borderRadius = 5,
+        pointPadding = 0,
+        groupPadding = 0.15,
+        borderWidth = 0))%>%
+       
+      hc_pane(innerSize = '20%',
+              endAngle = 270)%>%
+
+      hc_xAxis(categories = c("associate's degree", "bachelor's degree", "high school","master's degree", "some college", "some high school"),
+               gridLineWidth = F,
+               labels = list(align = "right",
+                             y = 3,
+                             style = list(color = "#rf8f9fa",
+                                          textOutline = F,
+                                          fontWeight = 'bold',
+                                          fontSize = 10)),
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15))) %>%
+      hc_yAxis(visible = F, 
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15)))%>%
+      hc_title(text = "Parentals Prepared for the Exams",
+               style = list(color = "#rf8f9fa",
+                            textOutline = F,
+                            fontWeight = 'bold',
+                            fontSize = 18),
+               y = 50)%>%
+      hc_legend(labelFormat = '<span style="color:{color}">{name}</span')%>%
+      hc_colors(summary_test_preparation$coll)
+    parental_plot
+```
+
+```{r}
+#lunch
+
+ summary_test_preparation <- dt %>% group_by(lunch)%>% count(test_preparation_course)
+    
+    ### Setting the colours 
+    summary_test_preparation$coll <- ifelse(summary_test_preparation$test_preparation_course == "completed", '#40e0d0', '#4d9385')
+    
+      ### Column chart with highcharter package
+      lunch_plot <- summary_test_preparation %>%
+      hchart("column", hcaes(y = "n", group = "test_preparation_course"),
+             stacking = "normal",
+             borderLine = F,
+             dataLabels = list(enabled = T, 
+                               distance = -67,
+                               style = list(color = "#112d31",
+                                            textOutline = F,
+                                            fontSize = 15)))%>%
+      hc_chart(inverted = T,
+               polar = T)%>%
+      
+      hc_plotOptions(series = list(
+        borderRadius = 5,
+        pointPadding = 0,
+        groupPadding = 0.15,
+        borderWidth = 0))%>%
+       
+      hc_pane(innerSize = '20%',
+              endAngle = 270)%>%
+
+      hc_xAxis(categories = c("free/reduced", "standard" ),
+               gridLineWidth = F,
+               labels = list(align = "right",
+                             y = 3,
+                             style = list(color = "#rf8f9fa",
+                                          textOutline = F,
+                                          fontWeight = 'bold',
+                                          fontSize = 18)),
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15))) %>%
+      hc_yAxis(visible = F, 
+               stackLabels = list(enabled = T,
+                                  style = list(color = "#rf8f9fa",
+                                               textOutline = F,
+                                               fontWeight = 'bold',
+                                               fontSize = 15)))%>%
+      hc_title(text = "Lunch Prepared for the Exams",
+               style = list(color = "#rf8f9fa",
+                            textOutline = F,
+                            fontWeight = 'bold',
+                            fontSize = 18),
+               y = 50)%>%
+      hc_legend(labelFormat = '<span style="color:{color}">{name}</span')%>%
+      hc_colors(summary_test_preparation$coll)
+    lunch_plot
+```
+
+**Conculsion**:
+- Sau khi thống kê, chúng ta dễ dàng nhận thấy biến `giới tính` không tác động nhiều đến số lượng quan sát do sự khác biệt giữa `nam` và `nữ` là không nhiều.
+- Tuy nhiên, đối với các biến khác như: `race.ethnicity`, `lunch`, `parental_level_of_education` thì có sự phân biệt rõ ràng giữa các trường dữ liệu, mức độ chênh lệch lớn. Như vậy, chúng ta có thể kết luận rằng các biến: `race.ethnicity`, `lunch`, `parental_level_of_education` là nguyên nhân dẫn đến sự không đồng nhất của biến `test_preparation_course`.
+
+###Modeling
+##Câu hỏi 1: Mục đích của công việc phân tích này là tìm hiểu xem liệu có mối quan hệ đáng kể nào giữa giới tính, thu nhập của cha mẹ, trình độ học vấn của cha mẹ và điểm kiểm tra hay không.
+
+nhóm chúng em đã phân tích dữ liệu bằng cách chọn ba chủ đề sau:
+
+  Mối quan hệ giữa giới tính và điểm kiểm tra
+  Mối quan hệ giữa thu nhập của cha mẹ và điểm kiểm tra
+  Mối quan hệ giữa trình độ học vấn của cha mẹ và điểm kiểm tra
+  
+Bộ dữ liệu StudentPerformance có ba biến số điểm: toán, đọc và viết.
+Tìm hiểu xem các biến giới tính, bữa ăn trưa và trình độ học vấn của cha mẹ khác nhau như thế nào ở các lớp và kiểm tra xem sự khác biệt có đáng kể hay không thông qua một bài kiểm tra
+```{r}
+```
+1. Mối quan hệ giữa giới tính và điểm thi
+Đầu tiên ta tiến hành điều tra và phân tích mối quan hệ giữa giới tính có liên quan đến điểm thi của học sinh hay không
+
+Sau khi chỉ nhập các biến chúng em muốn từ tập dữ liệu, sau đó tìm giá trị trung bình của từng đối tượng cho nam và nữ và so sánh sự khác biệt
+
+```{r}
+Students <- subset(dt, select = c(-race.ethnicity,-test_preparation_course, -lunch,-parental_level_of_education))
+# loại các biến -race.ethnicity,-test_preparation_course, -lunch,-parental_level_of_education
+colnames(Students) <-  c("Gender","Math_Score","Reading_Score","Writing_Score","Total_Score") 
+# đổi tên các biến Gender","Math_Score","Reading_Score","Writing_Score
+head(Students)
+```
+
+```{r}
+students <- Students %>% 
+  pivot_longer(cols = c(Math_Score, Reading_Score, Writing_Score), names_to = "subject", values_to = "score") %>% 
+  separate(subject, c("subject",NA))
+head(students)
+```
+
+```{r}
+gender_score <- students %>% 
+  group_by(Gender, subject) %>% 
+  summarise(
+    avg.score = round(mean(score),1),
+    std.score = round(sd(score),1),
+    .groups = "drop"
+  )
+#tạo tập dữ liệu trung bình điểm các môn toán, đọc, viết theo giới tính
+
+bp<-ggplot(gender_score,
+       aes(
+         x = subject,
+         y = avg.score,
+         fill = Gender
+       )) +
+  geom_bar(stat = "identity",
+           position = "dodge",
+           color = "black"
+  ) +
+  scale_fill_brewer(palette = "Pastel1") +
+  geom_text(aes(label = avg.score),
+            position = position_dodge(0.9),
+            vjust = -0.2,
+            size = 5) +
+  ylim(0,100) +
+  theme(
+    axis.text = element_text(size = 15),
+    axis.title = element_text(size = 20),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 15)
+  )
+plot(bp) # thể hiện tập dữ liệu trung bình điểm các môn toán, đọc, viết theo giới tính dưới dạng biểu đồ
+  
+```
+Học sinh nam có điểm trung bình môn Toán cao hơn và học sinh nữ có điểm trung bình môn Đọc và Viết cao hơn.
+
+Để tìm hiểu sự phân bố điểm của học sinh, nhóm chúng em chia khoảng điểm thành các khoảng 10 điểm và vẽ biểu đồ phân phối của học sinh dưới dạng biểu đồ histogram.
+
+```{r}
+histogram <- students %>% 
+  mutate( bin = cut_interval(score, n=10) )%>% 
+  group_by(bin, Gender, subject) %>% 
+  summarise(
+    n = n(),
+    .groups = "drop"
+  )
+```
+
+
+```{r}
+hist <- ggplot(histogram,
+       aes(
+         x = bin,
+         y = n,
+         fill = Gender
+       )) +
+  geom_bar(stat = "identity", 
+           position = position_dodge2(preserve = "single"),
+           color = "black",
+           width = 0.8) +
+  facet_wrap(~subject, nrow = 3) +
+  scale_fill_brewer(palette = "Pastel1") +
+  theme(
+    axis.text.x = element_text(angle = 45, vjust = 0.6),
+    axis.title.x = element_blank(),
+    axis.text = element_text(size = 15),
+    axis.title = element_text(size = 20),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 15),
+    strip.text = element_text(size = 15)
+  )
+
+hist
+```
+quán sát ở phổ điểm môn toán, từ những thang điểm cao từ 70 đến 100 điểm, tỉ lệ học sinh nam đạt điểm cao này nhiều hơn ở học sinh nữ và ngược lại ở hai môn đọc và viết thì từ thang điểm 70 đến 100 thì học sinh nữ dẫn đầu
+suy ra: Tỉ lệ học sinh nam đứng đầu môn Toán cao, tỉ lệ học sinh nữ đứng đầu môn Đọc và Viết cao.
+
+Nó có thể là kết quả của sự khác biệt về số lượng học sinh, vì vậy nhóm chúng em đã so sánh số lượng học sinh nam và nữ.
+
+
+
+
+```{r}
+table(Students$Gender)
+```
+Học sinh nữ chiếm 51,8% và học sinh nam chiếm 48,2%, không có sự khác biệt có ý nghĩa thống kê giữa học sinh nam và nữ.
+
+Một bài kiểm tra nên được tiến hành để xác định xem sự khác biệt về điểm trung bình giữa học sinh nam và nữ được xác định trước đó có đáng kể hay không.
+
+Kiểm định phương sai bằng nhau được thực hiện trước kiểm định t.
+
+Đặt giả thuyết 
+  H0: có sự khác biệt về kết quả học tập của sinh viên theo môn học theo giới tính 
+  H1: không có sự khác biệt về kết quả học tập của sinh viên theo môn học theo giới tính 
+  
+```{r}
+t.test(Students$Math_Score ~ Students$Gender,var.equal = TRUE)
+
+```
+ p-value = 9.12e-08
+  chênh lệch trung bình điểm toán giữa nhóm nữ và nhóm nam không bằng 0
+  Khoảng tin cậy 95 phần trăm:
+  -6.952285 -3.237737
+  trung bình điểm toán trong nhóm nữ         trung bình điểm toán trong nhóm nam
+            63.63320                                   68.72822
+  
+```{r}
+t.test(Students$Reading_Score ~ Students$Gender,var.equal = TRUE)
+
+```
+ p-value = 4.681e-15
+  chênh lệch trung bình điểm đọc giữa nhóm nữ và nhóm nam không bằng 0
+  Khoảng tin cậy 95 phần trăm:
+    5.375946      8.894212
+  trung bình điểm đọc trong nhóm nữ         trung bình điểm đọc trong nhóm nam
+            72.60811                                    65.47303 
+  
+```{r}
+t.test(Students$Writing_Score ~ Students$Gender,var.equal = TRUE)
+```
+  p-value < 2.2e-16
+  chênh lệch trung bình điểm viết giữa nhóm nữ và nhóm nam không bằng 0
+  Khoảng tin cậy 95 phần trăm:
+   7.35558        10.95638
+  trung bình điểm toán trong nhóm nữ         trung bình điểm toán trong nhóm nam
+            72.46718                                     63.31120
+  
+
+
+Trong cả ba trường hợp, giá trị p rất nhỏ nên giả thuyết không có thể bị bác bỏ.
+
+Vì vậy, có thể thấy sự khác biệt về kết quả học tập của sinh viên theo môn học theo giới tính là một sự khác biệt đáng kể.
+
+
+2. Mối quan hệ giữa thu nhập của cha mẹ và điểm kiểm tra
+Bộ dữ liệu StudentsPerformance có một biến bữa trưa.
+Biến lunch có các giá trị là free/reduced và standard.
+```{r}
+table(dt$lunch)
+```
+Phân tích được thực hiện bằng cách diễn giải biến bữa trưa là mức thu nhập của gia đình
+```{r}
+students <- subset(dt, select = c(-race.ethnicity,-test_preparation_course, -gender,-parental_level_of_education,-total_score))
+colnames(students) <-  c("Lunch","Math_Score","Reading_Score","Writing_Score")
+head(students)
+```
+
+
+```{r}
+br <- ggplot(students, aes(Lunch, Reading_Score))
+br <- br + geom_boxplot(fill='lavender')
+br <- br + ggtitle("Reading scores by Lunch Boxplot")
+br <- br + xlab("Lunch") + ylab("Reading Scores")
+br
+
+bw <- ggplot(students, aes(Lunch, Writing_Score))
+bw <- bw + geom_boxplot(fill='lavender')
+bw <- bw + ggtitle("Writing scores by Lunch Boxplot")
+bw <- bw + xlab("Lunch") + ylab("Writing Scores")
+bw
+
+bm <- ggplot(students, aes(Lunch, Math_Score))
+bm <- bm + geom_boxplot(fill='lavender')
+bm <- bm + ggtitle("Math scores by Lunch Boxplot")
+bm <- bm + xlab("Lunch") + ylab("Math Scores")
+bm
+```
+
+Người ta thấy rằng điểm viết, điểm toán và điểm đọc đều có phân phối cao trong "tiêu chuẩn"(Lunch_standard). Để tìm hiểu xem những khác biệt này có đáng kể hay không, một bài kiểm tra t-test đã được tiến hành trên biến mean.score, là điểm trung bình của từng môn học trong số ba môn học của sinh viên.
+
+Trước khi thử nghiệm t-test , một thử nghiệm phương sai bằng nhau đã được thực hiện. 
+Đặt giả thuyết 
+  H0: Phương sai của hai nhóm standard và free/reduced là như nhau
+  H1: Phương sai của hai nhóm standard và free/reduced là khác nhau
+  
+```{r}
+students$avg.score =  round(apply(students[,c("Math_Score","Reading_Score","Writing_Score")],FUN = mean, MARGIN = 1),2)
+var.test(students$avg.score ~ students$Lunch)
+```
+  Vì giá trị p của kết quả Kiểm tra F < 0,05 nên giả thuyết H0 có thể bị bác bỏ. Do đó, có thể thấy phương sai của hai nhóm là khác nhau.
+
+Dựa trên những kết quả này, một bài kiểm tra t-test khác được thực hiện.
+  
+```{r}
+
+```
+
+Đặt giả thuyết:
+  H0: Thu nhập của cha mẹ không liên quan đến điểm số của học sinh
+  H1: Thu nhập của cha mẹ có liên quan đến điểm số của học sinh
+
+```{r}
+t.test(students$avg.score ~ students$Lunch,var.equal = FALSE)
+```
+
+  Vì giá trị p < 2.2e-16 là rất nhỏ nên có thể bác bỏ giả thuyết H0 Do đó, sự khác biệt về kết quả học tập trung bình của học sinh theo thu nhập của phụ huynh có thể được coi là một sự khác biệt đáng kể.
+  
+```{r}
+
+```
+
+
+3. Mối quan hệ giữa trình độ học vấn của cha mẹ và điểm kiểm tra
+
+Tập dữ liệu StudentsPerformance có biến parental.level.of.education
+Biến parental.level.of.education là biến đại diện cho trình độ học vấn của cha mẹ và có các giá trị như bằng cao đẳng, bằng cử nhân, trung học phổ thông, cao học, đại học nào đó và trung học nào đó.
+```{r}
+table(dt$parental_level_of_education)
+```
+
+tạo tập dữ liệu students gồm 3 biến parental.level.of.education, Math_Score,Reading_Score, Writing_Score
+
+```{r}
+students <- subset(dt, select = c(-race.ethnicity,-lunch,-gender,-test_preparation_course, -total_score))
+colnames(students) <-  c("Parent_Education","Math_Score","Reading_Score","Writing_Score")
+
+students <- students %>% 
+  pivot_longer(cols = c(Math_Score, Reading_Score, Writing_Score), names_to = "subject", values_to = "score") %>% 
+  separate(subject, c("subject",NA))
+
+students$Parent_Education <- factor(students$Parent_Education, levels = c("some high school", "high school", "some college", "associate's degree", "bachelor\'s degree", "master\'s degree"))
+
+#phân loại thành tích học tập của phụ huynh
+
+```
+
+
+```{r}
+edu_score<- students %>% 
+  group_by(Parent_Education, subject) %>% 
+  summarise(
+    avg.score = round(mean(score),1),
+    std.score = round(sd(score),1),
+    .groups = "drop"
+  )
+
+gp <- ggplot(edu_score,
+             aes(x = Parent_Education)) +
+  geom_point(aes(y = avg.score), color = "tomato", shape = 18, size = 5) +
+  geom_point(aes(y = std.score/0.2), color = "slategray3", shape = 20, size = 5) +
+  scale_y_continuous(
+    "avg.score",
+    sec.axis = sec_axis(~. * 0.2, name = "std.score")
+  ) +
+  facet_wrap(~subject, nrow = 3) +
+  theme(
+    axis.text.x = element_text(angle = 10, vjust = 0.6),
+    axis.text = element_text(size = 12),
+    axis.title.x = element_text(size = 20),
+    axis.title.y.left = element_text(size = 20, color = "tomato"),
+    axis.title.y.right = element_text(size = 20, color = "slategray3"),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 15),
+    strip.text = element_text(size = 15)
+  )
+gp
+```
+avg.score: điểm trung bình
+std.score: điểm chuẩn
+```{r}
+histogram <- students %>% 
+  mutate(bin = cut_interval(score, n=10)) %>% 
+  group_by(bin, Parent_Education) %>% 
+  summarise(
+    n = n(),
+    .groups = "drop"
+  )
+
+hist <- ggplot(histogram,
+               aes(
+                 x = bin,
+                 y = n,
+                 fill = Parent_Education
+               )) +
+  geom_bar(stat = "identity", 
+           position = position_dodge2(preserve = "single"),
+           color = "black",
+           width = 0.8) +
+  scale_fill_brewer(palette = "Pastel1") +
+  theme(
+    axis.text.x = element_text(angle = 45, vjust = 0.6),
+    axis.title.x = element_blank(),
+    axis.text = element_text(size = 15),
+    axis.title = element_text(size = 20),
+    legend.text = element_text(size = 12),
+    legend.title = element_text(size = 15),
+    strip.text = element_text(size = 15)
+  ) 
+hist
+```
+Có thể thấy rằng khi trình độ học vấn của phụ huynh tăng lên thì điểm trung bình của học sinh có xu hướng tăng lên ở cả ba môn học.
+
+```{r}
+
+```
+
+Kết luận:
+  Mối quan hệ giữa giới tính và điểm các môn toán, đọc, viết
+
+Thông qua trực quan hóa dữ liệu, chúng tôi đưa ra giả thuyết rằng học sinh nữ có kỹ năng ngôn ngữ (đọc và viết) tốt hơn học sinh nam và học sinh nam có kỹ năng toán học tốt hơn học sinh nữ.
+
+
+
+mối quan hệ giữa trình dộ học vấn và thu nhập của cha mẹ đối với điểm các môn toán, đọc, viết
+
+Kiểm định t-test cho thấy có mối quan hệ đáng kể giữa thu nhập của cha mẹ và điểm số của học sinh. Nhóm chúng em cho rằng điều này cũng có thể được coi là thực tế là học sinh từ các gia đình có thu nhập thấp không được tạo cơ hội giáo dục bình đẳng.
+
+Qua phân tích ta thấy rằng điểm số của con cái của cha mẹ có trình độ học vấn cao là tương đối cao và điều này là do kinh nghiệm và sự quan tâm, dạy dỗ truyền đạt của cha mẹ đối với giáo dục lên con cái của họ đã ảnh hưởng đến điểm số của con cái họ.
+
+
+Qua việc phân tích các yếu tố giới tính, thu nhập và trình độ của cha mẹ có liên quan đến điểm các môn của học sinh thì nhóm chúng em đã có được giải pháp rằng:
+  +về giới: việc các học sinh Nam chiếm ưu thế về điểm môn Toán hơn các học sinh nữ và ngược lại thì ta có thể khai khác các điểm mạnh , tiềm năng về lĩnh của các em học sinh và đưa ra giải pháp giáo dục phù hợp và hiệu quả
+  + về thu nhập của học sinh: ta thấy rằng qua phân tích và trong thực tế ở giai đoạn hiện nay việc thu nhập của một hộ gia đình ở mức trun bình hoặc thấp sẽ ảnh hưởng đến kết quả học tập của các em học sinh, chính vì vậy chúng ta cần giải quyết vấn đề kinh tế, học phí và bữa ăn học đường của các học sinh sinh viên, các quỹ học bổng và bảo trợ học sinh sinh viên để đảm bảo được sự bình đẳng trong giáo dục.
+  +về trình độ học vấn của phụ huynh: quá rõ ràng sau khi phân tích ta thấy rằng việc phụ huynh học sinh có trình độ dân trí cao hơn thì con của họ cũng có tỉ lệ đạt thành tích học tập tốt hơn, họ quan tâm và truyền đạt kiến thức kinh nghiệm và văn hoá để giáo dục con em của họ tốt hơn. Cho nên đối với những bậc phụ huynh tuy có những trình độ khác nhau nhưng việc cải thiện dân trí và sự quan tâm cho các con em của họ là điều hoàn toàn có thể, để góp phần nâng cao học thức và dân trí, gia đình có dân trí cao thúc đẩy các con em có ý thức trong việc học tập hơn và góp phần nâng cao dân trí trong xã hội.
+  
+  
+  
+```{r}
+
+```
+Quan kết quả phân tích trên, nhóm chúng em đã tìm được những biến gây tác động đến điểm số của học sinh. Để tiếp tục phân tích sâu hơn tằng trong các biến của tập dữ liệu, nhóm chúng em sử dụng thêm mô hình RANDOM FOREST để tìm xem đâu là biến quan trọng nhất gây tác động đến điểm số của học sinh.
+
+```{r}
+Students <- dt %>% rename(race = race.ethnicity, parent.ed = parental_level_of_education,
+                                test.prep = test_preparation_course, m.score = math_score,
+                                r.score = reading_score, w.score = writing_score)
+colnames(Students)
+```
+Bộ dữ liệu Students sử dụng cho mô hình RF
+```{r}
+#kiểm tra xem có giá trị nào bị thiếu hoặc NA
+sapply(Students, function(x)sum(is.na(x)))
+```
+
+thêm Điểm trung bình làm biến mới trong dữ liệu, vì nó sẽ phù hợp hơn để kiểm tra hiệu suất của học sinh.
+```{r}
+Students <- Students %>% mutate (Avg.score = (r.score + m.score + w.score)/3)
+head(Students,n=10)
+```
+MÔ HÌNH RỪNG NGẪU NHIÊN Rừng ngẫu nhiên là một thuật toán phân loại bao gồm nhiều cây quyết định. Nó sử dụng tính năng đóng gói và tính năng ngẫu nhiên khi xây dựng từng cây riêng lẻ để cố gắng tạo ra một rừng cây không tương quan mà dự đoán của ủy ban chính xác hơn dự đoán của bất kỳ cây riêng lẻ nào.
+
+```{r}
+
+```
+bộ TRAIN/TEST
+```{r}
+#Sử dụng nrow để lấy số hàng trong bộ dữ liệu Students (N)
+(N <- nrow(Students))
+# tính xem 75% của N phải là bao nhiêu hàng, sử dụng hàm round() để lấy số nguyên
+(target <- round(N*.75))
+
+# tạo một vectơ gồm N biến ngẫu nhiên thống nhất
+st <- runif(N)
+#Sử dụng st để tạo tập huấn luyện: student_train(75% dữ liệu) và student(25% dữ liệu)
+Student_train <- Students[st < .75, ]
+Student_test <- Students[st >= .75, ]
+
+nrow(Student_train)
+nrow(Student_test)
+#seed
+set.seed(122)
+```
+XÂY DỰNG MÔ HÌNH RANDOM FOREST TRÊN BỘ DỮ LIỆU Student_train
+```{r}
+# Kiểm tra str của Student_train
+str(Student_train)
+# Hạt giống ngẫu nhiên để tái tạo kết quả
+seed <- set.seed(1234)
+# outcome column
+(outcome <- "Avg.score")
+# Biến truyền vào
+(vars <- c("gender", "race", "parent.ed", "lunch", "test.prep"))
+# Tạo chuỗi công thức cho Điểm trung bình dưới dạng một hàm của đầu vào
+(fmla <- paste(outcome, "~", paste(vars, collapse = " + ")))
+# Gọi thư viện ranger
+# nếu kết quả là số, ranger sẽ tự động thực hiện hồi quy thay vì phân loại.
+# Lắp và in mô hình Random Forest
+(model_rf <- ranger(fmla, Student_train, num.trees = 200, respect.unordered.factors = "order", seed = seed)) 
+#respect.unordered.factors giúp ranger mã hóa một cách an toàn và có ý nghĩa các biến phân loại dưới dạng số. Mã hóa này chạy nhanh hơn chuyển đổi biến phân loại thành biến chỉ báo..
+```
+
+Dự đoán bằng mô hình RANDOM FOREST
+```{r}
+#Dự đoán trên Student_test
+Student_test$pred <- predict(model_rf, Student_test)$prediction
+#Tính toán RMSE của các dự đoán
+Student_test %>% 
+  mutate(Residual = pred - Avg.score) %>% #Calculating the residual
+  summarise(rmse = sqrt(mean(Residual^2)))  #calculating RMSE
+```
+
+```{r}
+ggplot(Student_test, aes(pred, Avg.score)) + geom_point() + geom_abline() + 
+  labs(title = "Avg.score Predictions Vs actual Avg.score - Random Forests")
+# thể hiện biểu đồ: điểm trung bình dự đoán so với thực tế
+```
+VARIABLE IMPORTANCE
+```{r}
+student_T <- Student_train %>% select(-m.score, -r.score, -w.score,-total_score) # tạo bộ dữ liệu TRain student_T loại các biến điểm toán đọc viết
+glimpse(student_T) # xem mọi cột trong khung dữ liệu.
+```
+```{r}
+rand_forest(mode = "regression") %>%
+  set_engine("ranger", importance="impurity") %>%
+  fit(Avg.score~., data=student_T)%>%
+  vip:: vip(aesthetic=list(color="green"))
+```
+Xem xét mức độ quan trọng của các biến và đưa ra kết quả
+KẾT LUẬN qua phân tích và quan sát cho thấy biến Lunch/Bữa trưa (tiêu chuẩn/giảm) có tầm quan trọng nhất so với bất kỳ biến số nào khác, biến Lunch đã cho thấy tầm quan trọng nhất của mình bởi nó là yếu tố thể hiện kinh tế của gia đình và thể hiện 1 góc độ khả năng chi trả của phụ huynh để con của họ có thể được học trong một môi trường giáo dục tốt, đồng thời phản ánh đến sức khoẻ, một học sinh có một bữa ăn đầy đủ để đảm bảo sức khoẻ học tập và không cần phải suy nghĩ nhiều đến vấn đề kinh tế gia đình thì sẽ tập trung cho việc học của học sinh hơn. 
+Biến giới tính có ít tầm quan trọng nhất.
+
+
+##Câu hỏi 2: Mục đích của phân tích này là xem liệu có thể dự đoán được tổng điểm của học sinh qua các biến gender, test_preparation_course, reading_score và writing_score
+# Trước tiên , ta sẽ chuyển các biến dạng phân loại sang dạng số
+
+```{r}
+MakeNum <- function(x) as.numeric(as.factor(x))
+
+dtn <- mutate(dt, across(1:5, MakeNum))
+dtn
+str(dtn)
+glimpse(dtn)
+```
+#Sau khi chuyển đổi 
+  gender                     : 1 (female) , 2 (male)
+  test_preparation_course    : 1 (complete) , 2 (none)
+  parental_level_of_education: 1 (Group A), 2 (Group B), 3 (Group c),4 (Group D)
+  lunch                      : 1 (free/reduced)   , 2 (standard)
+  race.ethnicity             : 1 (associate's degree) , 2 (bachelor's degree) , 3 (high school) , 4 (	master's degree), 5 (some college)
+
+
+
+Tiếp đó, tạo tập dữ liệu dùng để train và test model với train chứa 70% và test chứa 30% của dữ liệu. 
+```{r}
+set.seed(123)
+samplesize <- round(0.7 * nrow(dtn), 0)
+index <- sample(seq_len(nrow(dtn)), size = samplesize)
+
+data_train <- dtn[index, ]
+data_test <- dtn[-index, ]
+
+```
+
+Sau đó xây dựng một model Multipe Linear Regression 
+
+
+```{r}
+#xay dung model Multiple Linear Regression
+student_lm <- lm(total_score ~ reading_score + writing_score + gender + test_preparation_course, data = data_train)
+
+summary(student_lm)
+
+```
+#Ta thấy được các biến chúng ta muốn dự đoán đều có p-value < 0.05 vì vậy các biến trên có ảnh hưởng đáng kể đến tổng điểm của học sinh.Và giá trị R^2 của là 0.9808 , giá trị này rất tốt và điều đó có nghĩa là mô hình của chúng ta có thể dự đoán tổng điểm tốt. Ngoài ra, giá trị này còn có nghĩa là các yếu tố dự đoán giải thích được 86,9% độ biến thiên của tổng điểm.
+
+```{r}
+#du doan tap du lieu data_test
+lm_pred <- predict(student_lm, newdata = data_test %>% select(-total_score))
+
+# RMSE of train dataset
+RMSE(pred = student_lm$fitted.values, obs = data_train$total_score)
+
+```
+#Root Mean Square Error (RMSE) hoặc Root Mean Square Deviation (RMSD) là căn bậc hai của mức trung bình của các sai số bình phương. RMSE là độ lệch chuẩn của các phần dư (sai số dự đoán)
+#Root Mean Square Error (RMSE) RMSE cho biết mức độ phân tán các giá trị dự đoán từ các giá trị thực tế. 
+#RMSE càng thấp, mô hình và dự đoán của nó càng tốt
+
+```{r}
+# RMSE of test dataset
+RMSE(pred = lm_pred, obs = data_test$total_score)
+
+```
+# Quan sát kết quả ta thấy kết quả RMSE của tập dữ liệu train và test đều thấp . Điều này cho thấy model dự đoán tốt.
+
+
+#Tiếp theo sẽ kiểm tra mô hình có tuyến tính không. Để kiểm tra thì ta xem xét phần dư nếu
+
+- có phương sai không đổi
+- Phần dư có trị trung bình bằng 0 
+- Không có tương quan giữa các phần dư
+
+```{r}
+plot(student_lm)
+```
+
+# Quan sát các biểu đồ trên, ta thấy đối với biểu đồ Normal P-P Plot,  các điểm dữ liệu trong phân phối của phần dư bám sát vào đường chéo vì vậy  phần dư có phân phối chuẩn và các trị phần dư phân tán ngẫu nhiên quanh giá trị zero (đường ngang) thì phương sai không thay đổi. Như vậy ta có thể kết luận Mô hình tuyến tính.
+
+##Tạo ra 2 input mới để dự đoán kết quả:
+
+```{r}
+newdata = data.frame(reading_score = c(90,57), writing_score = c(90,44), gender = c(2,2), test_preparation_course = c(1,2))
+predictions = predict.lm(student_lm, newdata)
+predictions
+
+
+```
+
+```{r}
+ggplot(data_test, aes(x=lm_pred, y=total_score)) +
+  geom_point() +
+  geom_abline(intercept=0, slope=1) +
+  labs(x='Predicted Values', y='Actual Values', title='Predicted vs. Actual Values')
+
+```
+Nhận xét: Qua quan sát từ biểu đồ trên, ta thấy kết quả dự đoán được từ Multiple Regression khá sát với thực tế.
+
+Kết luận: Từ kết quả trên ta có thể xác nhận rằng các yếu tố như giới tính, việc tham gia huấn luyện trước kì thi và điểm từ các môn đọc, viết có ảnh hưởng lớn đến tổng điểm của một học sinh. 
+
+##Câu hỏi 3: Mục đích của phân tích này là xem liệu có mối quan hệ đáng kể nào giữa dân tộc, trình độ học vấn của cha mẹ với điểm kiểm tra hay không?
+- Mối quan hệ giữa dân tộc với điểm kiểm tra
+- Mối quan hệ giữa trình độ học vấn của cha mẹ với điểm kiểm tra
+
+1.1. Đăt giả thiết:
+H0: Không có sự khác biệt thống kê về trung bình điểm môn toán giữa mỗi dân tộc.
+H1: Có sự khác biệt thống kê về trung bình điểm môn toán giữa mỗi dân tộc.
+Mức ý nghĩa: 0.05 (Tương đương khoảng tin cậy 95%)
+
+```{r}
+by_race_ethnicity <- dt %>%
+  group_by(race.ethnicity) %>%
+  summarise(math_score_mean = mean(math_score), math_score_var = var(math_score), math_score_sd = sd(math_score)) %>% arrange(desc(math_score_mean))
+
+by_race_ethnicity
+```
+
+```{r}
+ggplot(by_race_ethnicity, aes(x = race.ethnicity, y = math_score_mean, fill = race.ethnicity)) + geom_col() + ggtitle("Comparison of Students Math Score", subtitle = "By Race Ethnicity") + xlab("Race Ethnicity") + ylab("Math Score Average")
+```
+- Bằng cách nhìn vào khung dữ liệu và trực quan hóa ở trên chúng ta có thể thấy rằng có một sự khác biệt nhỏ về giá trị trung bình giữa mỗi nhóm
+
+- Để biết sự khác biệt giữa mỗi nhóm có nhiều không chúng ta cần phải sử dụng kiểm tra thống kê
+```{r}
+aov(math_score ~ race.ethnicity, data = dt)
+```
+- Nhìn vào kết quả trên, chúng ta chỉ có được thông tin chung, còn cần biết giá trị p để so sánh với mức ý nghĩa, và xem có cần bác bỏ H0 hay không.
+
+```{r}
+summary(aov(math_score ~ race.ethnicity, data = dt))
+```
+- Giá trị p nhỏ hơn ngưỡng thông thường là 0,05 nên chúng tôi bác bỏ H0.
+
+- Kết luận: Có sự khác biệt thống kê giữa trung bình điểm toán trong mỗi sắc tộc chủng tộc.
+
+1.2. Điểm môn toán so với trình độ học vấn của cha mẹ
+
+- Phân tích dữ liệu
+
+```{r}
+by_parent_education <- dt %>%
+  group_by(parental_level_of_education) %>%
+  summarise(math_score_mean = mean(math_score), math_score_sd = sd(math_score)) %>% arrange(desc(math_score_mean))
+  
+by_parent_education
+```
+
+Có một sự khác biệt nhỏ giữa phương tiện của mỗi nhóm (trình độ học vấn của cha mẹ). Tiếp theo, chúng ta có thể trực quan hóa dữ liệu của mình để hiểu rõ hơn.
+
+
+
+```{r}
+ggplot(by_parent_education, aes(x = reorder(parental_level_of_education, math_score_mean), 
+                                y = math_score_mean, fill = parental_level_of_education)) + 
+                                geom_col() + ggtitle("Comparison of Students Math Score", subtitle = "By Parental Education Level") +                                          xlab("Parental Level of Education") + ylab("Math Score Average") + 
+                                theme(axis.text.x = element_text(angle = 15)) + 
+                                scale_fill_manual(values = c("green", "blue", "red", "purple", "yellow", "orange"))
+```
+- Dựa vào biểu đồ trên chúng ta có thể thấy trình độ học vấn của cha mẹ ảnh hưởng đến điểm môn toán như thế nào
+
+- Đặt giá thiết:
+- H0: Không có sự khác biệt về trung bình điểm môn toán giữa các bậc học của cha và mẹ
+- H1: Có sự khác biệt về trung bình điểm môn toán giữa các bậc học của cha mẹ
+
+```{r}
+summary(aov(math_score ~ parental_level_of_education, data = dt))
+```
+
+- Giá trị p < 0,05, do đó bác bỏ giả thiết H0
+- Có sự khác biệt đáng kể về điểm trung bình môn toán giữa trình độ học vấn của cha mẹ. Ví dụ, những học sinh có cha mẹ có bằng thạc sĩ đạt điểm môn toán cao hơn đáng kể so với những học sinh có cha mẹ chỉ mới tốt nghiệp trung học. Nhưng trình độ học vấn của cha mẹ không phải là yếu tố duy nhất vì còn có yếu tố khác như sắc tộc.
+
+- Điểm môn Toán so với Trình độ học vấn của cha mẹ và Chủng tộc Dân tộc
+
+```{r}
+summary(aov(math_score ~ parental_level_of_education + race.ethnicity, data = dt))
+```
+
+- Giá trị p < 0.05 do đó bác bỏ giả thiết H0
+- Có một tác động đáng kể giữa điểm toán và trình độ học vấn của cha mẹ cũng như điểm toán và chủng tộc.
+
+-Điểm môn toán so với sự kết hợp giữa trình độ học vấn của cha mẹ và chủng tộc
+
+```{r}
+summary(aov(math_score ~ parental_level_of_education:race.ethnicity, data = dt))
+```
+
+- Giá trị p < 0.05 do đó bác bỏ giả thiết H0
+- Có một tác động đáng kể từ sự kết hợp giữa trình độ học vấn của cha mẹ và sắc tộc chủng tộc đối với điểm môn toán.
+
+- Kết luận cuối cùng: Dựa vào những phân tích và đánh giá từ trên xuống chúng ta có thể thấy điểm số kiểm tra của môn toán cao hay thấp của mỗi sinh viên có liên quan đến quan hệ đáng kể giữa dân tộc, trình độ học vấn của cha mẹ

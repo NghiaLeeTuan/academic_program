@@ -1,0 +1,758 @@
+---
+title: "Lab 2 - String, factor, list, data frame, control structures, and function"
+author: "Your name"
+date: "2022/08/30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Câu 1 - String
+
+a. Tạo và lưu chuỗi có dạng chính xác như sau (xuống dòng và cách lần lượt 1 tab, 2 tab):
+
+<pre>
+"The quick brown fox
+  jumped over
+    the lazy dogs"
+</pre>
+
+```{r 1a}
+# ...
+cat(sprintf("<pre>
+The quick brown fox
+  jumped over
+    the lazy dogs
+</pre>"))
+```
+
+
+b. Giả sử bạn có các biến num1 <- 4 và num2 <- 0.75. Hãy viết một dòng code R để xuất ra chuỗi sau:
+
+<pre>
+[1] "The result of multiplying 4 by 0.75 is 3"
+</pre>
+
+Kiểm tra lại để kết quả (3) đúng với tích của num1 và num2.
+
+```{r 1b}
+# ...
+num1 <-4
+num2 <- 0.75
+cat(sprintf("<pre>
+The result of multiplying\"%.0f\ by \"%.2f\ is \"%.0f\"
+</pre>",num1,num2,num1*num2))
+```
+
+c. Giả sử biến `home` có giá trị là `"C:/Users/hoangqd/R for data analysis/Labs/"`. Hãy thay thế giá trị `hoangqd` trong chuỗi trên bằng tên, các chữ đầu của họ, tên lót của bạn (viết không dấu). Ví dụ: nếu bạn tên `Nguyễn Văn An` thì đổi thành `annv`.
+
+```{r 1c}
+# ...
+home <- "C:/Users/hoangqd/R for data analysis/Labs/"
+print(gsub("hoangqd","nghialt",home))
+```
+
+d. Giả sử bạn có chuỗi `s` là `"Learning programming with R is very interesting"`. Hãy thực hiện các yêu cầu sau:
+
+  1. Trích ra trong chuỗi `s` ký tự thứ 5 đến thứ 10.
+
+```{r 1d1}
+# ...
+s <-"Learning programming with R is very interesting"
+substr(s,5,10)
+```
+
+  2. Chèn chuỗi `"easy and "` vào trước chuỗi `"very interesting"` trong chuỗi `s`.
+
+```{r 1d2}
+# ...
+s <- gsub("^(.{31})(.*)$","\\1easy and \\2",s)
+s
+```
+
+  3. Thay thế tất cả những vị trí có chuỗi `"ing"` trong `s` bởi chuỗi `"ed"`.
+
+```{r 1d3}
+# ...
+gsub("ing","ed",s)
+s
+```
+
+
+## Câu 2 - Factor
+
+Giả sử dữ liệu `data` mô tả một lớp học có 57 sinh viên, trong đó có 6 sinh viên nữ ở các dòng lần lượt là 18, 33, 36, 49, 50, và 53. Các sinh viên này được phân vào 3 lớp `A`, `B` và `C`. Giả sử các vector `a`, `b` và `c` mô tả chỉ số của các sinh viên thuộc lớp `A`, `B` và `C` trong dữ liệu. Cho biết `a` là `c(2, 3, 6, 9, 12, 14, 19, 22, 28, 30, 33, 37, 42, 43, 45, 46, 49, 54, 57)`, `b` là `c(1, 5, 8, 10, 11, 20, 21, 23, 25, 26, 32, 38, 39, 41, 44, 51)` và `c` là `c(4, 7, 13, 15, 16, 17, 18, 24, 27, 29, 31, 34, 35, 36, 40, 47, 48, 50, 52, 53, 55, 56)`. Viết code thể hiện input trên.
+
+```{r 2}
+# ...
+a <- factor(c(2, 3, 6, 9, 12, 14, 19, 22, 28, 30, 33, 37, 42, 43, 45, 46, 49, 54, 57))
+b <- factor(c(1, 5, 8, 10, 11, 20, 21, 23, 25, 26, 32, 38, 39, 41, 44, 51))
+c <- factor(c(4, 7, 13, 15, 16, 17, 18, 24, 27, 29, 31, 34, 35, 36, 40, 47, 48, 50, 52, 53, 55, 56))
+data <- factor(1:57)
+data
+```
+
+a. Hãy tạo character vector là `sex` nhận các giá trị `"M"` và `"F"` và character vector `class` nhận các giá trị `"A"`, `"B"` và `"C"` để mô tả dữ liệu trên. Kiểm tra rằng các vector này có các giá trị ở đúng vị trí như mô tả trên.
+
+```{r 2a}
+# ...
+girl <- c(18, 33, 36, 49, 50, 53)
+sex <- c()
+
+for (i in 1:length(data))
+{
+  if (data[i] %in% girl)
+  {
+    sex <- append(sex, "F")
+  }
+  else
+  {
+    sex <- append(sex, "M")
+  }
+}
+
+class <- c()
+for(i in 1:length(data))
+{
+  if (data[i] %in% a)
+  {
+    class <- append(class, "A")
+    next
+  }
+  if (data[i] %in% b)
+  {
+    class <- append(class, "B")
+    next
+  }
+  if (data[i] %in% c)
+  {
+    class <- append(class, "C")
+    next
+  }
+}
+
+sex
+class
+```
+
+b. Tạo hai factor vector khác dựa trên hai character vector `sex` và `class` ở trên. Tham số `ordered=TRUE` có ý nghĩa trong trường hợp này không? Nếu thêm tham số `ordered=TRUE` thì `R` sẽ sắp xếp kết quả sẽ như thế nào?
+
+```{r 2b}
+# ...
+sexfactor <- factor(sex)
+sexfactor
+classfactor <- factor(class)
+classfactor
+# Tham số orderes không có ý nghĩa, nếu tham số là true thì kết quả vẫn không thay đôi
+```
+
+c. Trả về factor vector của lớp chỉ có sinh viên nam.
+
+```{r 2c}
+# ...
+check_male <- function(id, sex)
+{
+  for (i in 1:length(id))
+  {
+    if (sex[i] == "F") return(F)
+  }
+  return(T)
+}
+
+if(check_male(a,sex)) factor(a)
+if(check_male(b,sex)) factor(b)
+if(check_male(c,sex)) factor(c)
+
+```
+
+d. Trả về factor vector của lớp `"A"`.
+
+```{r 2d}
+# ...
+factor(a)
+```
+
+e. Giả sử `month` là `c(3, 10, 9, 10, 9, 3, 7, 8, 6, 4, 2, 6, 10, 7, 7, 2, 3, 6, 8, 4, 3, 8, 10, 10, 12, 6, 12, 10, 2, 3, 1, 10, 5, 9, 9, 3, 4, 6, 4, 5, 2, 10, 10, 2, 11, 2, 8, 11, 10, 5, 11, 8, 8, 10, 6, 10, 2)` mô tả tháng sinh của các sinh viên trong lớp. Hãy tạo biến `quarter` mô tả các quí tương ứng (`quarter` là "Q1", "Q2", "Q3", và "Q4" lần lượt ứng với các tháng 1 đến 3, 4 đến 6, 7 đến 9, và 10 đến 12).
+
+```{r 2e}
+# ...
+birth <- c(3, 10, 9, 10, 9, 3, 7, 8, 6, 4, 2, 6, 10, 7, 7, 2, 3, 6, 8, 4, 3, 8, 10, 10, 12, 6, 12, 10, 2, 3, 1, 10, 5, 9, 9, 3, 4, 6, 4, 5, 2, 10, 10, 2, 11, 2, 8, 11, 10, 5, 11, 8, 8, 10, 6, 10, 2)
+quater <- c()
+for (i in 1:length(birth))
+{
+  if (birth[i] <= 3)
+    quater <- append(quater, "Q1")
+  else if (birth[i] <= 6)
+      quater <- append(quater, "Q2")
+    else if (birth[i] <= 9)
+        quater <- append(quater, "Q3")
+      else
+        quater <- append(quater, "Q4")
+}
+quater
+```
+
+f. Trích ra các sinh viên lớp `"A"` sinh ở quí "Q1".
+
+```{r 2f}
+# ...
+which(quater[a]=="Q1")
+```
+
+
+## Câu 3 - List
+
+a. Tạo một `list` chứa, theo thứ tự, một dãy 20 giá trị từ -4 đến 4 cách đều nhau, một `logical matrix` kích thước $3 \times 3$ theo cột từ `logical vector` là `c(F, T, T, T, F, T, T, F, F)`, một vector gồm hai chuỗi `"don"` và `"quixote"`, và một `factor vector` `c("LOW","MED","LOW","MED","MED","HIGH")`. Sau đó thực hiện các yêu cầu sau:
+
+```{r 3a}
+# ...
+list <- list(seq(from = -4, to = 4, by = (8/19)), matrix(c(F, T, T, T, F, T, T, F, F), nrow = 3, ncol = 3), c("don","quixote"),factor(c("LOW","MED","LOW","MED","MED","HIGH")))
+list
+```
+
+  1. Trích ra dòng 2 và 1 của cột 2 và 3 theo thứ tự từ `logical matrix`.
+
+```{r 3a1}
+# ...
+
+list[[2]][2,2]
+list[[2]][1,3]
+```
+
+  2. Dùng hàm `sub` để ghi đè giá trị `"quixote"` thành `"Quixote"` và `"don"` thành `"Don"` trong `list` đã tạo. Sau đó, thêm vào `list` mới chuỗi sau:
+
+<pre>
+"Windmills! ATTACK!"
+-\Don Quixote/-
+</pre>
+
+```{r 3a2}
+# ...
+list[[3]] <- sub("quixote", "Quixote", list[[3]])
+list[[3]] <- sub("don", "Don", list[[3]])
+list <- append(list, c('<pre>
+                       "Windmills! ATTACK!"\n-\\Don Quixote/-
+                       </pre>'))
+list
+```
+
+  3. Xuất ra các giá trị từ dãy giá trị từ −4 đến 4 những giá trị lớn hơn 1.
+
+```{r 3a3}
+# ...
+which(list[[1]]>1)
+```
+
+  4. Dùng hàm `which` để xác định những vị trí của `factor vector` nhận giá trị `"MED"`.
+
+```{r 3a4}
+# ...
+which(list[[4]] == "MED")
+```
+
+b. Tạo một `list` mới chứa, theo thứ tự, một `factor vector` ở câu (a) với tên `"facs"`, một `numeric vector` là `c(3,2.1,3.3,4,1.5,4.9)` với tên `"nums"`, và một `list` gồm 3 thành phần đầu tiên của list ở câu (a) với tên `"oldlist"`. Sau đó thực hiện các yêu cầu sau:
+
+```{r 3b}
+# ...
+b_list <- list(facs = list[[4]], nums = c(3,2.1,3.3,4,1.5,4.9), oldlist = list(list[[1]], list[[2]], list[[3]]))
+b_list
+```
+
+  1. Trích ra các phần tử của `"facs"` tương ứng với các phần tử của `"nums"` lớn hơn hoặc bằng 3.
+
+```{r 3b1}
+# ...
+which(b_list$nums >= 3)
+```
+
+  2. Thêm một phần tử mới vào `list` với tên `"flags"`. Phần tử mới này là một `logical vector` có chiều dài 6 được tạo ra từ việc lặp lại hai lần cột thứ 3 của `logical matrix` trong `"oldlist"`.
+
+```{r 3b2}
+# ...
+b_list$flags = c(rep((b_list$oldlist[[2]][,3]),2))
+b_list
+```
+
+  3.  Sử dụng `"flags"` và phép toán `!` để trích ra các phần tử của `"nums"` nhận giá trị `FALSE`.
+
+```{r 3b3}
+# ...
+tmp <- which(b_list$flags == FALSE)
+b_list$nums[tmp]
+```
+
+  4. Ghi đè `character string vector` của `"oldlist"` với chuỗi `"Don Quixote"`.
+
+```{r 3b4}
+# ...
+b_list$oldlist[[3]] <- "Don Quixote"
+b_list
+```
+
+## Câu 4 - Data frame
+
+a. Tạo và lưu `data frame` bên dưới với tên `dframe`:
+
+| person | sex | funny |
+| ------ |:---:| -----:|
+| Stan | M | High |
+| Francine | F | Med |
+| Steve |M | Low |
+| Roger | M | High |
+| Hayley | F | Med |
+| Klaus | M | Med |
+
+
+Biến (cột) `person` là `character vector`, biến `sex` là `factor vector` với các `level` là `F` và `M`, và `funny` là `factor vector` với các `level` là `Low`, `Med`, và `High`.
+
+```{r 4a}
+# ...
+person <- c("Stan", "Francine", "Steve", "Roger", "Hayley", "Klaus")
+sex <- factor(c("M", "F", "M", "M", "F", "M"))
+funny <- factor(c("High", "Med", "Low", "High", "Med", "Low"))
+dframe <- data.frame(person, sex, funny, stringsAsFactors =  FALSE)
+dframe
+```
+
+b. Giả sử `Stan` và `Francine` là 41 tuổi, `Steve` là 15 tuổi, `Hayley` là 21 tuổi, và `Klaus` là 60 tuổi. `Roger` là `1600` tuổi (xem như đây sai sót khi thu nhận dữ liệu). Hãy thêm biến `age` vào `dframe` để mô tả thông tin này.
+
+```{r 4b}
+# ...
+age <- c(41,41,15,1600,21,60)
+dframe["age"] <- age
+dframe
+```
+
+c. Sắp xếp lại các cột của `dframe` theo thứ tự sau: `person`, `age`, `sex`, `funny`.
+
+```{r 4c}
+# ...
+dframe <- data.frame(person, age, sex, funny)
+dframe
+```
+
+d. Thêm biến (cột) `age.mon` (được định nghĩa bởi `age.mon = age * 12`) vào `dframe`.
+
+```{r 4d}
+# ...
+age.mon <- age * 12
+dframe["age.mon"] <- age.mon
+dframe
+```
+
+e. Tạo `anotherdframe` có dữ liệu như bên dưới, sau đó kết hợp nó với `dframe` để tạo thành `newdframe`.
+
+| person | age | sex | funny | age.mon |
+| ------ |:---:|:---:|:-----:| -------:|
+| Peter | 42 | M | High | 504 |
+| Lois | 40 | F | High | 480 |
+| Meg | 17 | F | Low | 204 |
+| Chris | 14 | M | Med | 168 |
+| Stewie | 1 | M | High |12 |
+| Brian | 7 | M | Med | 84 |
+
+```{r 4e}
+# ...
+person_2 <- c("Peter", "Lois", "Meg", "Chris", "Stewie", "Brian")
+age_2 <- c(42,40,17,14,1,7)
+sex_2 <- factor(c("M", "F", "F", "M", "M", "M"))
+funny_2 <- factor(c("High", "High", "Low", "Med", "High", "Med"))
+age.mon <- age_2 * 12
+anotherdframe <- data.frame("person" = person_2,"age" =  age_2, "sex" = sex_2, "funny" = funny_2, age.mon)
+newdframe <- rbind(dframe, anotherdframe)
+newdframe
+```
+
+f. Viết **một dòng code** để trích ra từ `newdframe` tên (`person`) và tuổi (`age`) của những người là nữ (`sex` là `F`) và có mức độ `funny` là `Med` hoặc `High`.
+
+```{r 4f}
+# ...
+subset(newdframe, sex == "F", funny != "Low")
+```
+
+g. Trích ra từ `newdframe` những người có tên (`person`) bắt đầu bằng chữ `S`. (Gợi ý: dùng hàm `substr`)
+
+```{r 4g}
+# ...
+subset(newdframe, substr(person,1,1) == "S")
+```
+
+
+## Câu 5 - if and switch
+
+Tạo hai vector sau:
+
+```{r 5}
+v1 <- c(2,1,1,3,2,1,0)
+v2 <- c(3,8,2,2,0,0,0)
+```
+
+a. Dùng `v1` và `v2` ở trên, viết **một dòng code** để nhân các phần tử tương ứng ở hai vector nếu tổng của chúng lớn hơn 3. Ngược lại, chỉ cộng chúng.
+
+```{r 5a}
+# ...
+ifelse(v1 + v2 > 3, v1 * v2, v1 + v2)
+```
+
+b. Viết hàm tính tiền điện dựa trên giá bán lẻ điện sinh hoạt như sau:
+
+| Giá bán lẻ điện sinh hoạt | Giá bán điện (đồng/kWh) |
+| ------------------------- | -----------------------:|
+| Bậc 1: Cho kWh từ 0 – 50 | 1.549 |
+| Bậc 2: Cho kWh từ 51 – 100 | 1.600 |
+| Bậc 3: Cho kWh từ 101 – 200 | 1.858 |
+| Bậc 4: Cho kWh từ 201 – 300 | 2.340 |
+| Bậc 5: Cho kWh từ 301 – 400 | 2.615 |
+| Bậc 6: Cho kWh từ 401 trở lên | 2.701 |
+
+  1. Sử dụng `if`
+
+```{r 5b1}
+# ...
+used <- 540
+tol <- 0
+if(used>=0 && used <=50){
+  tol <- tol + 1.549*used
+}else if (used>=51 && used <=100)
+{
+    tol <- tol + 1.549*used
+    used <- used - 50
+    tol <- tol + 1.600*used
+}else if (used>=101 && used <=200)
+{
+    tol <- tol + 1.549*used
+    used <- used - 50
+    tol <- tol + 1.600*used
+    used <- used - 50
+    tol <- tol + 1.858*used
+}else if(used>=201 && used <=300){
+  tol <- tol + 1.549*used
+    used <- used - 50
+    tol <- tol + 1.600*used
+    used <- used - 50
+    tol <- tol + 1.858*used
+    used <- used -100
+    tol <- tol + 2.340*used
+}else if (used>=301 && used <=400){
+    tol <- tol + 1.549*used
+    used <- used - 50
+    tol <- tol + 1.600*used
+    used <- used - 50
+    tol <- tol + 1.858*used
+    used <- used -100
+    tol <- tol + 2.340*used
+    used <- used - 100
+    tol <- tol + 2.615*used
+}else
+{
+      tol <- tol + 1.549*used
+    used <- used - 50
+    tol <- tol + 1.600*used
+    used <- used - 50
+    tol <- tol + 1.858*used
+    used <- used -100
+    tol <- tol + 2.340*used
+    used <- used - 100
+    tol <- tol + 2.615*used
+    used <- used - 100
+    tol <- tol + 2.710*used
+}
+tol
+```
+
+  2. Sử dụng `switch`
+
+```{r 5b2}
+# ...
+tinh_tien_dien <- function(x)
+{
+  lv <- 0
+  tmp <- 0
+  if (x > 0) lv <- 1
+  if (x >= 50) lv <- 2
+  if (x >= 100) lv <- 3
+  if (x >= 200) lv <- 4
+  if (x >= 300) lv <- 5
+  if (x >= 400) lv <- 6
+  
+  switch (
+    lv,
+    tmp <- x * 1.549,
+    tmp <- 50 * 1.549 + (x-50) * 1.600,
+    tmp <- 50 * 1.549 + 50 * 1.600 + (x-50) * 1.858,
+    tmp <- 50 * 1.549 + 50 * 1.600  + 100 * 1.858 + (x-100) * 2.340,
+    tmp <- 50 * 1.549 + 50 * 1.600  + 100 * 1.858 + 100 * 2.340 + (x-100) * 2.615,
+    tmp <- 50 * 1.549 + 50 * 1.600  + 100 * 1.858 + 100 * 2.340 + 100 * 2.615 + (x-100) * 2.710
+  )
+  return(tmp)
+}
+tinh_tien_dien(540)
+```
+
+
+
+## Câu 6 - for
+
+Cho đoạn mã sau: 
+
+```{r}
+v1 <- 1:3
+v1
+v2 <- 4:7
+v2
+m <- length(v1)
+n <- length(v2)
+x <- matrix(NA, m, n)
+x
+for(i in 1:m){
+  for(j in 1:n){
+    x[i,j] <- v1[i] * v2[j]
+  }
+}
+x
+```
+
+Hãy viết lại đoạn mã trên bằng cách thay hai vòng lặp `for` bởi một vòng lặp `for` mà vẫn được kết quả tương tự.
+
+```{r 6}
+# ...
+v1 <- 1:3
+v1
+v2 <- 4:7
+v2
+m <- length(v1)
+n <- length(v2)
+x <- matrix(NA, m, n)
+x
+for(i in 1:m){
+    x[i,1:n] <- v1[i] * v2[1:n]
+  
+}
+x
+
+```
+
+
+## Câu 7 - while
+
+Dùng `while` để để tính n giai thừa. Cho biết $0! = 1$ và $i! = i * (i - 1)!$ với mọi $i > 0, i \in N$.
+
+```{r 7}
+# ...
+n <- 10
+f <- 1
+while(n>0)
+{
+  f <- f*n;
+  n <- n-1;
+}
+f
+# ...
+
+```
+
+
+
+## Câu 8 - apply
+
+Cho ma trận a và mảng 3 chiều b. Hãy thực thi đoạn mã bên dưới và quan sát kết quả.
+
+```{r 8}
+a <- matrix(1:12, 3, 4)
+b <- array(1:18, dim = c(3, 3, 2))
+apply(a, 1, sum)
+apply(a, 2, sum)
+apply(b, 1, sum)
+apply(b, 2, sum)
+apply(b, 3, sum)
+```
+
+Hàm `apply` cho phép ta áp dụng một hàm trên một chiều của ma trận hoặc mảng. Theo ví dụ ở trên, lệnh `apply(a, 1, sum)` cho phép ta áp dụng hàm `sum` trên mỗi dòng của ma trận `a`, lệnh `apply(a, 2, sum)` cho phép ta áp dụng hàm `sum` trên mỗi cột của ma trận `a`, lệnh `apply(b, 3, sum)` cho phép ta áp dụng hàm `sum` trên mỗi tầng (layer) của mảng `b`. Ngoài những hàm có sẵn như `sum, prod, min, max , ...` ta cũng có thể tự định nghĩa hàm mà mình sẽ áp dụng theo cú pháp: 
+
+`apply(x, MARGIN, function(x) ...)`
+
+Trong đó, `X` là ma trận hoặc mảng, `MARGIN` là chiều ta muốn áp dụng hàm, `function(x) ...` là định nghĩa của hàm. Ví dụ, ta có thể định nghĩa hàm tính tổng của `min` và `max` trên mỗi dòng của ma trận `a` như sau:
+
+`apply(a, 1, function(x) min(x) + max(x))`
+
+Hãy dùng hàm `apply` để thực hiện các yêu cầu sau:
+
+a. Tính tổng các số lẻ ở mỗi dòng của ma trận `a`.
+
+```{r 8a}
+# ...
+sum(which(a%%2==1))
+```
+
+b. Tính tích các số chẵn ở mỗi cột của ma trận `a`.
+
+```{r 8b}
+# ...
+ c <- which(a%%2==0)
+tol <- 1
+for(i in 1:length(c))
+{
+  tol <- tol * c[i]
+}
+tol
+```
+
+## Câu 9 - break, next, and repeat
+
+a. Dùng vòng lặp `for` và `next` để tính tổng các số không chia hết cho 3 của một vector.
+
+```{r 9a}
+x <- sample(1:1000, 100)
+s <- 0
+for(i in x) {
+  # ...
+  if(i%%3 == 0)
+    next
+  s <- s + i
+}
+s
+```
+
+b. Dùng vòng lặp `repeat` và `break` để in ra các số Fibonacci bé hơn 100.
+
+```{r 9b}
+# ...
+x <- 0
+repeat {
+  # ...
+    f0 = 0
+    f1 = 1
+    fn = 1
+    if (x == 0 || x == 1) {
+        print(x);
+    } else {
+        for (i in 2:x) {
+            f0 = f1;
+            f1 = fn;
+            fn = f0 + f1;
+        }
+      print(fn);
+    }
+
+  if(x>=100)
+    break
+  x <- x+1
+  
+}
+```
+
+
+## Câu 10 - function
+
+Để định nghĩa một hàm trong R, ta viết theo cú pháp sau:
+
+`functionname <- function(arg1,arg2,arg3,...){`
+ 
+  `...`
+  
+  `return(returnobject)`
+  
+`}`
+
+Trong đó: `functionname` là tên hàm, `arg1,arg2,arg3,...` là các tham số hình thức, `...` là thân hàm ma ta phải định nghĩa, `return(returnobject)` là lệnh trả về kết quả quả cho hàm.
+
+a. Viết hàm `fib(limit)` để tạo ra một dãy số Fibonacci bé hơn hoặc bằng `limit`.
+
+```{r 10a}
+fib <- function(limit) {
+  # ...
+    f0 = 0
+    f1 = 1
+    fn = 1
+
+    if (limit < 0) {
+        return (-1);
+    } else if (limit == 0 || limit == 1) {
+        return (limit);
+    } else {
+        for (i in 2:limit) {
+            f0 = f1;
+            f1 = fn;
+            fn = f0 + f1;
+        }
+    }
+    return (fn);
+}
+limit <-100
+for(i in 1:limit)
+  {print(fib(i))}
+  
+```
+
+b. Lãi kép tích lũy hàng năm là một công cụ tài chính phổ biến được sử dụng bởi các nhà đầu tư. Với số tiền đầu tư gốc `P`, lãi suất mỗi năm `i` (được biểu thị bằng tỷ lệ phần trăm) và tần suất trả lãi mỗi năm `t`, số tiền cuối cùng `F` sau `y` năm được cho như sau:
+
+$$F = P \left(1 + \frac{i}{100t}\right)^{ty}$$
+
+  1. Hãy viết hàm tính `F` với các tham số hình thức: `P`, `i`, `t`, và `y`. Tham số `t` có giá trị mặc định là 12 (tần suất trả lãi mỗi năm là 12, tức mỗi tháng một lần).
+
+```{r 10b1}
+compoundInterest <- function(P, i, y, t = 12) {
+  F = P*(1+i/(100*t))^(t*y)
+  return(F)
+}
+
+P <- 100000000
+i <- 6 
+y <- 30
+compoundInterest(P, i, y)
+compoundInterest(P, i, y, 2)
+compoundInterest(P, i, y, 4)
+compoundInterest(P, i, y, 6)
+```
+
+  2. Thêm một tham số `plotit` vào hàm trên để mô tả có vẽ `F` theo mỗi năm hay không? Cho tham số `plotit` mặc định là `TRUE`. Nếu `plotit = FALSE` thì hàm trả về vector `F` ứng với số tiền theo từng năm. Hàm `plot` nên được gọi với tham số `type = "s"`, ví dụ: `plot(x, y, type = "s")`.
+  
+```{r 10b2}
+compoundInterest <- function(P, i, y, plotit = TRUE) {
+  
+}
+
+P <- 100000000
+i <- 6 
+y <- 30
+compoundInterest(P, i, y)
+compoundInterest(P, i, y, plotit = FALSE)
+```
+
+
+c. Định nghĩa hàm `computeMatrix(m)` nhận đầu vào là một ma trận vuông `m` có các phần tử là các chuỗi và trả về một ma trận. Nếu đường chéo chính (từ trên trái đến dưới phải) của ma trận ban đầu có chuỗi bắt đầu với ký tự `g` (hoa hoặc thường) thì thay nó bằng chuỗi `"here"`. Nếu không có chuỗi nào như vậy, thay thế toàn bộ ma trận ban đầu bởi ma trận đơn vị có cùng bậc với nó.
+
+```{r 10c}
+computeMatrix <- function(m) {
+  # ...
+  check <- FALSE
+  for (i in 1:dim(m)[1])
+  {
+      if (substr(m[i,i],1,1) == "g" || substr(m[i,i],1,1) == "G")
+      {
+        check <- TRUE
+        m[i, i] <- "here"
+      }
+  }
+  if (check == F)
+  {
+    for (i in 1:length(m)) m[i] <- 0
+    for (i in 1:dim(m)[1]) m[i,i] <- 1
+  }
+  return(m)
+}
+
+m <- matrix(as.character(1:16),4,4)
+computeMatrix(m)
+
+m <- matrix(c("DANDELION", "Hyacinthus", "Gerbera", 
+              "MARIGOLD", "geranium", "ligularia", 
+              "Pachysandra", "SNAPDRAGON", "GLADIOLUS"),3,3)
+computeMatrix(m)
+
+m <- matrix(c("GREAT", "exercises", "right", "here"),2,2, byrow = T)
+computeMatrix(m)
+```
+

@@ -1,0 +1,155 @@
+---
+title: "Lab 8 - Suy luận thống kê"
+author: "Your name"
+date: "2022/11/08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F, message = F)
+```
+
+## Giới thiệu
+
+Một nhóm nghiên cứu điều tra tốc độ đánh máy bằng tiếng Anh bằng hai hệ thống máy tính:
+
+- **NO HELP**: Không có trợ giúp sửa lỗi chính tả tự động được cung cấp bởi hệ thống.
+
+- **AUTO-CORRECTION**: Hệ thống liên tục cố gắng tự động sửa lỗi chính tả.
+
+Các nhà nghiên cứu thử nghiệm hai bàn phím khác nhau: (i) bàn phím **QWERTY** và (ii) **AZERTY**.
+
+Các nhà nghiên cứu đưa ra giả thuyết $H_1$ rằng nhập văn bản với tính năng sửa lỗi tự động (**AUTO-CORRECTION**) nhanh hơn so với nhập liệu không có trợ giúp (**NO HELP**). Họ cũng đưa ra giả thuyết $H_2$ rằng gõ bằng bàn phím **AZERTY** nhanh hơn gõ bằng bàn phím **QWERTY**.
+
+Để kiểm tra hai giả thuyết này ($H_1$ và $H_2$), nhóm nghiên cứu tiến hành một cuộc thử nghiệm với 32 người nói tiếng Anh tham gia. Những người tham gia được chia thành hai nhóm độc lập, mỗi nhóm có 16 người. Ở nhóm đầu tiên ($G_1$), người tham gia sử dụng bàn phím **AZERTY**. Trong khi đó, ở nhóm thứ hai ($G_2$), người tham gia sử dụng bàn phím **QWERTY**. Tất cả 32 người tham gia thử nghiệm lần lượt cả hệ thống không có trợ giúp (**NO HELP**) và sửa lỗi tự động (**AUTO-CORRECTION**).
+
+Để giảm sự sai lệch do tác động của thứ tự (do mệt mỏi hoặc tốn thời gian học), các nhà nghiên cứu thay đổi thứ tự trình bày của hai hệ thống như sau. Đối với mỗi loại bàn phím, đầu tiên, một nửa số người tham gia sử dụng hệ thống không có trợ giúp (**NO HELP**) và sau đó là hệ thống sửa lỗi tự động (**AUTO-CORRECTION**). Một nửa số người tham gia còn lại sử dụng chúng theo thứ tự ngược lại.
+
+Để đánh giá hiệu suất đánh máy, các nhà nghiên cứu đo số từ gõ được trung bình mỗi phút (WPM).
+
+
+## Bước 1. Thu thập dữ liệu
+Giả sử các nhà nghiên cứu đã hoàn thành thí nghiệm và đã thu thập được kết quả. Ở đây, chúng ta mô phỏng quá trình tạo dữ liệu bằng cách lấy mẫu ngẫu nhiên từ một số quần thể cố định. Để tạo dữ liệu, bạn sẽ sử dụng đoạn mã bên dưới. Bạn chỉ cần chạy đoạn mã và sau đó sử dụng biến `data` làm tập dữ liệu của mình. Lưu ý rằng mỗi bạn sẽ tạo một tập dữ liệu khác nhau tùy vào mã số sinh viên (MSSV). Bạn cần thay đổi giá trị của biến `mssv` cho đúng với MSSV của bạn ở đoạn mã bên dưới. Kết luận của các phân tích của mỗi bạn có thể khác nhau.
+
+Dữ liệu chứa năm cột với thông tin sau: (i) mã số người tham gia (`id`), (ii) loại bàn phím (`keyboard`: qwerty hoặc azerty), (iii) hệ thống (`system`: nohelp hoặc autocorrection), (iv) thứ tự trình bày của hệ thống (`systemorder`: 1 hoặc 2) và (v) số từ được gõ trung bình mỗi phút (`wpm`). Vì bạn không được yêu cầu phân tích ảnh hưởng của thứ tự trình bày của hệ thống, bạn có thể bỏ qua cột thứ 4 (thứ tự hệ thống).
+
+```{r}
+library(tidyverse)
+data <- read_csv("./dataset_20133072.csv")
+head(data)
+```
+
+
+## Bước 2. Thống kê mô tả
+Viết mã để tính toán thống kê mô tả cho dữ liệu thử nghiệm của bạn. Thống kê mô tả sẽ bao gồm **trung bình (mean)**, **trung vị (median)** và **độ lệch chuẩn (standard deviation)** (i) đối với từng loại bàn phím riêng lẻ (AZERTY và QWERTY) và (ii) đối với từng hệ thống (NO HELP và AUTO-CORRECTION).
+
+```{r}
+# begin your code
+library(dplyr)
+data2 <- data
+data2 %>%
+  group_by(keyboard, system) %>%
+    summarise(mean = mean(wmp), median = median(wmp), sd = sd(wmp))
+# end your code
+```
+
+
+### Nhận xét
+
+1.Đối với trung bình và trung vị của 'wmp' ở 2 loại bàn phím không có sự khác biệt nhiều, nhưng lại xuất hiện chênh lệch ở độ lệch chuẩn giữa 2 loại bàn phím 
+
+2.Đối với trung bình và trung vị của 'wmp' ở 2 hệ thống có sự chênh lệch vs nhau, nhưng độ lệch chuẩn giữa 2 hệ thống không có sự chênh lệch nhiều
+
+
+
+## Bước 3. Vẽ biểu đồ
+Tạo biểu đồ hộp (boxplot) để tóm tắt bằng đồ thị các phân bố của `wpm` (i) cho hai loại bàn phím và (ii) cho hai hệ thống. Đồng thời tạo ra đồ `qqplot` để đánh giá trực quan mức độ mà các mẫu của bạn sai lệch so với phân phối chuẩn (Normal distribution). Bạn quan sát thấy gì?
+
+```{r}
+# begin your code
+library(tidyverse)
+library(ggpubr)
+data3 <- data
+ggplot(data = data3, 
+       mapping = aes(x = wmp, 
+                     y = keyboard)) +
+  geom_boxplot()
+ggplot(data = data3, 
+       mapping = aes(x = wmp, 
+                     y = system)) +
+  geom_boxplot()
+
+
+qqplot1 = ggqqplot(data$wmp)
+qqplot1
+# end your code
+```
+
+### Nhận xét
+
+1. Nếu tính về tốc độ gõ trung bình 'wmp' thì số lượng người tham gia có tốc độ gõ trung bình (có hỗ trợ và không có hỗ trợ) có sự chênh lệch giữa 2 loại keyboard, tổng wmp của 'qwerty' nhìu hơn của 'azerty'
+
+2. Trong 2 hệ thống, chúng ta có thể thấy rõ được hệ thống có hỗ trợ sẽ nhanh hơn hệ thống không có hỗ trợ
+
+3. Đối với biểu đồ qqplot ta có thể thấy rằng 'wmp' không sai lệch nhiều với phân phối chuẩn
+
+
+## Bước 4. Khoảng tin cậy theo công thức
+Giả sử các quần thể có phân bố chuẩn. Viết mã để ước tính `wpm` trung bình cho mỗi hệ thống, cũng như sự khác biệt `wpm` trung bình. Sử dụng khoảng tin cậy 95\% để ước tính các giá trị trung bình đó. Mã cần bao gồm phần tính toán và cả phần vẽ đồ thị các khoảng tin cậy. Kết luận của bạn là gì? Các kết quả có ủng hộ giả thuyết đầu tiên ($H_1$) của các nhà nghiên cứu không?
+
+Tương tự, hãy viết một đoạn mã ước tính `wpm` trung bình cho từng loại bàn phím, cũng như sự khác biệt `wpm` trung bình (độc lập với việc có sử dụng tính năng tự động sửa lỗi hay không). Một lần nữa, hãy sử dụng khoảng tin cậy 95% để ước tính các trung bình đó. Mã cần bao gồm cả phần tính toán và phần vẽ đồ thị các khoảng tin cậy. Kết luận của bạn bây giờ là gì? Các kết quả có ủng hộ giả thuyết thứ hai ($H_2$) của các nhà nghiên cứu không?
+
+```{r}
+# begin your code
+
+# end your code
+```
+
+### Nhận xét và kết luận
+
+1. 
+
+2. 
+
+
+## Bước 5. Khoảng tin cậy bootstrap
+Sử dụng khoảng tin cậy bootstrap với mức tin cậy 95\% để ước tính `wpm` trung bình cho mỗi hệ thống, cũng như sự khác biệt `wpm` trung bình. Mã cần bao gồm cả phần vẽ đồ thị các khoảng tin cậy. Kết luận của bạn là gì? Các kết quả có ủng hộ giả thuyết đầu tiên ($H_1$) của các nhà nghiên cứu không?
+
+Tương tự, hãy sử dụng khoảng tin cậy bootstrap với mức tin cậy 95\% để ước tính `wpm` trung bình cho từng loại bàn phím, cũng như sự khác biệt `wpm` trung bình (độc lập với việc có sử dụng tính năng tự động sửa lỗi hay không). Mã cần bao gồm cả phần vẽ đồ thị các khoảng tin cậy. Kết luận của bạn bây giờ là gì? Các kết quả có ủng hộ giả thuyết thứ hai ($H_2$) của các nhà nghiên cứu không?
+
+```{r}
+# begin your code
+histogram <- ggplot(data=data) + geom_histogram(mapping = aes(x = wmp, color = system))
+histogram + geom_vline(xintercept = quantile(data$wmp, 0.025), color = "red") + geom_vline(xintercept = quantile(data$wmp, 0.975), color = "red")
+
+histogram1 <- ggplot(data=data) + geom_histogram(mapping = aes(x = wmp, color = keyboard))
+histogram1 + geom_vline(xintercept = quantile(data$wmp, 0.025), color = "red") + geom_vline(xintercept = quantile(data$wmp, 0.975), color = "red")
+
+# end your code
+```
+
+### Nhận xét và kết luận
+
+1. Đối với giả định ($H_1$) , thông qua biểu đồ ta có thể thấy rằng tốc độ gõ trung bình của hệ thống có hỗ trợ 'autocorrect' cao hơn hệ thống không có hỗ trợ.
+
+2. Đối với giả định ($H_2$), khi quan sát biểu đồ ta có thể nhận định được rằng khi gõ bằng bàn phím 'azerty' sẽ nhanh hơn bàn phím 'qwerty'
+
+
+
+
+## Bước 6. Kiểm định ý nghĩa thống kê
+Viết một đoạn mã để tiến hành các kiểm định ý nghĩa thống kê thích hợp để kiểm tra hai giả thuyết ($H_1$ và $H_2$). Kết luận của bạn là gì? Kết quả của các phép kiểm định ý nghĩa thống kê có phù hợp với khoảng tin cậy mà bạn đã xây dựng cho Bước 4 không?
+
+```{r}
+# begin your code
+
+
+# end your code
+```
+
+### Nhận xét và kết luận
+
+1. 
+
+2. 
+

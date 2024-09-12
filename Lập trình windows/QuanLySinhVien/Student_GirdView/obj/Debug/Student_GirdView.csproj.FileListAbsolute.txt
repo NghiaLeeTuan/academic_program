@@ -1,0 +1,20 @@
+C:\Users\ASUS\source\repos\Student_GirdView\bin\Debug\Student_GirdView.exe.config
+C:\Users\ASUS\source\repos\Student_GirdView\bin\Debug\Student_GirdView.exe
+C:\Users\ASUS\source\repos\Student_GirdView\bin\Debug\Student_GirdView.pdb
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.Form1.resources
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.Properties.Resources.resources
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.csproj.GenerateResource.cache
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.exe
+C:\Users\ASUS\source\repos\Student_GirdView\obj\Debug\Student_GirdView.pdb
+D:\Môn học\Lập trình windows\Student_GirdView\bin\Debug\Student_GirdView.exe.config
+D:\Môn học\Lập trình windows\Student_GirdView\bin\Debug\Student_GirdView.exe
+D:\Môn học\Lập trình windows\Student_GirdView\bin\Debug\Student_GirdView.pdb
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.csproj.AssemblyReference.cache
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.Form1.resources
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.Properties.Resources.resources
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.csproj.GenerateResource.cache
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.csproj.CoreCompileInputs.cache
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.exe
+D:\Môn học\Lập trình windows\Student_GirdView\obj\Debug\Student_GirdView.pdb

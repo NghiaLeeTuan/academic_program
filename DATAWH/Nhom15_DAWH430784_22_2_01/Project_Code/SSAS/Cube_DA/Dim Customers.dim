@@ -1,0 +1,259 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="c7cf69a4-2763-4784-857b-38a54feddf90" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Dim Customers</ID>
+  <Name>Dim Customers</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="4" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-972" scrolltop="-2636" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="6773" y="13123" backcolor="2434342" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="DimGeolocation" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="4789" height="2725" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000e0000b5120000a50a0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_DimGeolocation" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge" tooltip="DimCustomers" left="549" top="5125" logicalid="2" controlid="2" masterid="0" hint1="0" hint2="0" width="3731" height="2725" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000e0000930e0000a50a0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_DimCustomers" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="2015" top="2226" logicalid="3" controlid="3" masterid="0" hint1="0" hint2="0" width="799" height="3199" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="15856113" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[fkDimCustomers_geolocation_Key]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="1" destid="2" sourceattachpoint="9" destattachpoint="6" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="2414" y="2725" />
+              <point x="2414" y="5125" />
+            </connector>
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-972</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-2636</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="55a91b77-b522-4e3e-a682-ef35ab870c60">
+    <DataSourceViewID>DA DATWH</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="b070ea71-6d37-47e2-9002-081cfb020618">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="fb3c38ca-3c2b-4632-babc-9397c8e702e6">
+      <ID>Customer Key</ID>
+      <Name>Customer Key</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="1a8845c8-9b7d-4700-be20-7c8538f4607e">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="544d3a7d-aff2-4707-b917-dd1ed17b5bbb">
+            <TableID>dbo_DimCustomers</TableID>
+            <ColumnID>customer_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="03866cb0-7e28-4ecd-a20a-3e020df62169">
+          <AttributeID>Geolocation Key</AttributeID>
+          <Name>Geolocation Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="34904ee2-dd63-46c1-8cb5-010d1e453371">
+          <AttributeID>Customer Id</AttributeID>
+          <Name>Customer Id</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="0dbd6215-bc52-422c-b876-b070bb854c27">
+          <AttributeID>Geolocation City</AttributeID>
+          <Name>Geolocation City</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="0f311f6d-ab30-4926-8ef1-6553d452b0e0">
+          <AttributeID>Geolocation State</AttributeID>
+          <Name>Geolocation State</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="6f0a203e-324f-45c0-a956-366286663c4e">
+          <AttributeID>Geolocation Zip Code Prefix</AttributeID>
+          <Name>Geolocation Zip Code Prefix</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="dcca8097-af23-4388-9191-bf12a6c33718">
+      <ID>Geolocation Key</ID>
+      <Name>Geolocation Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="410c86d1-425f-4f43-99b8-8022eedcfe62">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="ccdf479c-2a81-41b7-b53a-c9a623730529">
+            <TableID>dbo_DimGeolocation</TableID>
+            <ColumnID>geolocation_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="fe9de55f-e57a-4b2e-8cfa-2eba86f9ffed">
+      <ID>Customer Id</ID>
+      <Name>Customer Id</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="285420e0-2a3c-4717-bfa3-af18c19e516d">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f42969a7-94a4-4c36-a1db-0df2b3f7f01c">
+            <TableID>dbo_DimCustomers</TableID>
+            <ColumnID>customer_id</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="1657b4aa-94ae-4d8f-98b4-cb44cea6cbfd">
+      <ID>Geolocation City</ID>
+      <Name>Geolocation City</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="11dfa5fb-662c-4605-b73f-e281c78e3f35">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="666b156f-3dd2-403e-803c-36716b342d4c">
+            <TableID>dbo_DimGeolocation</TableID>
+            <ColumnID>geolocation_city</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="c78ba7a2-6d04-47ba-a767-e653d0d30778">
+      <ID>Geolocation State</ID>
+      <Name>Geolocation State</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="6a909fb5-f860-4f4a-8e9b-4e5ecfcdf669">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bcf5a26d-447f-46a8-a324-db9b8a08602f">
+            <TableID>dbo_DimGeolocation</TableID>
+            <ColumnID>geolocation_state</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="0d138d25-d36d-4a99-b410-13c374b43951">
+      <ID>Geolocation Zip Code Prefix</ID>
+      <Name>Geolocation Zip Code Prefix</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8f04a4cb-5c19-4804-aba4-24308a69c714">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="6633b7ee-a18b-4d50-becf-1a34d3967c8b">
+            <TableID>dbo_DimGeolocation</TableID>
+            <ColumnID>geolocation_zip_code_prefix</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="65ea38cd-2d3c-415d-b1ad-d7697da93b89">
+      <ID>Hierarchy</ID>
+      <Name>Hierarchy</Name>
+      <Levels>
+        <Level dwd:design-time-name="559bee0a-fcb6-4d08-8d3d-de1030ebc666">
+          <ID>Geolocation State</ID>
+          <Name>Geolocation State</Name>
+          <SourceAttributeID>Geolocation State</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="f900ee87-17e6-43df-b4a5-632601995a6f">
+          <ID>Geolocation City</ID>
+          <Name>Geolocation City</Name>
+          <SourceAttributeID>Geolocation City</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="6c4f7275-6025-4f99-b92a-a5bb4ef257a4">
+          <ID>Geolocation Zip Code Prefix</ID>
+          <Name>Geolocation Zip Code Prefix</Name>
+          <SourceAttributeID>Geolocation Zip Code Prefix</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="6f1c6089-8405-4bd7-8124-eb5889f3d4b0">
+          <ID>Customer Id</ID>
+          <Name>Customer Id</Name>
+          <SourceAttributeID>Customer Id</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

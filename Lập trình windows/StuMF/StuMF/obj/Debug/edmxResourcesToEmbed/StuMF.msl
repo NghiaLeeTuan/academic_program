@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StuMFStoreContainer" CdmEntityContainer="StuMFContainer">
+    <EntitySetMapping Name="StuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(StuMF.Stu)">
+        <MappingFragment StoreEntitySet="StuSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepartmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(StuMF.Department)">
+        <MappingFragment StoreEntitySet="DepartmentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StuId" ColumnName="StuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

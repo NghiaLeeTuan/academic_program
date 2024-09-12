@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>560</width>
+    <height>351</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QPushButton" name="pushButtonQLNV">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>181</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonQLNV
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonQLNV:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonQLNV:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Quản Lý Nhân Viên</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonQLNX">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>181</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonQLNX
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonQLNX:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonQLNX:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Quản Lý Nhà Xe</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonThongKe">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>10</y>
+     <width>181</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonThongKe
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonThongKe:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonThongKe:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Thống Kê</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonLogin">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>180</y>
+     <width>181</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonLogin
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonLogin:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonLogin:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonChangePassword">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>180</y>
+     <width>181</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonChangePassword
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonChangePassword:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonChangePassword:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Change Password</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonExit">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>180</y>
+     <width>181</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonExit
+{
+	border: 5px solid rgba(0,0,0,0);
+	border-color: rgb(255, 255, 255);
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonExit:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonExit:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,256 @@
+---
+title: "Lab 3 - Trực quan hóa dữ liệu với ggplot2"
+author: "Your name"
+date: "13/09/2022"
+output: html_document
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Giới thiệu
+Ở bài lab này, chúng ta sẽ thực hành trưc quan hóa dữ liệu với thư viện `tidyverse`. Bạn sẽ sử dụng thư viện này để vẽ các biểu đồ phù hợp cho dữ liệu số và phân loại, đồng thời giải thích các hình ảnh trực quan của bạn. 
+
+```{r load-tidyverse}
+library(tidyverse)
+```
+
+
+## Dữ liệu
+Dữ liệu thực nghiệm cho bài lab này là tập dữ liệu về rác thải nhựa toàn cầu năm 2010. Tập dữ liệu này được thu thập từ [Our World in Data](https://ourworldindata.org/plastic-pollution).
+
+Tập dữ liệu này có thể được tìm thấy dưới dạng tệp csv. Bạn có thể đọc nó bằng cách sử dụng lệnh sau đây. 
+
+
+```{r load-data}
+plastic_waste <- read_csv("./plastic-waste.csv")
+```
+
+Tập dữ liệu này có các biến sau:
+
+- `code`: mã quốc gia
+- `entity`: tên quốc gia
+- `continent`: tên châu lục
+- `year`: năm
+- `gdp_per_cap`: GDP bình quân đầu người (theo đô la) năm 2011
+- `plastic_waste_per_cap`: lượng rác thải nhựa bình quân đầu người tính bằng kg/ngày
+- `mismanaged_plastic_waste_per_cap`: Lượng rác thải nhựa được quản lý kém trên đầu người tính bằng kg/ngày 
+- `mismanaged_plastic_waste`: tấn rác thải nhựa được quản lý kém
+- `coastal_pop`: Số lượng dân sống trên/gần bờ biển
+- `total_pop`: Tổng dân số theo Gapminder
+
+
+## Hướng dẫn và câu hỏi
+
+Ta sẽ bắt đầu bằng cách xem xét sự phân bổ rác thải nhựa trên đầu người vào năm 2010.
+
+```{r ex1}
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2)
+```
+
+Ta thấy một quan sát (quốc gia) có giá trị `plastic_waste_per_cap` lớn bất thường. Một cách để xác định quốc gia này là lọc dữ liệu cho các quốc gia nơi rác thải nhựa trên đầu người lớn hơn 3.5 kg/người.
+
+
+```{r ex2}
+plastic_waste %>%
+  filter(plastic_waste_per_cap > 3.5)
+```
+
+Bạn có mong đợi kết quả này không? Bạn có thể cân nhắc thực hiện một số nghiên cứu về `Trinidad and Tobago` để xem tại sao rác thải nhựa trên đầu người của nước này lại cao như vậy. Liệu đây có phải là lỗi dữ liệu hay không?
+
+
+### Câu 1.  
+
+Vẽ một biểu đồ, sử dụng histogram, để mô tả sự phân bố rác thải nhựa trên đầu người theo từng châu lục. Bạn có thể nói gì về sự khác biệt giữa các châu lục về lượng rác thải nhựa trên đầu người? 
+
+```{r, q1}
+# Write your code hear
+ggplot(data = plastic_waste,aes(x = plastic_waste_per_cap))+
+  geom_histogram(binwidth = 0.2)+ facet_wrap(~continent)
+```
+
+- **Nhận xét:** Viết nhận xét của bạn ở đây.
+
+  - 
+  lượng rác thải ở các nước nước châu lục trên đầu người có sự khác nhau ở các châu lục, ở các châu lục có bình quân gdp như Africa, Asia, Europe, North America có lượng rác thải lớn.
+  - 
+
+Một cách khác để trực quan hóa dữ liệu số (numerical data) là sử dụng biểu đồ mật độ (density plot).
+
+```{r ex3}
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_density()
+```
+
+Ta có thể so sánh sự phân bố giữa các lục địa bằng cách tô màu các đường cong mật độ theo lục địa. 
+
+```{r ex4}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     color = continent)) +
+  geom_density()
+```
+
+Kết quả có thể hơi khó đọc, vì vậy chúng ta cũng hãy tô màu các đường cong bằng màu sắc. 
+
+```{r ex5}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     color = continent, 
+                     fill = continent)) +
+  geom_density()
+```
+
+Màu sắc chồng chéo lên nhau khiến rất khó để biết điều gì đang xảy ra với sự phân bố ở các lục địa được vẽ trước và do đó bị che phủ bởi các lục địa được vẽ trên chúng. Chúng ta có thể thay đổi mức độ trong suốt của màu tô để giúp thực hiện điều này. Đối số `alpha` nhận các giá trị từ 0 đến 1: 0 là hoàn toàn trong suốt và 1 là hoàn toàn không trong suốt. Không có cách nào để biết giá trị nào sẽ hoạt động tốt nhất, vì vậy bạn chỉ cần thử một vài giá trị.
+
+
+```{r ex6}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     color = continent, 
+                     fill = continent)) +
+  geom_density(alpha = 0.7)
+```
+
+Kết quả có vẻ vẫn không thật sự tốt.
+
+
+### Câu 2.
+Tạo lại các biểu đồ mật độ ở trên bằng cách sử dụng một mức `alpha` khác (thấp hơn) hoạt động tốt hơn để hiển thị các đường cong mật độ cho tất cả các lục địa. 
+
+```{r q2}
+# Write your code hear
+ggplot(data=plastic_waste,mapping=aes(x=plastic_waste_per_cap,color=continent, fill=continent)) + geom_density(alpha = 0.1)
+```
+
+
+### Câu 3.
+Mô tả lý do tại sao, ở biểu đồ trên chúng ta xác định `color` và `fill` của các đường cong bằng cách ánh xạ các thuộc tính thẩm mỹ này trong hàm `ggplot` nhưng lại xác định mức độ `alpha` như một thuộc tính thẩm mỹ trong hàm `geom_density`.
+
+- **Giải thích:**
+
+  - 
+  Xác định color và fill dựa trên việc ánh xạ thuộc tính giúp việc trực quan hóa dữ liệu dễ dàng và dễ so sánh hơn giữa các thuộc tính khác nhau.
+  Hàm 'geom_density' là một hàm tính toán và ước tính mức độ để vẽ lại biểu đồ, việc xác định mức độ 'alpha' là để xác định mức ước tính của biểu đồ.
+  - 
+
+
+Một cách khác để hình dung mối quan hệ trên là sử dụng các biểu đồ hộp cạnh nhau (side-by-side boxplots).
+
+```{r ex7}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = continent, 
+                     y = plastic_waste_per_cap)) +
+  geom_boxplot()
+```
+
+
+### Câu 4.
+Chuyển đổi các biểu đồ hộp cạnh nhau (side-by-side boxplots) ở trên thành các [violin plot](http://ggplot2.tidyverse.org/reference/geom_violin.html). Điều gì làm cho các violin plot mô tả được những điều mà các boxplot không thể? Những đặc điểm nào rõ ràng ở các boxplot nhưng không rõ ở violin plot?
+
+```{r q4}
+# Write your code hear
+ggplot(data = plastic_waste,
+       mapping = aes(x = continent,
+                      y= plastic_waste_per_cap))+ 
+                        geom_violin()
+```
+
+- Những điều làm cho các violin plot mô tả được những điều mà các boxplot không thể?
+
+  - 
+  Ở violin plot có thể mô tả được đầy đủ các dữ liệu cần trực quan hóa, trong khi boxplot chỉ có thể mô tả tóm tắt trung bình dữ liệu được đưa ra
+  - 
+  
+- Những đặc điểm rõ ràng ở các boxplot nhưng không rõ ở violin plot?
+
+  - 
+  Boxplot: Khả năng thống kê trung bình giữa của dữ liệu giúp cho người dùng dễ dàng so sánh giữa các dữ liệu với nhau.
+  - 
+
+### Câu 5.
+Trực quan hóa mối quan hệ giữa rác thải nhựa trên đầu người và rác thải nhựa được quản lý kém trên đầu người bằng một biểu đồ scatterplot. Mô tả mối quan hệ này.
+
+```{r q5}
+# Write your code hear
+ggplot(data = plastic_waste, 
+       mapping = aes(x = mismanaged_plastic_waste_per_cap, 
+                     y = plastic_waste_per_cap)) + 
+  geom_point()
+
+```
+
+**Nhận xét:** Viết nhận xét của bạn ở đây
+
+- Nhận xét 1
+  Lượng rác thải nhựa được quản lý kém trên đầu người ít hơn so với lượng rác thải bình quân trên đầu người nhưng xét về mức độ thì cả 2 không có sự chênh lệch nhiều .
+- Nhận xét 2
+
+- ...
+
+
+### Câu 6.
+
+Tô màu các điểm trong biểu đồ scatterplot theo lục địa. Có sự khác biệt rõ ràng nào giữa các châu lục về mối liên hệ giữa chất thải nhựa trên đầu người và chất thải nhựa được quản lý kém trên đầu người?
+
+```{r q6}
+# Write your code hear
+ggplot(data = plastic_waste, 
+       mapping = aes(x = mismanaged_plastic_waste_per_cap, 
+                     y = plastic_waste_per_cap, color = continent)) + 
+  geom_point()
+```
+
+**Nhận xét:** Viết nhận xét của bạn ở đây
+
+- Nhận xét 1
+  Lượng rác thải nhựa trung bình và lượng rác thải nhựa trung bình của người được quản lý kém của các châu lục trên thế giới không có sự khác biệt nhiều.
+- Nhận xét 2
+
+- ...
+
+### Câu 7.
+
+Trực quan hóa mối quan hệ giữa chất thải nhựa trên đầu người và tổng dân cư cũng như chất thải nhựa trên đầu người và dân cư ven biển. Bạn sẽ cần phải lập hai biểu đồ riêng biệt. Trong hai cặp biến này, có cặp nào có tương quan tuyến tính mạnh hơn không? 
+
+```{r}
+# Write your code hear
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = total_pop)) +
+  geom_point()
+
+
+ggplot(data = plastic_waste, 
+       mapping = aes(x = mismanaged_plastic_waste_per_cap, 
+                     y = coastal_pop)) +
+  geom_point()
+#nếu xét về mật độ tập trung rác thải thì đối với dân cư ven biển sẽ thưa thớt hơn đối với tổng dân cư, mối quan hệ giữa chất thải nhựa trên đầu người và tổng dân cư có tương quan tuyêns tính mạnh hơn
+```
+
+
+### Câu 8.
+Tạo lại biểu đồ sau và diễn giải những gì bạn thấy trong ngữ cảnh của dữ liệu.
+
+```{r}
+library(knitr)
+include_graphics("./q8.png")
+```
+
+**Gợi ý:** Trục `x` là một biến được tính toán. Một quốc gia có lượng rác thải nhựa bình quân đầu người trên 3 kg/ngày đã được lọc bỏ. Dữ liệu không chỉ được biểu diễn bằng các điểm trên biểu đồ mà còn là một đường cong mượt mà (smooth curve). Thuật ngữ "smooth" sẽ giúp bạn chọn hàm `geom` nào để sử dụng (https://ggplot2.tidyverse.org/reference/index.html#section-geoms).
+
+```{r q8}
+# Write your code hear
+plastic_waste_small <- plastic_waste %>%
+  filter(plastic_waste_per_cap < 3)
+ggplot(data = plastic_waste_small)+
+  theme_minimal()+
+  geom_point(mapping = aes(x = (coastal_pop/total_pop),
+                           y = plastic_waste_per_cap, color = continent))+
+  geom_smooth(mapping = aes(x = (coastal_pop/total_pop),
+                            y = plastic_waste_per_cap))
+#Khi biểu diễn lại biểu đồ ta thấy được mức tương quan giữa lượng tập trung rác thải đối với tỷ lệ dân cư ven biển
+```

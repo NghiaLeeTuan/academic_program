@@ -1,0 +1,121 @@
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\CuoiKi.exe.config
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\CuoiKi.exe
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\CuoiKi.pdb
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.Properties.Resources.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.exe
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.pdb
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.DangNhap.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.GiaoDien.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.QuanLi.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\bin\Debug\CuoiKi.exe.config
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\bin\Debug\CuoiKi.exe
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\bin\Debug\CuoiKi.pdb
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.csprojAssemblyReference.cache
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.DangNhap.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.GiaoDien.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.Properties.Resources.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.QuanLi.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.exe
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.pdb
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.HoaDon.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.HangHoa.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.HoaDon.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.NhanVien.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.QLHoaDon.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.Account.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.HangHoa.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.NhanVien.resources
+C:\Users\ASUS\Documents\GitHub\cuoi_ki\CuoiKi\obj\Debug\CuoiKi.QLHoaDon.resources
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.TaiKhoan.resources
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\EntityFramework.dll
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\EntityFramework.xml
+C:\Users\ASUS\source\repos\CuoiKi\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.csproj.CopyComplete
+C:\Users\ASUS\source\repos\CuoiKi\obj\Debug\CuoiKi.ThongKe.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\CuoiKi.exe.config
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\CuoiKi.exe
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\CuoiKi.pdb
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\EntityFramework.dll
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\EntityFramework.xml
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.Properties.Resources.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.csproj.CopyComplete
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.exe
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.pdb
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formLogin.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formItem.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formOrder.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formMenu.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formEmployee.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formStatistical.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formAccount.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\obj\Debug\CuoiKi.formManagementOrder.resources
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\Spire.Pdf.dll
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\Spire.XLS.dll
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\Microsoft.mshtml.dll
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\Spire.Pdf.xml
+C:\Users\ASUS\source\repos\CuoiKi - Copy\bin\Debug\Spire.XLS.xml
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.csproj.AssemblyReference.cache
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formAccount.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formLogin.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formItem.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formOrder.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formMenu.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formEmployee.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.Properties.Resources.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formManagementOrder.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.formStatistical.resources
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.exe
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.pdb
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\CuoiKi.exe.config
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\CuoiKi.exe
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\CuoiKi.pdb
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\EntityFramework.dll
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\EntityFramework.SqlServer.dll
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\Spire.Pdf.dll
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\Spire.XLS.dll
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\Microsoft.mshtml.dll
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\EntityFramework.xml
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\EntityFramework.SqlServer.xml
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\Spire.Pdf.xml
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\bin\Debug\Spire.XLS.xml
+D:\Môn học\Lập trình windows\cuoi_ki-main\CuoiKi\obj\Debug\CuoiKi.csproj.CopyComplete
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\CuoiKi.exe.config
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\CuoiKi.exe
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\CuoiKi.pdb
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\EntityFramework.dll
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\EntityFramework.SqlServer.dll
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\Spire.Pdf.dll
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\Spire.XLS.dll
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\Microsoft.mshtml.dll
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\EntityFramework.xml
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\EntityFramework.SqlServer.xml
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\Spire.Pdf.xml
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\bin\Debug\Spire.XLS.xml
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.csproj.AssemblyReference.cache
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formAccount.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formLogin.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formItem.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formOrder.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formMenu.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formEmployee.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.Properties.Resources.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formManagementOrder.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.formStatistical.resources
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.csproj.GenerateResource.cache
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.csproj.CoreCompileInputs.cache
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.csproj.CopyComplete
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.exe
+D:\Môn học\Lập trình windows\Nhóm 9\CuoiKi\obj\Debug\CuoiKi.pdb

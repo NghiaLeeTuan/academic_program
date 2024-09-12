@@ -1,0 +1,9 @@
+CREATE FUNCTION [dbo].[Total_price](@order_id int)
+RETURNS float AS
+BEGIN
+	DECLARE @Total float
+	SELECT @Total = sum (price * quantity)
+	from LineItem
+	where order_id= @order_id
+	RETURN @Total
+END

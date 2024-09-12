@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BT2_CNPMModelStoreContainer" CdmEntityContainer="QLyThuVien">
+    <EntitySetMapping Name="Muon_sach">
+      <EntityTypeMapping TypeName="BT2_CNPMModel.Muon_sach">
+        <MappingFragment StoreEntitySet="Muon_sach">
+          <ScalarProperty Name="Ma_muon" ColumnName="Ma_muon" />
+          <ScalarProperty Name="Ma_docgia" ColumnName="Ma_docgia" />
+          <ScalarProperty Name="thoigian_muon" ColumnName="thoigian_muon" />
+          <ScalarProperty Name="thoigian_tra" ColumnName="thoigian_tra" />
+          <ScalarProperty Name="Ma_thuthu" ColumnName="Ma_thuthu" />
+          <ScalarProperty Name="tinhtrang" ColumnName="tinhtrang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Saches">
+      <EntityTypeMapping TypeName="BT2_CNPMModel.Sach">
+        <MappingFragment StoreEntitySet="Sach">
+          <ScalarProperty Name="Ma_sach" ColumnName="Ma_sach" />
+          <ScalarProperty Name="Ten_sach" ColumnName="Ten_sach" />
+          <ScalarProperty Name="Tacgia" ColumnName="Tacgia" />
+          <ScalarProperty Name="Vi_tri" ColumnName="Vi_tri" />
+          <ScalarProperty Name="Tinhtrang" ColumnName="Tinhtrang" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Thedocgias">
+      <EntityTypeMapping TypeName="BT2_CNPMModel.Thedocgia">
+        <MappingFragment StoreEntitySet="Thedocgia">
+          <ScalarProperty Name="Ma_docgia" ColumnName="Ma_docgia" />
+          <ScalarProperty Name="Ten_docgia" ColumnName="Ten_docgia" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+          <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Thu_vien">
+      <EntityTypeMapping TypeName="BT2_CNPMModel.Thu_vien">
+        <MappingFragment StoreEntitySet="Thu_vien">
+          <ScalarProperty Name="Gio_lam" ColumnName="Gio_lam" />
+          <ScalarProperty Name="Diachi" ColumnName="Diachi" />
+          <ScalarProperty Name="Sdt" ColumnName="Sdt" />
+          <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Thuthus">
+      <EntityTypeMapping TypeName="BT2_CNPMModel.Thuthu">
+        <MappingFragment StoreEntitySet="Thuthu">
+          <ScalarProperty Name="Ma_thuthu" ColumnName="Ma_thuthu" />
+          <ScalarProperty Name="Gio_truc" ColumnName="Gio_truc" />
+          <ScalarProperty Name="Ghi_chu" ColumnName="Ghi_chu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Danhsach_muon" TypeName="BT2_CNPMModel.Danhsach_muon" StoreEntitySet="Danhsach_muon">
+      <EndProperty Name="Muon_sach">
+        <ScalarProperty Name="Ma_muon" ColumnName="Ma_muon" />
+      </EndProperty>
+      <EndProperty Name="Sach">
+        <ScalarProperty Name="Ma_sach" ColumnName="Ma_sach" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

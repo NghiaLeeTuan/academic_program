@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="StuMF" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="StuMFContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="StuSet" EntityType="StuMF.Stu" />
+    <EntitySet Name="DepartmentSet" EntityType="StuMF.Department" />
+    <AssociationSet Name="StuDepartment" Association="StuMF.StuDepartment">
+      <End Role="Stu" EntitySet="StuSet" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Stu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Department" Relationship="StuMF.StuDepartment" FromRole="Stu" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Stu" Relationship="StuMF.StuDepartment" FromRole="Department" ToRole="Stu" />
+    <Property Name="StuId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="StuDepartment">
+    <End Type="StuMF.Stu" Role="Stu" Multiplicity="1" />
+    <End Type="StuMF.Department" Role="Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="StuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

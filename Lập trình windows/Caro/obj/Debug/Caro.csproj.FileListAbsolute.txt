@@ -1,0 +1,20 @@
+C:\Users\ASUS\source\repos\Caro\bin\Debug\Caro.exe.config
+C:\Users\ASUS\source\repos\Caro\bin\Debug\Caro.exe
+C:\Users\ASUS\source\repos\Caro\bin\Debug\Caro.pdb
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.csprojAssemblyReference.cache
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.Form1.resources
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.Properties.Resources.resources
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.csproj.GenerateResource.cache
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.exe
+C:\Users\ASUS\source\repos\Caro\obj\Debug\Caro.pdb
+D:\Môn học\Lập trình windows\Caro\bin\Debug\Caro.exe.config
+D:\Môn học\Lập trình windows\Caro\bin\Debug\Caro.exe
+D:\Môn học\Lập trình windows\Caro\bin\Debug\Caro.pdb
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.csproj.AssemblyReference.cache
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.Form1.resources
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.Properties.Resources.resources
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.csproj.GenerateResource.cache
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.csproj.CoreCompileInputs.cache
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.exe
+D:\Môn học\Lập trình windows\Caro\obj\Debug\Caro.pdb

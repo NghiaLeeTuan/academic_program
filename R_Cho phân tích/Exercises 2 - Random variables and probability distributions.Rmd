@@ -1,0 +1,182 @@
+---
+title: "Biến ngẫu nhiên và phân bố xác suất"
+date: "2022/10/18"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Các hàm thông dụng
+- `dbinom`: Binomial mass function
+
+- `pbinom`: Binomial cumulative probability
+
+- `qbinom`: Binomial quantiles function
+
+- `rbinom`: Binomial random realizations
+
+- `dpois`: Poisson mass function
+
+- `ppois`: Poisson cumulative probability
+
+- `qpois`: Poisson quantiles function
+
+- `rpois`: Poisson random realizations
+
+- `dunif`: Uniform density function
+
+- `punif`: Uniform cumulative probability
+
+- `qunif`: Uniform quantiles function
+
+- `runif`: Uniform random realizations
+
+- `dnorm`: Normal density function
+
+- `pnorm`: Normal cumulative probability
+
+- `qnorm`: Normal quantiles function
+
+- `rnorm`: Normal random realizations
+
+- `dt`: Student’s density function
+
+- `pt`: Student’s cumulative probability
+
+- `qt`: Student’s t quantiles function
+
+- `rt`: Student’s t random realizations
+
+- `dexp`: Exponential density function
+
+- `pexp`: Exponential cumulative probability
+
+- `qexp`: Exponential quantiles function
+
+- `rexp`: Exponential random realizations
+
+
+## Bài 1: Biến ngẫu nhiên
+Cho biết bảng phân phối xác suất sau với ứng biến ngẫu nhiên S, mô tả đánh giá cho một bộ phim.
+
+|s     |1 	  |2     | 3 	  |4 		 |5     |
+|------|:----:|:----:|:----:|:----:|:----:|
+|P(S=s)|0.10 	|0.13  |0.21  |??? 	 |0.15  |
+
+a. Tính $P(S = 4)$?
+$P(S = 4) = 1 - (P(S = 1) + P(S = 2) + P(S = 3) + P(S = 5))$
+```{r 1a}
+P = 1 - (0.1 + 0.13 + 0.21 + 0.15)
+P
+```
+
+b. Tính $P(S \le 3)$?
+```{r}
+
+```
+
+c. Tính $mean(S)$?
+
+d. Tính $variance(S)$?
+
+## Bài 2: Hàm mật độ và hàm phân bố tích lũy
+Cho biến $W$ có hàm mật độ và hàm phân bố tích lũy như sau:
+
+$$
+f(w) = \left\{
+  \begin{array}{ll}
+    \frac{w-40}{625} & \text{if } 40 \le w \le 65, \\
+    \frac{90-w}{625} & \text{if } 65 < w \le 90, \\
+    0 & \text{otherwise.}
+  \end{array}
+\right.
+$$
+
+$$
+F(w) = \int_{-\infty}^{w} f(u)du  = \left\{
+  \begin{array}{ll}
+    0 & \text{if } w < 40, \\
+    \frac{w^2 - 80w + 1600}{1250} & \text{if } 40 \le w \le 65, \\
+    \frac{180w − w^2 − 6850}{1250} & \text{if } 65 < w \le 90, \\
+    1 & \text{otherwise.}
+  \end{array}
+\right.
+$$
+
+a. Viết hàm $f(w)$ trong R như định nghĩa trên với input là numeric vector $w$ theo cách vector hóa (không dùng vòng lặp).
+
+b. Viết hàm $F(w)$ trong R như định nghĩa trên với input là numeric vector $w$ theo cách vector hóa (không dùng vòng lặp).
+
+c. Gọi các hàm đã định nghĩa ở câu a. và câu b. để kiểm tra $f(55.2) = 0.02432$ và $F(55.2) = 0.184832$.
+
+d. Sử dụng hàm $F(w)$ để tính $P(W > 60)$.
+
+e. Sử dụng hàm $F(w)$ để tính $P(60.3 < W < 76.89)$.
+
+
+## Bài 3: Phân bố nhị thức
+Một khu bảo tồn thiên nhiên có rừng có 13 đài ngắm chim nằm rải rác khắp một khu đất rộng lớn. Các nhà tự nhiên học khẳng định rằng tại bất kỳ thời điểm nào, có 75% cơ hội nhìn thấy chim ở mỗi đài ngắm chim. Giả sử bạn đi bộ qua khu bảo tồn và ghé thăm mọi đài ngắm chim. Đặt $X$ là biến ngẫu nhiên nhị thức biểu thị tổng số ngắm chim mà ở đó bạn nhìn thấy chim.
+
+a. Vẽ probability mass function của biến $X$.
+
+b. Xác suất bạn nhìn thấy chim ở tất cả các đài ngắm chim là bao nhiêu?
+
+c. Xác suất bạn nhìn thấy chim ở nhiều hơn 9 nền tảng là bao nhiêu?
+
+d. Xác suất nhìn thấy chim từ 8 đến 11 đài ngắm chim là bao nhiêu? Xác định câu trả lời của bạn bằng cách chỉ sử dụng hàm `d-xxx` và `p-xxx`.
+
+e. Tính giá trị trung bình và độ lệch chuẩn của biến $X$.
+
+
+## Bài 4: Phân bố Poison
+Vào mỗi thứ bảy, vào cùng một thời điểm, một người đứng bên lề đường và thống kê số lượng ô tô đi qua trong vòng 120 phút. Dựa trên kiến thức trước đây, người đó tin rằng số ô tô đi qua trung bình trong thời gian này chính xác là 107. Gọi X đại diện cho biến ngẫu nhiên Poisson mô tả số ô tô đi qua vị trí của anh ta trong mỗi buổi thứ bảy.
+
+a. Xác suất để hơn 100 xe ô tô vượt qua anh ta vào bất kỳ ngày thứ bảy nào đã cho?
+
+b. Xác định xác suất để không có ô tô nào vượt qua.
+
+c. Vẽ đồ thị của Poisson mass function với các giá trị $60 \le x \le 150$.
+
+d. Mô phỏng 260 kết quả từ phân phối này (khoảng 5 năm quan sát mỗi thứ bảy hàng tuần). Vẽ biểu đồ kết quả mô phỏng bằng cách sử dụng hàm `hist`, sử dụng `xlim` để đặt các giới hạn ngang (horizontal limits) từ 60 đến 150. So sánh biểu đồ này với hình dạng của Poisson mass function ở câu c.
+
+
+## Bài 5: Phân bố đều
+Bạn đến thăm một công viên quốc gia và được thông báo rằng chiều cao của một loài cây nhất định được tìm thấy trong rừng có phân bố đều từ 3 đến 70 feet.
+
+a. Xác suất bạn gặp cây thấp hơn 5.5 feet là bao nhiêu?
+
+b. Đối với hàm mật độ xác suất này, chiều cao tại điểm cắt của 15 phần trăm cây cao nhất là bao nhiêu?
+
+c. Đánh giá giá trị trung bình và độ lệch chuẩn của phân bố chiều cao cây.
+
+d. Sử dụng câu c, xác nhận rằng xác suất bạn gặp cây có chiều cao nằm trong khoảng nửa độ lệch chuẩn (nghĩa là thấp hơn hoặc cao hơn) so với chiều cao trung bình là khoảng 28,9 phần trăm.
+
+e. Hàm mật độ xác suất có chiều cao bao nhiêu? Vẽ đồ thị của nó.
+
+f. Mô phỏng chiều cao của 10 cây quan sát được. Dựa trên dữ liệu này, hãy sử hàm `quantile` để ước tính câu trả lời mà bạn đã đạt được trong câu b. Lặp lại mô phỏng của bạn, lần này tạo ra 1.000 giá trị chiều cao cây và ước tính câu b một lần nữa. Làm điều này một vài lần, mỗi lần ghi nhớ lại 2 ước tính. Nhìn chung, bạn nhận thấy điều gì về 2 ước tính của mình (một dựa trên 10 giá trị và một dựa trên 1.000 giá trị) ứng với giá trị lý thuyết trong câu b?
+
+
+## Bài 6: Phân bố chuẩn
+Một gia sư biết rằng khoảng thời gian cần thiết để hoàn thành một câu hỏi thống kê nhất định của sinh viên đại học năm thứ nhất, $X$, có phân bố chuẩn với giá trị trung bình là 17 phút và độ lệch chuẩn là 4.5 phút.
+
+a. Xác suất một sinh viên được chọn ngẫu nhiên mất hơn 20 phút để hoàn thành câu hỏi là bao nhiêu?
+
+b. Xác suất một sinh viên mất từ 5 đến 10 phút để trả lời câu hỏi là bao nhiêu?
+
+c. Cho biết $10\%$ sinh viên chậm nhất sẽ mất tối thiểu bao phút cho một câu hỏi?
+
+d. Vẽ đồ thị phân phối chuẩn của $X$ giữa $\pm 4\sigma$ và tô xám vùng xác suất của $10\%$ sinh viên chậm nhất.
+
+e. Tạo ra thời gian hoàn thành câu hỏi cho 10 sinh viên từ phân bố đã cho.
+
+
+
+## Bài 7: Phân bố mũ
+Giả sử một nhà sản xuất máy điều hòa rằng sản phẩm có tuổi thọ trung bình là 11 năm trước khi cần bất kỳ loại thông báo sửa chữa nào. Gọi biến ngẫu nhiên X đại diện cho thời gian máy hoạt động tốt cho đến khi cần sửa chữa và giả sử X tuân theo phân phối mũ với $\lambda_e = 1/11$.
+
+a. Công ty cung cấp bảo hành sửa chữa toàn bộ trong vòng một năm cho thiết bị này. Xác suất để một chủ sở hữu của một máy điều hòa được chọn ngẫu nhiên sử dụng chế độ bảo hành là bao nhiêu?
+
+b. Một công ty đối thủ cung cấp bảo hành 6 năm cho thiết bị điều hòa họ nhưng biết rằng các thiết bị của họ tồn tại trung bình chỉ chín năm trước khi yêu cầu một số loại sửa chữa. Cơ hội sử dụng bảo hành đó là bao nhiêu?
+
+c. Xác định xác suất một máy điều hòa được chọn ngẫu nhiên có tuổi thọ kéo dài hơn 15 năm cho câu a và câu b.
+

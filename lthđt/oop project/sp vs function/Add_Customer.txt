@@ -1,0 +1,5 @@
+CREATE PROCEDURE [dbo].[Add_Customer](@CustomerName nvarchar(100))
+AS
+BEGIN
+	insert into Customer values (@CustomerName)
+END

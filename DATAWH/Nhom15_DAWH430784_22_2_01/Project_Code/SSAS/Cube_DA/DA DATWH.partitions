@@ -1,0 +1,85 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="7027a034-9ddd-4078-a8ad-a3ee79393825" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>DA DATWH</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Fact Orders</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="5a03ae94-1dff-411c-ac03-8a644cf9d5c6">
+          <ID>Fact Orders</ID>
+          <Name>Fact Orders</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="b868ca16-9dc9-4cf0-adba-7e6c59e4b4ed">
+            <DataSourceViewID>DA DATWH</DataSourceViewID>
+            <TableID>dbo_Fact_Orders</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Order Reviews</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="9d3e6a6a-1a3b-4ffb-a574-dd264431a123">
+          <ID>Fact Order Reviews</ID>
+          <Name>Fact Order Reviews</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="27c8e28c-c02b-4057-ae37-66561a8866d8">
+            <DataSourceViewID>DA DATWH</DataSourceViewID>
+            <TableID>dbo_Fact_Order_reviews</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Order Items</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="36f875c9-0305-409f-a3c0-7868dbf3c6d8">
+          <ID>Fact Order Items</ID>
+          <Name>Fact Order Items</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="2fd332e1-d5a4-45be-b3e5-87ff8f8d6995">
+            <DataSourceViewID>DA DATWH</DataSourceViewID>
+            <TableID>dbo_Fact_Order_items</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Order Payments</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="0b2b06e2-5e59-4c16-95b0-17fe9522d29c">
+          <ID>Fact Order Payments</ID>
+          <Name>Fact Order Payments</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="89d22151-cbaf-45f4-a4b6-8a4efafdda4e">
+            <DataSourceViewID>DA DATWH</DataSourceViewID>
+            <TableID>dbo_Fact_Order_payments</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

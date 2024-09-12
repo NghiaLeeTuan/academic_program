@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ManagementDFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="customer_address" Type="nvarchar" MaxLength="50" />
+          <Property Name="tolal" Type="float" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_account" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="address" Type="nvarchar" MaxLength="30" />
+          <Property Name="birth" Type="date" />
+          <Property Name="shift" Type="nvarchar" MaxLength="20" />
+          <Property Name="salary" Type="float" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="item_price_in" Type="float" />
+          <Property Name="item_price_out" Type="float" />
+          <Property Name="quantity_in_stock" Type="int" />
+          <Property Name="expiry" Type="date" />
+        </EntityType>
+        <EntityType Name="Lineitem">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_date" Type="datetime" />
+          <Property Name="customer_id" Type="int" />
+          <Property Name="employee_id" Type="int" />
+          <Property Name="total" Type="float" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="ma_voucher" />
+          </Key>
+          <Property Name="ma_voucher" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gia_voucher" Type="float" />
+        </EntityType>
+        <Association Name="FK__Employee__employ__1CF15040">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employee_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lineitem__item_i__1FCDBCEB">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Lineitem" Type="Self.Lineitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="item_id" />
+            </Principal>
+            <Dependent Role="Lineitem">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lineitem__order___1ED998B2">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Lineitem" Type="Self.Lineitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Lineitem">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__customer__1BFD2C07">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__employee__1DE57479">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Doanhthu_tung_thang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="item_id" Type="int" Nullable="false" />
+                <Property Name="item_name" Type="nvarchar" MaxLength="100" />
+                <Property Name="tong" Type="int" />
+                <Property Name="doanhthu" Type="float" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="Doanhthu_thang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="item_id" Type="int" Nullable="false" />
+                <Property Name="item_name" Type="nvarchar" MaxLength="100" />
+                <Property Name="tong" Type="int" />
+                <Property Name="doanhthu" Type="float" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="ManagementDFModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lineitem" EntityType="Self.Lineitem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Employee__employ__1CF15040" Association="Self.FK__Employee__employ__1CF15040">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lineitem__item_i__1FCDBCEB" Association="Self.FK__Lineitem__item_i__1FCDBCEB">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Lineitem" EntitySet="Lineitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lineitem__order___1ED998B2" Association="Self.FK__Lineitem__order___1ED998B2">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Lineitem" EntitySet="Lineitem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__customer__1BFD2C07" Association="Self.FK__Orders__customer__1BFD2C07">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__employee__1DE57479" Association="Self.FK__Orders__employee__1DE57479">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ManagementDFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ManagementDFContext" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="Doanhthu_thang" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_thang_Result)">
+          <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Doanhthu_tung_thang" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_tung_thang_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Doanhthu_tung_thang1" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_tung_thang1_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Doanhthu_thang1" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_thang1_Result)">
+          <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Accounts" EntityType="ManagementDFModel.Account" />
+          <EntitySet Name="Customers" EntityType="ManagementDFModel.Customer" />
+          <EntitySet Name="Employees" EntityType="ManagementDFModel.Employee" />
+          <EntitySet Name="Items" EntityType="ManagementDFModel.Item" />
+          <EntitySet Name="Lineitems" EntityType="ManagementDFModel.Lineitem" />
+          <EntitySet Name="Orders" EntityType="ManagementDFModel.Order" />
+          <EntitySet Name="Vouchers" EntityType="ManagementDFModel.Voucher" />
+          <AssociationSet Name="FK__Employee__employ__1CF15040" Association="ManagementDFModel.FK__Employee__employ__1CF15040">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__customer__1BFD2C07" Association="ManagementDFModel.FK__Orders__customer__1BFD2C07">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__employee__1DE57479" Association="ManagementDFModel.FK__Orders__employee__1DE57479">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lineitem__item_i__1FCDBCEB" Association="ManagementDFModel.FK__Lineitem__item_i__1FCDBCEB">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Lineitem" EntitySet="Lineitems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Lineitem__order___1ED998B2" Association="ManagementDFModel.FK__Lineitem__order___1ED998B2">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Lineitem" EntitySet="Lineitems" />
+          </AssociationSet>
+          <FunctionImport Name="Doanhthu_tung_thang2" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_tung_thang2_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Doanhthu_thang2" IsComposable="true" ReturnType="Collection(ManagementDFModel.Doanhthu_thang2_Result)">
+          <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Doanhthu_thang_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Doanhthu_tung_thang_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Doanhthu_tung_thang1_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Doanhthu_thang1_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Account1" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Account1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="ManagementDFModel.FK__Employee__employ__1CF15040" FromRole="Account" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
+          <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="customer_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tolal" Type="Double" />
+          <NavigationProperty Name="Orders" Relationship="ManagementDFModel.FK__Orders__customer__1BFD2C07" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="birth" Type="DateTime" Precision="0" />
+          <Property Name="shift" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="salary" Type="Double" />
+          <NavigationProperty Name="Account" Relationship="ManagementDFModel.FK__Employee__employ__1CF15040" FromRole="Employee" ToRole="Account" />
+          <NavigationProperty Name="Orders" Relationship="ManagementDFModel.FK__Orders__employee__1DE57479" FromRole="Employee" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="item_price_in" Type="Double" />
+          <Property Name="item_price_out" Type="Double" />
+          <Property Name="quantity_in_stock" Type="Int32" />
+          <Property Name="expiry" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Lineitems" Relationship="ManagementDFModel.FK__Lineitem__item_i__1FCDBCEB" FromRole="Item" ToRole="Lineitem" />
+        </EntityType>
+        <EntityType Name="Lineitem">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="ManagementDFModel.FK__Lineitem__item_i__1FCDBCEB" FromRole="Lineitem" ToRole="Item" />
+          <NavigationProperty Name="Order" Relationship="ManagementDFModel.FK__Lineitem__order___1ED998B2" FromRole="Lineitem" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_date" Type="DateTime" Precision="3" />
+          <Property Name="customer_id" Type="Int32" />
+          <Property Name="employee_id" Type="Int32" />
+          <Property Name="total" Type="Double" />
+          <NavigationProperty Name="Customer" Relationship="ManagementDFModel.FK__Orders__customer__1BFD2C07" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="ManagementDFModel.FK__Orders__employee__1DE57479" FromRole="Order" ToRole="Employee" />
+          <NavigationProperty Name="Lineitems" Relationship="ManagementDFModel.FK__Lineitem__order___1ED998B2" FromRole="Order" ToRole="Lineitem" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="ma_voucher" />
+          </Key>
+          <Property Name="ma_voucher" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gia_voucher" Type="Double" />
+        </EntityType>
+        <Association Name="FK__Employee__employ__1CF15040">
+          <End Type="ManagementDFModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="ManagementDFModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Account1" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="employee_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__customer__1BFD2C07">
+          <End Type="ManagementDFModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="ManagementDFModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customer_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__employee__1DE57479">
+          <End Type="ManagementDFModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="ManagementDFModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lineitem__item_i__1FCDBCEB">
+          <End Type="ManagementDFModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="ManagementDFModel.Lineitem" Role="Lineitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="item_id" />
+            </Principal>
+            <Dependent Role="Lineitem">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Lineitem__order___1ED998B2">
+          <End Type="ManagementDFModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ManagementDFModel.Lineitem" Role="Lineitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="Lineitem">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Doanhthu_tung_thang2_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Doanhthu_thang2_Result">
+          <Property Type="Int32" Name="item_id" Nullable="false" />
+          <Property Type="String" Name="item_name" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="tong" Nullable="true" />
+          <Property Type="Double" Name="doanhthu" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ManagementDFModelStoreContainer" CdmEntityContainer="ManagementDFContext">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="ManagementDFModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account1" ColumnName="Account" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ManagementDFModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="tolal" ColumnName="tolal" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ManagementDFModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="salary" ColumnName="salary" />
+                <ScalarProperty Name="shift" ColumnName="shift" />
+                <ScalarProperty Name="birth" ColumnName="birth" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_account" ColumnName="employee_account" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="ManagementDFModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="expiry" ColumnName="expiry" />
+                <ScalarProperty Name="quantity_in_stock" ColumnName="quantity_in_stock" />
+                <ScalarProperty Name="item_price_out" ColumnName="item_price_out" />
+                <ScalarProperty Name="item_price_in" ColumnName="item_price_in" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lineitems">
+            <EntityTypeMapping TypeName="ManagementDFModel.Lineitem">
+              <MappingFragment StoreEntitySet="Lineitem">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ManagementDFModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="ManagementDFModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="gia_voucher" ColumnName="gia_voucher" />
+                <ScalarProperty Name="ma_voucher" ColumnName="ma_voucher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Doanhthu_tung_thang2" FunctionName="ManagementDFModel.Store.Doanhthu_tung_thang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ManagementDFModel.Doanhthu_tung_thang2_Result">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="tong" ColumnName="tong" />
+                <ScalarProperty Name="doanhthu" ColumnName="doanhthu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Doanhthu_thang2" FunctionName="ManagementDFModel.Store.Doanhthu_thang">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ManagementDFModel.Doanhthu_thang2_Result">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="tong" ColumnName="tong" />
+                <ScalarProperty Name="doanhthu" ColumnName="doanhthu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

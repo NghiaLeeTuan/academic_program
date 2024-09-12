@@ -1,0 +1,15 @@
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\QLThuVien.exe.config
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\QLThuVien.exe
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\QLThuVien.pdb
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\EntityFramework.dll
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\EntityFramework.SqlServer.dll
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\EntityFramework.xml
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\bin\Debug\EntityFramework.SqlServer.xml
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.AssemblyReference.cache
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.FormLoad.resources
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.Properties.Resources.resources
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.GenerateResource.cache
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.CoreCompileInputs.cache
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.csproj.CopyComplete
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.exe
+D:\Môn học\HKI_nam3\CNPM\QLThuVien\QLThuVien\obj\Debug\QLThuVien.pdb

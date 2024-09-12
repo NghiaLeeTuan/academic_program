@@ -1,0 +1,139 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="ea074052-1efc-41c7-9e00-fed846a7722c" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Fact Order Reviews</ID>
+  <Name>Fact Order Reviews</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="06c8c34a-a4ee-4d52-8867-ca2fced2f6a7">
+    <DataSourceViewID>DA DATWH</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="77d4cfb0-d87b-4d25-aff6-5ff461c50728">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="028376ec-1670-4912-8456-9c9925369fb2">
+      <ID>Review Key</ID>
+      <Name>Review Key</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a6917496-80b7-4acd-b3ec-5dd2834f4f91">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="c2a860f7-b111-40e4-acb6-86843256c6a9">
+            <TableID>dbo_Fact_Order_reviews</TableID>
+            <ColumnID>review_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="e17e6fd2-e55f-423d-9ec8-5de898778f71">
+          <AttributeID>Order Key</AttributeID>
+          <Name>Order Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9c74808c-f022-4205-9222-b65a74440016">
+          <AttributeID>Review Answer Timestamp Key</AttributeID>
+          <Name>Review Answer Timestamp Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="e553c7ca-f3fd-49a1-ba02-9158a683079e">
+          <AttributeID>Review Creation Date Key</AttributeID>
+          <Name>Review Creation Date Key</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="898d1841-d572-4641-9586-9c6d70d5b096">
+      <ID>Order Key</ID>
+      <Name>Order Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="57e78fe5-e60a-4fd7-ad1c-93cf0a7b3fbe">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5913bc16-2408-4f01-a7b1-9328383afe5c">
+            <TableID>dbo_Fact_Order_reviews</TableID>
+            <ColumnID>order_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="e83c3fd5-080a-4fab-9880-6a06827df1ad">
+      <ID>Review Answer Timestamp Key</ID>
+      <Name>Review Answer Timestamp Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="5d457d76-0911-4437-b9a7-b0c3741fba7c">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="fd28d8c8-fc87-4b36-bd87-e0b8818a669b">
+            <TableID>dbo_Fact_Order_reviews</TableID>
+            <ColumnID>review_answer_timestamp_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="06df57f6-7501-4d90-8fdc-cc061fe30d5a">
+      <ID>Review Creation Date Key</ID>
+      <Name>Review Creation Date Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8c6e370a-ba42-40a3-a125-252e9aedde4f">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="1f533754-22a5-4efc-b86c-bb0b33f53830">
+            <TableID>dbo_Fact_Order_reviews</TableID>
+            <ColumnID>review_creation_date_key</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

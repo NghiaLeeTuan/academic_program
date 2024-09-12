@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>841</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTableWidget" name="dgvNhanVien">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>320</y>
+     <width>801</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:rgb(245, 255, 253);
+border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,200);
+color: rgb(59, 59, 59);
+</string>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <attribute name="verticalHeaderVisible">
+    <bool>false</bool>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>Họ và tên</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Giới tính</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Địa chỉ</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>CMND</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ngày sinh</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Lương CB</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>SĐT</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Chức vụ</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>801</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="title">
+    <string>THÔNG TIN</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <widget class="QFrame" name="frameGioiTinh">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>281</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="labelGioiTinh">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>72</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgba(0, 0, 0, 200);</string>
+     </property>
+     <property name="text">
+      <string>Giới tính</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonNam">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>0</y>
+       <width>58</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nam</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonNu">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>0</y>
+       <width>58</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nữ</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLineEdit" name="lineEditHoTen">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>30</y>
+      <width>201</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>Bùi Quốc Tĩnh</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditCMND">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>30</y>
+      <width>201</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>123456789</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditSDT">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>110</y>
+      <width>201</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>0946541256</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditDiaChi">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>150</y>
+      <width>201</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>484 Lê Văn Việt</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelDiaChi">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>150</y>
+      <width>59</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Địa chỉ</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEditNgaySinh">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>70</y>
+      <width>111</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelHoTen">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>85</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Họ và tên</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frameChucVu">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>190</y>
+      <width>721</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QRadioButton" name="radioButtonQuanLy">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>87</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgba(0, 0, 0, 200);</string>
+     </property>
+     <property name="text">
+      <string>Quản lý</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonNhanVien">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>0</y>
+       <width>109</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgba(0, 0, 0, 200);</string>
+     </property>
+     <property name="text">
+      <string>Nhân viên</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonBaoVe">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>0</y>
+       <width>81</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgba(0, 0, 0, 200);</string>
+     </property>
+     <property name="text">
+      <string>Bảo vệ</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="labelCMND">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>30</y>
+      <width>113</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>CMND/CCCN</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelNgaySinh">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>85</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Ngày sinh</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSDT">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>110</y>
+      <width>113</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Số điện thoại</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelEmail">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>150</y>
+      <width>113</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Email</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLuongCB">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>70</y>
+      <width>84</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>Lương CB</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditLuongCB">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>70</y>
+      <width>201</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>5000000</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEditEmail">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>150</y>
+      <width>151</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid rgba(0,0,0,0);
+border-color: rgba(46,82,101,100);</string>
+    </property>
+    <property name="placeholderText">
+     <string>tinhbui.htn2020</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMailText">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>150</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgba(0, 0, 0, 200);</string>
+    </property>
+    <property name="text">
+     <string>@gmail.com</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonRemove">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>240</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButtonRemove
+{
+	border-radius:5px;
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonRemove:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonRemove:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>Remove</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonUpdate">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>240</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButtonUpdate
+{
+	border-radius:5px;
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonUpdate:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonUpdate:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>Update</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonAdd">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>240</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButtonAdd
+{
+	border-radius:5px;
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonAdd:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonAdd:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonExit">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>240</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Roboto</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButtonExit
+{
+	border-radius:5px;
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonExit:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonExit:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pushButtonReset">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>250</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Roboto</family>
+     <pointsize>14</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton#pushButtonReset
+{
+	border-radius:5px;
+	color: rgba(255,255,255,255);
+	background-color:rgba(85,98,112,255);
+}
+
+QPushButton#pushButtonReset:hover
+{
+	padding-left: 2px;
+	padding-top: 2px;
+	color: rgb(255, 0, 0);
+}
+
+QPushButton#pushButtonReset:pressed
+{
+	padding: 2px;
+	color: rgba(255,255,255,255);
+	background-color: rgb(255, 0, 0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

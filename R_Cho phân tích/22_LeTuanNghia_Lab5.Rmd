@@ -1,0 +1,349 @@
+---
+title: "Lab 5 - Data Cleaning and EDA"
+author: "Your name"
+date: "2022/09/27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Trong bài lab này ta sẽ sử dụng thư viện `tidyr`, `dplyr` và `ggplot2` để làm sạch, thao tác, và trực quan hóa dữ liệu. 
+
+### Dữ liệu
+- Dữ liệu cho bài lab được lấy từ trang web gapminder (https://www.gapminder.org/data/). Có 4 file dữ liệu (.csv) chứa thông tin về quốc gia, châu lục (`country_continent.csv`), dân số (`population_total.csv`), thu nhập (`life_expectancy_years.csv`), và gpd (`income_per_person_gdppercapita_ppp_inflation_adjusted.csv`). Bạn cần tổng hợp thông tin từ các file này dùng thư viện `tidyr` để tạo thành một data frame thống nhất gồm các thuộc tính sau:
+
+- `country`: quốc gia
+
+- `continent`: châu lục
+
+- `year`: năm thống kê
+
+- `lifeExp`: tuổi thọ trung bình
+
+- `pop`: dân số
+
+- `gdpPercap`: gpd bình quân đầu người (đã điều chỉnh theo lạm phát)
+
+Đầu tiên, bạn cần load thư viện `tidyverse`.
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Tiếp theo, bạn cần load dữ liệu từ các file `.csv`. Các đoạn mã sau sẽ load các file dữ liệu này và in ra vài dòng đầu tiên. 
+
+```{r}
+country <- read.csv("./data/country_continent.csv", header = T)
+head(country)
+```
+
+```{r}
+pop <- read.csv("./data/population_total.csv", header = T)
+head(pop[,1:8])
+```
+```{r}
+lifeExp <- read.csv("./data/life_expectancy_years.csv", header = T)
+head(lifeExp[,1:8])
+```
+
+```{r}
+gdpPercap <- read.csv("./data/income_per_person_gdppercapita_ppp_inflation_adjusted.csv", header = T)
+head(gdpPercap[,1:8])
+```
+- Đoạn mã sau sẽ đổi tên cột đầu tiên ở các data frame `lifeExp`, `pop`, `gdpPercap` từ `ï..country` thành `country` cho thuận tiện trong việc thao tác. 
+```{r}
+names(lifeExp)[1] <- 'country'
+names(pop)[1] <- 'country'
+names(gdpPercap)[1] <- 'country'
+
+#rename(lifeExp, country = ends_with("country"))
+#rename(pop, country = ends_with("country"))
+#rename(gdpPercap, country = ends_with("country"))
+```
+
+
+## I. Làm sạch dữ liệu
+
+### Câu 1. Chuyển dữ liệu từ dạng wide sang dạng long
+- Hãy thực hiện việc chọn ra các cột "country", và "X1920" đến "X2020" từ tất cả các data frame `lifeExp`, `pop`, và `gdpPercap`, đồng thời biến chúng từ dạng wide sang dạng long, dùng hàm `pivot_longer()` từ thư viện `tidyr`.
+```{r}
+# Write your code here
+lifeExp1 <- lifeExp %>% 
+  select(country, X1920:X2020)
+data1 <- lifeExp1 %>%
+  pivot_longer(c(X1920:X2020),
+  names_to = "year",
+  values_to = "lifeExp")
+data1
+
+pop1 <- pop %>% 
+  select(country, X1920:X2020)
+data2 <- pop1 %>%
+  pivot_longer(c(X1920:X2020),
+  names_to = "year",
+  values_to = "pop")
+data2
+
+gdpPercap1 <- gdpPercap %>% 
+  select(country, X1920:X2020)
+data3 <- gdpPercap1 %>%
+  pivot_longer(c(X1920:X2020),
+  names_to = "year",
+  values_to = "gdpPercap")
+data3
+```
+
+
+### Câu 2. Tạo data frame thống nhất từ các data frame
+Hãy kết các data frame đã có để tao thành data frame thống nhất tên `gap` bao gồm các thuộc tính `country`, `year`, `pop`, `lifeExp`, và `gdpPercap`. Bạn cần đổi tham số `eval=TRUE` trước khi `Knit` để tạo file `.html`.
+
+```{r, eval=TRUE}
+# Write your code here
+gap <- left_join(data1, data2,by = c("country", "year"))
+gap <- left_join(gap, data3,by = c("country", "year"))
+head(gap)
+```
+
+Tới bước này, ta đã có được data frame với các thuộc tính mong muốn. Tuy nhiên, các cột `year`, `pop`, `gdpPercap` chưa có kiểu dữ liệu phù hợp. Ta cần làm sạch dữ liệu từ các cột này.
+
+### Câu 3. Làm sạch dữ liệu từ các cột `year`, `pop`, và `gdpPercap`
+
+a. Viết hàm `clean_pop()` để làm sạch dữ liệu cho cột `pop`. Chú ý: giá trị `M` trong cột này đại diện cho milion (một triệu), giá trị `k` đại diện cho kilo (một nghìn), và giá trị` B` đại diện cho bilion (một tỷ). Dựa trên các giá trị này bạn cần nhân giá trị đã có với hệ số tương ứng: nhân 1 cho `M`, nhân 1000 cho `B`, và nhân 0.001 cho `k` (đơn vị là triệu dân).
+
+```{r}
+clean_pop <- function(x) {
+  # Write your code here
+  for(i in 1:length(x)){
+    if(str_detect(x[i], 'k')){
+      x[i] <- gsub('k', '', x[i])
+      x[i] <- as.double(x[i]) * 0.001
+    }
+    else if (str_detect(x[i], 'M')){
+      x[i] <- gsub('M', '', x[i])
+      x[i] <- as.double(x[i]) * 1
+    }
+    else if (str_detect(x[i], 'B')){
+      x[i] <- gsub('B', '', x[i])
+      x[i] <- as.double(x[i]) * 1000
+    }
+  }
+  return(x)
+}
+
+x = c("3.28M", "400k", "1.2B")
+y = clean_pop(x)
+y
+```
+
+b. Viết hàm `clean_year()` để làm sạch dữ liệu cho cột `year`. Dữ liệu cột này cần ở dạng số nguyên. Bạn cần xóa ký tự `X` trong giá trị năm và chuyển nó về dạng số nguyên (dùng hàm `as.integer()`).
+
+```{r}
+clean_year <- function(x) {
+  # Write your code here
+  return(as.integer(gsub('X', '', x)))
+}
+
+x <- c("X1800", "X1801", "X1802")
+y = clean_year(x)
+y
+```
+
+c. Viết hàm `clean_gdpPercap()` để làm sạch dữ liệu cho cột `gdpPercap`. Dữ liệu cột này cần ở dạng số. Giá trị `k` đại diện cho kilo (một nghìn), do đó, các giá trị nào cho chứa `k` bạn cần nhân giá trị đã có với 1000 (đơn vị là USD).
+```{r}
+clean_gdpPercap <- function(x) {
+  # Write your code here
+  for(i in 1:length(x)){
+    if(str_detect(x[i], 'k')){
+      x[i] <- gsub('k', '', x[i])
+      x[i] <- as.double(x[i]) * 1000
+    }
+    else 
+      x[i] <- as.double(x[i]) 
+  }
+  return(x)
+}
+
+x = c("328", "1.84k", "1.2k")
+y = clean_gdpPercap(x)
+y
+```
+
+
+d. Áp dụng các hàm `clean_pop` và `clean_year()` trên các cột `pop` và `year`
+Làm sạch dữ liệu của các cột `pop`, `year`, và `gdpPercap` dùng các hàm `clean_pop`, `clean_year()`, và `clean_gdpPercap()` tương ứng.
+```{r}
+# Write your code here
+gap$pop <- clean_pop(gap$year)
+gap$year <- clean_year(gap$year)
+gap$gdpPercap <- clean_gdpPercap(gap$gdpPercap)
+gap
+
+```
+
+Đến đây, dữ liệu đã được làm sạch và thỏa điều kiện để là tidy data. Ta sẽ thực hiện EDA trên dữ liệu này.
+
+
+## II. EDA
+
+### Câu 1 - Tạo tập dữ liệu `gap18` cho năm 2018. Bạn cần đổi tham số `eval=TRUE` trước khi `Knit` để tạo file `.html`.
+```{r, eval=TRUE}
+gm18 <- gap %>%  filter(year == 2018)
+head(gm18)
+```
+
+Thực hiện các yêu cầu bên dưới dùng các package `ggplot2`, `dplyr`, và tập dữ liệu `gm18`.
+
+### Câu 2 - geom_point
+- Vẽ biểu đồ scatter thể hiện mối quan hệ giữa GDP (`gdpPercap`) và Life Expectancy (`lifeExp`) dùng tập dữ liệu `gm18`.
+
+```{r}
+# Write your code here
+ggplot(data=gm18) +
+  geom_point(mapping = aes(x=gdpPercap , y = lifeExp))
+```
+
+
+
+### Câu 3 - geom_bar
+- Vẽ biểu đồ bar chart thể hiện số quốc quốc gia (`country`) theo châu lục (`continent`) dùng tập dữ liệu `gm18`.
+```{r}
+# Write your code here
+ggplot(data = merge(gm18, country)) +
+  geom_bar(mapping = aes(x =  continent))
+```
+
+
+### Câu 4 - summarize
+- Tính dân số trung bình (mean) và trung vị (median) theo châu lục dùng tập dữ liệu `gm18`.
+```{r}
+# Write your code here
+gm18$pop <- as.double(gm18$pop)
+dt4 <- merge(gm18, country) %>%
+  group_by(continent) %>%
+  summarise(mean = mean(pop), med = median(pop))
+dt4
+```
+
+
+### Câu 5 - geom_bar
+- Tạo biểu đồ bar chart cho dân số trung vị (median) theo châu lục dùng tập dữ liệu `gm18`.
+```{r}
+# Write your code here
+ggplot(data = merge(gm18, country)) +
+  geom_bar(mapping = aes(x =  continent, y = median(pop)))
+```
+
+### Câu 6 - labs
+- Tạo biểu đồ thể hiện sự thay đổi GDP của Việt Nam theo thời gian dùng tập dữ liệu `gapminder`. Trong đó, trục `x`  đặt tên là "Year", trục `y` đặt tên là `GDP/Population`, `title` là "Vietnam's GPD by year". Nếu bạn cần lưu biểu đồ thành file ảnh, bạn có thể sử dụng hàm `ggsave()`.
+```{r}
+# Write your code here
+
+```
+
+
+
+### Câu 7 - geom_histogram
+- Tạo biểu đồ histogram thể hiện sự phân bố về dân số của các quốc gia vào năm 2018.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 8 - geom_histogram
+- Tạo biểu đồ histogram thể hiện sự phân bố về dân số của các quốc gia vào năm 2018 nhưng bỏ đi các quốc gia có dân số quá cao hoặc quá thấp (outlier).
+```{r}
+# Write your code here
+
+```
+
+
+
+### Câu 9 - geom_boxplot
+- Tạo biểu đồ boxplot thể hiện sự phân bố về dân số của các quốc gia theo năm.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 10 - summarize
+- Tính dân số trung bình theo châu lục và năm. Kết quả gồm 3 cột, `pop_mean`, `continent`, và `year`.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 11 - geom_line
+- Vẽ biểu đồ đường (line) thể hiện sự thay đổi của dân số trung bình của các châu lục theo năm, tô màu theo châu lục.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 12 - summarize
+- Tính tuổi thọ trung bình theo châu lục và năm. Kết quả gồm 3 cột `continent`, `year`, và `lifeExp`.
+```{r}
+# Write your code here
+
+```
+
+### Câu 13 - facet_grid
+- Vẽ biểu đồ đường để thể hiện sự thay đổi về tuổi thọ trung bình ở các châu lục theo thời gian, faceted theo châu lục (mỗi châu lục nằm trên một dòng - một cột, nhiều dòng).
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 14 - facet_grid
+- Vẽ biểu đồ đường để thể hiện sự thay đổi về tuổi thọ trung bình ở các châu lục theo thời gian, faceted theo châu lục (tất cả các châu lục nằm trên một dòng - một dòng, nhiều cột).
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 15 - facet_wrap
+- Vẽ biểu đồ đường để thể hiện sự thay đổi về tuổi thọ trung bình ở các châu lục theo thời gian, faceted theo châu lục (các châu lục nằm trên nhiều dòng, nhiều cột).
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 16 - geom_smooth
+- Vẽ biểu đồ scatter để thể hiện mối quan hệ giữa GDP và tuổi thọ trung bình ở các quốc gia trong năm 2018, thêm smoother với tham số `method = "loess"` (mặc định) vào biểu đồ scatter. Thay đổi tham số `method = "lm"` để xem sự khác biệt. Điều chỉnh các tham số `se`, `span`, `level` để tùy biến biểu đồ. Dùng `?geom_smooth` để xem hướng dẫn về hàm `geom_smooth()`.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 17 - facet_wrap
+Thực hiện yêu cầu tương tự câu 16 nhưng faceted theo châu lục dùng `facet_wrap`.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 18 - scale
+- Vẽ biểu đồ scatter để thể hiện mối quan hệ giữa GDP và tuổi thọ trung bình ở các quốc gia trong năm 2018, scale GPD theo `log10`, scale tuổi thọ dùng `scale_x_continuous` hoặc `scale_y_continuous` với tham số `limits = c(0,90)`. Dùng `?scale_x_continuous` để xem hướng dẫn về các hàm scale.
+```{r}
+# Write your code here
+
+```
+
+
+### Câu 19 - theme, labs
+- Vẽ biểu đồ scatter để thể hiện mối quan hệ giữa GDP và tuổi thọ trung bình ở các quốc gia trong năm 2018, scale GPD theo `log10`, scale tuổi thọ dùng `scale_x_continuous` hoặc `scale_y_continuous` với tham số `limits = c(0,90)`. Dùng theme `theme_light()` và thêm các tiêu đề cho biểu đồ: tiêu đề cho trục `x` là "GDP/Population", tiêu đề cho trục `y` là "Life Expectancy", tiêu đề của biểu đồ là "2018 Life Expectancy and GDP".
+```{r}
+# Write your code here
+
+```
+

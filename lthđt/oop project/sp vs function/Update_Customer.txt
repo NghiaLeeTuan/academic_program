@@ -1,0 +1,5 @@
+CREATE PROCEDURE [dbo].[Update_Customer](@cus_id int, @cus_name nvarchar(100))
+AS
+BEGIN
+	Update Customer set customer_name = @cus_name where customer_id = @cus_id
+END

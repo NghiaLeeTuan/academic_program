@@ -1,0 +1,23 @@
+1.  So sánh thuật toán Simulated annealing và AND-OR search:
+Giống nhau:
++ Đều là thuật toán tìm kiếm dựa trên Goal_state()
+Khác nhau:
++Simulated annealing
+    * Thuộc lớp tìm kiếm cục bộ(LOCAL SEARCH)
+    * Đầu vào: 1 problem, schedule
+    * Đầu ra : 1 solution state
+    * Thời gian thực thi: nhanh chóng
+    * Dung lượng: ít do chỉ chứa 1 state hiện tại và các neighbours
+    * Completeness: không, vì có thể phải random để chọn lại neighbours
+    * Optimality: không
++AND-OR search
+    * Thuộc lớp tìm kiếm trên môi trường không xác định(SEARCHING IN 
+NONDETERMINISTIC ENVIRONMENTS)
+    * Đầu vào: 1 problem
+    * Đầu ra : 1 conditional plan hoặc failure
+    * Thời gian thực thi: chậm hơn do phải duyệt hết các Goal_state khác.
+    * Dung lượng: lớn do phải chứa tất cả các OR_nodes và AND_nodes của cây.
+    * Completeness: có, vì cây chứa tất cả các actions của state có thể dẫn đến Goal_state.
+    * Optimality: có, vì phải duyệt hết các state thích hợp.
+    
+

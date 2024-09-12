@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BT2_CNPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Danhsach_muon">
+    <Key>
+      <PropertyRef Name="Ma_muon" />
+      <PropertyRef Name="Ma_sach" />
+    </Key>
+    <Property Name="Ma_muon" Type="int" Nullable="false" />
+    <Property Name="Ma_sach" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Muon_sach">
+    <Key>
+      <PropertyRef Name="Ma_muon" />
+    </Key>
+    <Property Name="Ma_muon" Type="int" Nullable="false" />
+    <Property Name="Ma_docgia" Type="int" />
+    <Property Name="thoigian_muon" Type="datetime" />
+    <Property Name="thoigian_tra" Type="datetime" />
+    <Property Name="Ma_thuthu" Type="int" />
+    <Property Name="tinhtrang" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="Ma_sach" />
+    </Key>
+    <Property Name="Ma_sach" Type="int" Nullable="false" />
+    <Property Name="Ten_sach" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tacgia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Vi_tri" Type="varchar" MaxLength="10" />
+    <Property Name="Tinhtrang" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Thedocgia">
+    <Key>
+      <PropertyRef Name="Ma_docgia" />
+    </Key>
+    <Property Name="Ma_docgia" Type="int" Nullable="false" />
+    <Property Name="Ten_docgia" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sdt" Type="char" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Thu_vien">
+    <Key>
+      <PropertyRef Name="Gio_lam" />
+    </Key>
+    <Property Name="Gio_lam" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Diachi" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sdt" Type="char" MaxLength="15" />
+    <Property Name="Ghichu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Thuthu">
+    <Key>
+      <PropertyRef Name="Ma_thuthu" />
+    </Key>
+    <Property Name="Ma_thuthu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Gio_truc" Type="varchar" MaxLength="30" />
+    <Property Name="Ghi_chu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__Danhsach___Ma_mu__300424B4">
+    <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="1" />
+    <End Role="Danhsach_muon" Type="Self.Danhsach_muon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Muon_sach">
+        <PropertyRef Name="Ma_muon" />
+      </Principal>
+      <Dependent Role="Danhsach_muon">
+        <PropertyRef Name="Ma_muon" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Danhsach___Ma_sa__30F848ED">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+    <End Role="Danhsach_muon" Type="Self.Danhsach_muon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="Ma_sach" />
+      </Principal>
+      <Dependent Role="Danhsach_muon">
+        <PropertyRef Name="Ma_sach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Muon_sach__Ma_do__2E1BDC42">
+    <End Role="Thedocgia" Type="Self.Thedocgia" Multiplicity="0..1" />
+    <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thedocgia">
+        <PropertyRef Name="Ma_docgia" />
+      </Principal>
+      <Dependent Role="Muon_sach">
+        <PropertyRef Name="Ma_docgia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Muon_sach__Ma_th__2F10007B">
+    <End Role="Thuthu" Type="Self.Thuthu" Multiplicity="0..1" />
+    <End Role="Muon_sach" Type="Self.Muon_sach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thuthu">
+        <PropertyRef Name="Ma_thuthu" />
+      </Principal>
+      <Dependent Role="Muon_sach">
+        <PropertyRef Name="Ma_thuthu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BT2_CNPMModelStoreContainer">
+    <EntitySet Name="Danhsach_muon" EntityType="Self.Danhsach_muon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Muon_sach" EntityType="Self.Muon_sach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Thedocgia" EntityType="Self.Thedocgia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Thu_vien" EntityType="Self.Thu_vien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Thuthu" EntityType="Self.Thuthu" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Danhsach___Ma_mu__300424B4" Association="Self.FK__Danhsach___Ma_mu__300424B4">
+      <End Role="Muon_sach" EntitySet="Muon_sach" />
+      <End Role="Danhsach_muon" EntitySet="Danhsach_muon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Danhsach___Ma_sa__30F848ED" Association="Self.FK__Danhsach___Ma_sa__30F848ED">
+      <End Role="Sach" EntitySet="Sach" />
+      <End Role="Danhsach_muon" EntitySet="Danhsach_muon" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Muon_sach__Ma_do__2E1BDC42" Association="Self.FK__Muon_sach__Ma_do__2E1BDC42">
+      <End Role="Thedocgia" EntitySet="Thedocgia" />
+      <End Role="Muon_sach" EntitySet="Muon_sach" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Muon_sach__Ma_th__2F10007B" Association="Self.FK__Muon_sach__Ma_th__2F10007B">
+      <End Role="Thuthu" EntitySet="Thuthu" />
+      <End Role="Muon_sach" EntitySet="Muon_sach" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

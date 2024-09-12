@@ -1,0 +1,7 @@
+CREATE PROCEDURE [dbo].[Delete_Customer](@Customer_id int)
+AS
+Begin
+	Delete from Customer where customer_id=@Customer_id
+	Delete from LineItem where order_id in (select order_id from Orders where customer_id=@Customer_id)
+	Delete from Orders where customer_id=@Customer_id
+End
